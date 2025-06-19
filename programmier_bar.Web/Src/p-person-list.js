@@ -7,7 +7,7 @@ export default class pPersonList {
 
     //-----------------------------------------------------------------------------
     const tablePerson = args.target.querySelector('#tablePerson>tbody');
-    const registerButton = args.target.querySelector('#registerButton');
+    // const registerButton = args.target.querySelector('#registerButton');
 
     let personList = null;
 
@@ -39,9 +39,9 @@ export default class pPersonList {
 
     });
 
-  registerButton.addEventListener('click', (e) => { 
-    this.askForNotificationPermission();
-  });
+  // registerButton.addEventListener('click', (e) => { 
+  //   this.askForNotificationPermission();
+  // });
     
     //-----------------------------------------------------------------------------
     // init
@@ -56,11 +56,11 @@ export default class pPersonList {
               <button type="button" class="btn btn-secondary" data-aktion="del" data-id="${p.personId}"><i class="bi-trash3"></i></button>
             </td>
             <td class="element-clickable">
-              ${(p.picStr 
+              ${(p.picString 
               ? `
                 <div class="d-flex flex-row align-items-center">
                   <div>
-                    <img src="${p.picStr}" style="max-width: 6rem; max-height:5rem;" title="profilepic" />
+                    <img src="${p.picString}" style="max-width: 6rem; max-height:5rem;" title="profilepic" />
                   </div>
                   <div class="p-2">
                     ${p.surname} ${p.forename} ${p.titlePre} ${p.titlePost}

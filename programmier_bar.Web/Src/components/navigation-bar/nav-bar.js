@@ -41,7 +41,7 @@ export default class NavigationBar {
     //--------------------------------------------------------------------------------------
 
     infoTextUserName.innerText = (args.app.user.titlePre ? args.app.user.titlePre + ' ' : '') + args.app.user.forename + ' ' + args.app.user.surname + (args.app.user.titlePost ? ' ' + args.app.user.titlePost : '');
-    if (args.app.user.picStr) imgpic.src = args.app.user.picStr;
+    if (args.app.user.picString) imgpic.src = args.app.user.picString;
 
     if (args.app.user.roleNumber >= 1) {
       const li = document.createElement('LI');

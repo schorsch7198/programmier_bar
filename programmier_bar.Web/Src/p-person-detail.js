@@ -94,8 +94,8 @@ export default class pPersonDetail{
       if (passwordPassword.value && passwordPassword.value != '##########') person.password = passwordPassword.value;
       person.picType = person.picType || 'image/png'; // fallback if none
       // if (imgPic.dataset.pic == 'ok') person.picStr = imgPic.src;
-      if (!person.picStr && imgPic.src && imgPic.src.startsWith('data:')) {
-        person.picStr = imgPic.src;
+      if (!person.picString && imgPic.src && imgPic.src.startsWith('data:')) {
+        person.picString = imgPic.src;
         imgPic.dataset.pic = 'ok';
       }
 
@@ -138,7 +138,7 @@ export default class pPersonDetail{
         //   imgPic.dataset.pic = 'ok';
         // }
         if (imgPic.dataset.pic === 'ok' && imgPic.src && imgPic.src.startsWith('data:image/')) {
-          person.picStr = imgPic.src;
+          person.picString = imgPic.src;
         }
         textTitlePre.value = person.titlePre ?  person.titlePre : '';
         textForename.value = person.forename ? person.forename : '';
