@@ -133,8 +133,8 @@ export default class pPersonDetail{
       args.app.apiGet((r) => {
         person = r;
 
-        // if (person.picStr) {
-        //   imgPic.src = person.picStr;
+        // if (person.picString) {
+        //   imgPic.src = person.picString;
         //   imgPic.dataset.pic = 'ok';
         // }
         if (imgPic.dataset.pic === 'ok' && imgPic.src && imgPic.src.startsWith('data:image/')) {
