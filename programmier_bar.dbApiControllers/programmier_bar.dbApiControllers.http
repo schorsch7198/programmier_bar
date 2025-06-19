@@ -1,0 +1,6 @@
+@programmier_bar.dbApiControllers_HostAddress = http://localhost:5181
+
+GET {{programmier_bar.dbApiControllers_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
