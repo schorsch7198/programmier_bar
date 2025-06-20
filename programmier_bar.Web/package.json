@@ -27,7 +27,7 @@
     "colorette": "^2.0.20",
     "commander": "^14.0.0",
     "cross-spawn": "^7.0.6",
-    "electron-to-chromium": "^1.5.170",
+    "electron-to-chromium": "^1.5.171",
     "enhanced-resolve": "^5.18.1",
     "envinfo": "^7.14.0",
     "es-module-lexer": "^1.7.0",
