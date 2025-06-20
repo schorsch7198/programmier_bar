@@ -10,3 +10,4 @@ C:\Users\Administrator\OneDrive\Projekt\programmier_bar\programmier_bar.dbClassL
 C:\Users\Administrator\OneDrive\Projekt\programmier_bar\programmier_bar.dbClassLibrary\obj\Debug\net9.0\refint\programmier_bar.dbClassLibrary.dll
 C:\Users\Administrator\OneDrive\Projekt\programmier_bar\programmier_bar.dbClassLibrary\obj\Debug\net9.0\programmier_bar.dbClassLibrary.pdb
 C:\Users\Administrator\OneDrive\Projekt\programmier_bar\programmier_bar.dbClassLibrary\obj\Debug\net9.0\ref\programmier_bar.dbClassLibrary.dll
+C:\Users\Administrator\OneDrive\Projekt\programmier_bar\programmier_bar.dbClassLibrary\obj\Debug\net9.0\programmier_bar.dbClassLibrary.sourcelink.json

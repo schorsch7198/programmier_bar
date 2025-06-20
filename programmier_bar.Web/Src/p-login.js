@@ -40,7 +40,7 @@ export default class pLogin {
   #login() {
     const textUsername      = this.#args.target.querySelector('#textUsername');
     const textPassword      = this.#args.target.querySelector('#textPassword');
-    // const checkboxRemember  = this.#args.target.querySelector('#checkboxRemember');
+    const checkboxRemember  = this.#args.target.querySelector('#checkboxRemember');
     const alertMessage      = this.#args.target.querySelector('#alertMessage');
 
     alertMessage.classList.add('d-none');

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("programmier_bar.dbApiControllers")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5ebff6efb494cd38d3a965831997b4c3420c76b6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8ae830e52e3df2c825cfa3f293f2edd846166a71")]
 [assembly: System.Reflection.AssemblyProductAttribute("programmier_bar.dbApiControllers")]
 [assembly: System.Reflection.AssemblyTitleAttribute("programmier_bar.dbApiControllers")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
