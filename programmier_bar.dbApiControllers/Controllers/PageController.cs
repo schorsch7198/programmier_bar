@@ -4,7 +4,7 @@ using programmier_bar.dbClassLibrary;
 namespace programmier_bar.DataApiControllers.Controllers
 {
 	// Controller for handling page initialization, logout, and fetching initial product/category data
-	[Route("api/[controller]")]
+	[Route("page")]
 	[ApiController]
 	public class PageController : ControllerBase
 	{

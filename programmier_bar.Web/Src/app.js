@@ -15,7 +15,7 @@ export default class Application {
   #header = null;                             // Reference to <header> element
   #main = null;                               // Reference to <main> element
   #footer = null;                             // Reference to <footer> element
-  #apiUrl = 'http://localhost:5181/api';          // Base URL for API requests
+  #apiUrl = 'http://localhost:5181';          // Base URL for API requests
   #user = null;                               // Currently authenticated user
 
   constructor() {
@@ -157,8 +157,8 @@ export default class Application {
   apiFiledata(successCallback, errorCallback, product, dateiListe) {
     const fd = new FormData();                              // Create FormData for files
     let idx = 0;
-    for (const d of dateiListe) {
-      fd.append('datei' + (idx++), d, d.name);               // Append each file with a unique field name
+    for (const d of filedataList) {
+      fd.append('filedata' + (idx++), d, d.name);               // Append each file with a unique field name
     }
     fetch(this.#apiUrl + '/product/' + product.productUid + '/filedata', {
       method: 'POST',

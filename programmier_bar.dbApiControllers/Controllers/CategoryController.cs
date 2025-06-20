@@ -4,7 +4,7 @@ using programmier_bar.dbClassLibrary;
 namespace programmier_bar.DataApiControllers.Controllers
 {
 	// Controller for retrieving and managing categories (list, create, update, delete)
-	[Route("api/[controller]")]
+	[Route("category")]
 	[ApiController]
 	public class CategoryController : ControllerBase
 	{

@@ -2,7 +2,7 @@
   {
     "ContainingType": "programmier_bar.DataApiControllers.Controllers.CategoryController",
     "Method": "GetList",
-    "RelativePath": "Category",
+    "RelativePath": "category",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -12,7 +12,7 @@
   {
     "ContainingType": "programmier_bar.DataApiControllers.Controllers.CategoryController",
     "Method": "Insert",
-    "RelativePath": "Category",
+    "RelativePath": "category",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -28,7 +28,7 @@
   {
     "ContainingType": "programmier_bar.DataApiControllers.Controllers.CategoryController",
     "Method": "Update",
-    "RelativePath": "Category/{id}",
+    "RelativePath": "category/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -49,7 +49,7 @@
   {
     "ContainingType": "programmier_bar.DataApiControllers.Controllers.CategoryController",
     "Method": "Delete",
-    "RelativePath": "Category/{id}",
+    "RelativePath": "category/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -65,7 +65,7 @@
   {
     "ContainingType": "programmier_bar.DataApiControllers.Controllers.FiledataController",
     "Method": "Download",
-    "RelativePath": "Filedata/{id}/download",
+    "RelativePath": "filedata/{id}/download",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -81,7 +81,7 @@
   {
     "ContainingType": "programmier_bar.DataApiControllers.Controllers.PageController",
     "Method": "PageInit",
-    "RelativePath": "Page/init",
+    "RelativePath": "page/init",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -91,7 +91,7 @@
   {
     "ContainingType": "programmier_bar.DataApiControllers.Controllers.PageController",
     "Method": "PageLogout",
-    "RelativePath": "Page/logout",
+    "RelativePath": "page/logout",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -101,7 +101,7 @@
   {
     "ContainingType": "programmier_bar.DataApiControllers.Controllers.PageController",
     "Method": "PageProductList",
-    "RelativePath": "Page/productlist",
+    "RelativePath": "page/productlist",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -111,7 +111,7 @@
   {
     "ContainingType": "programmier_bar.DataApiControllers.Controllers.PersonController",
     "Method": "GetList",
-    "RelativePath": "Person",
+    "RelativePath": "person",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -121,7 +121,7 @@
   {
     "ContainingType": "programmier_bar.DataApiControllers.Controllers.PersonController",
     "Method": "Insert",
-    "RelativePath": "Person",
+    "RelativePath": "person",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -137,7 +137,7 @@
   {
     "ContainingType": "programmier_bar.DataApiControllers.Controllers.PersonController",
     "Method": "Get",
-    "RelativePath": "Person/{id}",
+    "RelativePath": "person/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -153,7 +153,7 @@
   {
     "ContainingType": "programmier_bar.DataApiControllers.Controllers.PersonController",
     "Method": "Update",
-    "RelativePath": "Person/{id}",
+    "RelativePath": "person/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -174,7 +174,7 @@
   {
     "ContainingType": "programmier_bar.DataApiControllers.Controllers.PersonController",
     "Method": "Delete",
-    "RelativePath": "Person/{id}",
+    "RelativePath": "person/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -190,7 +190,7 @@
   {
     "ContainingType": "programmier_bar.DataApiControllers.Controllers.PersonController",
     "Method": "Login",
-    "RelativePath": "Person/login",
+    "RelativePath": "person/login",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -354,7 +354,7 @@
   {
     "ContainingType": "programmier_bar.DataApiControllers.Controllers.StockController",
     "Method": "Insert",
-    "RelativePath": "Stock",
+    "RelativePath": "stock",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -370,7 +370,7 @@
   {
     "ContainingType": "programmier_bar.DataApiControllers.Controllers.StockController",
     "Method": "Update",
-    "RelativePath": "Stock/{id}",
+    "RelativePath": "stock/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,

@@ -21,7 +21,7 @@
     "bootstrap-icons": "^1.13.1",
     "browserslist": "^4.25.0",
     "buffer-from": "^1.1.2",
-    "caniuse-lite": "^1.0.30001723",
+    "caniuse-lite": "^1.0.30001724",
     "chrome-trace-event": "^1.0.4",
     "clone-deep": "^4.0.1",
     "colorette": "^2.0.20",

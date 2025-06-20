@@ -7,11 +7,11 @@ using programmier_bar.dbClassLibrary;
 namespace programmier_bar.DataApiControllers.Controllers
 {
 	// Controller for managing user accounts: list, fetch, authenticating, create, update and delete person(s)
-	[Route("api/[controller]")]
+	[Route("person")]
 	[ApiController]
 	public class PersonController : ControllerBase
 	{
-		// GET /Person – FETCH USER LIST (requires Administration role)
+		// GET /person – FETCH USER LIST (requires Administration role)
 		[HttpGet()]
 		public IActionResult GetList()
 		{
@@ -40,7 +40,7 @@ namespace programmier_bar.DataApiControllers.Controllers
 		}
 
 
-		// GET /Person/{id} – FETCH USER by ID. Administrators can read all; others only itself
+		// GET /person/{id} – FETCH USER by ID. Administrators can read all; others only itself
 		[HttpGet("{id}")]
 		public IActionResult Get(string id)
 		{
@@ -77,7 +77,7 @@ namespace programmier_bar.DataApiControllers.Controllers
 		}
 
 
-		// POST /Person/login – INSERT/FETCH USER CREDENTIALS via form fields "username"/"password"
+		// POST /person/login – INSERT/FETCH USER CREDENTIALS via form fields "username"/"password"
 		[HttpPost("login")]
 		public IActionResult Login()
 		{
@@ -126,7 +126,7 @@ namespace programmier_bar.DataApiControllers.Controllers
 		}
 
 
-		// POST /Person – INSERT NEW USER (requires any authenticated user; adjust as needed)
+		// POST /person – INSERT NEW USER (requires any authenticated user; adjust as needed)
 		[HttpPost()]
 		//[AllowAnonymous]
 		[RequestSizeLimit(10485760)]
@@ -158,7 +158,7 @@ namespace programmier_bar.DataApiControllers.Controllers
 		}
 
 
-		// PUT /Person/{id} – UPDATE EXISTING USER by ID. If password is empty, preserves existing password.
+		// PUT /person/{id} – UPDATE EXISTING USER by ID. If password is empty, preserves existing password.
 		[HttpPut("{id}")]
 		[RequestSizeLimit(10485760)]
 		public IActionResult Update(string id, [FromBody] Person person)
@@ -202,7 +202,7 @@ namespace programmier_bar.DataApiControllers.Controllers
 		}
 
 
-		// DELETE /Person/{id} – DELETE USER by ID (requires any authenticated user; adjust role checks as necessary)
+		// DELETE /person/{id} – DELETE USER by ID (requires any authenticated user; adjust role checks as necessary)
 		[HttpDelete("{id}")]
 		public IActionResult Delete(string id)
 		{

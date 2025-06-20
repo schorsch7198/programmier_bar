@@ -4,7 +4,7 @@ using programmier_bar.dbClassLibrary;
 namespace programmier_bar.DataApiControllers.Controllers
 {
 	// Controller for handling product-related requests (CRUD, stock, and file data)
-	[Route("api/product")]
+	[Route("product")]
 	[ApiController]
 	public class ProductController : ControllerBase
 	{
