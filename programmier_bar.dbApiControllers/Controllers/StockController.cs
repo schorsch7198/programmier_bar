@@ -4,7 +4,7 @@ using programmier_bar.dbClassLibrary;
 namespace programmier_bar.DataApiControllers.Controllers
 {
 	// Controller for handling creation and updates of stock entries for authenticated users
-	[Route("[controller]")]
+	[Route("api/[controller]")]
 	[ApiController]
 	public class StockController : ControllerBase
 	{

@@ -7,7 +7,7 @@ using programmier_bar.dbClassLibrary;
 namespace programmier_bar.DataApiControllers.Controllers
 {
 	// Controller for managing user accounts: list, fetch, authenticating, create, update and delete person(s)
-	[Route("[controller]")]
+	[Route("api/[controller]")]
 	[ApiController]
 	public class PersonController : ControllerBase
 	{

@@ -15,7 +15,7 @@ export default class Application {
   #header = null;                             // Reference to <header> element
   #main = null;                               // Reference to <main> element
   #footer = null;                             // Reference to <footer> element
-  #apiUrl = 'http://localhost:5181';          // Base URL for API requests
+  #apiUrl = 'http://localhost:5181/api';          // Base URL for API requests
   #user = null;                               // Currently authenticated user
 
   constructor() {

@@ -4,7 +4,7 @@ using programmier_bar.dbClassLibrary;
 namespace programmier_bar.DataApiControllers.Controllers
 {
 	// Controller responsible for serving file content for download by filedata ID
-	[Route("[controller]")]
+	[Route("api/[controller]")]
 	[ApiController]
 	public class FiledataController : ControllerBase
 	{
