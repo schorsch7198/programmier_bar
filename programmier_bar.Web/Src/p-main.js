@@ -1,8 +1,8 @@
-import PageHTML from './p-main.html';
+import pHTML from './p-main.html';
 
-export default class PageMain {
+export default class pMain {
 
   constructor(args) {
-    args.target.innerHTML = PageHTML; 
+    args.target.innerHTML = pHTML; 
   }
 }

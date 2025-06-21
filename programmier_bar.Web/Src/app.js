@@ -1,22 +1,22 @@
 import 'bootstrap/dist/js/bootstrap.bundle';
 
 
-import pNavBar      from "./components/navigation-bar/nav-bar";  // Import navigation bar component
+import NavBar         from "./components/navigation-bar/nav-bar";
 
-import pLogin                from "./p-login";                          // Import login page
-import pMain                 from "./p-main";                           // Import main (home) page
-import pProductList          from "./p-product-list";                   // Import article list page
-import pProductDetail        from "./p-product-detail";                 // Import article detail page
-import pCategories           from "./p-categories";                     // Import category management page
-import pPersonDetail         from "./p-person-detail";                  // Import person detail page
-import pPersonList           from "./p-person-list";                    // Import person list page
+import pLogin          from "./p-login";
+import pMain           from "./p-main";
+import pProductList    from "./p-product-list";
+import pProductDetail  from "./p-product-detail";
+import pCategories     from "./p-categories";
+import pPersonDetail   from "./p-person-detail";
+import pPersonList     from "./p-person-list";
 
 export default class Application {
-  #header = null;                             // Reference to <header> element
-  #main = null;                               // Reference to <main> element
-  #footer = null;                             // Reference to <footer> element
-  #apiUrl = 'http://localhost:5181';          // Base URL for API requests
-  #user = null;                               // Currently authenticated user
+  #header = null;                     // Reference to <header> element
+  #main = null;                       // Reference to <main> element
+  #footer = null;                     // Reference to <footer> element
+  #apiUrl = 'http://localhost:5181';  // Base URL for API requests
+  #user = null;                       // Currently authenticated user
 
   constructor() {
     this.#header = document.querySelector('header');       // Grab header from DOM
@@ -46,10 +46,16 @@ export default class Application {
 
   #navigate(completeHash) {
     this.#main.innerHTML = '';                     // Clear main content
-    if (!this.#user) this.#header.innerHTML = '';   // Hide header if not logged in
-    else {
-      new pNavBar({ target: this.#header, app: this });   // Render navigation bar if user exists
-    }
+
+    // if (!this.#user) {
+    //   this.#header.innerHTML = '';   // Hide header if not logged in
+    // } else {
+    //   new pNavBar({ target: this.#header, app: this });   // Render navigation bar if user exists
+    // }
+
+    // Always render our navbar (even if args.app.user is null)
+    this.#header.innerHTML = '';
+    new NavBar({ target: this.#header, app: this });
 
     const args = { target: this.#main, app: this }; // Prepare args for page components
 

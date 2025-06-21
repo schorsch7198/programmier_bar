@@ -71,6 +71,12 @@
   -- );
 -- -- COMMENT END (from line 1)
 
+-- -- Front-end (SPA)
+-- npm run serve
+
+-- -- Back-end (.NET WebAPI)
+-- dotnet watch run --urls=http://localhost:5181
+
 select * from assortment.product;
 
 SELECT * FROM assortment.product

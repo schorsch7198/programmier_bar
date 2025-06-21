@@ -111,6 +111,8 @@ export default class pLogin {
         if (r.success) {
           this.#args.app.user = r.person;
           window.open('#productlist', '_self');
+          // location.hash = '#main';
+
         } else {
           alertMessage.innerText = r.message;
           alertMessage.classList.remove('d-none');

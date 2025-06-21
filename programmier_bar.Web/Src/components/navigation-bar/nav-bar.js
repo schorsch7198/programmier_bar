@@ -1,62 +1,92 @@
-//import 'bootstrap';
 import './../../../node_modules/bootstrap/dist/js/bootstrap.bundle';
-// import 'bootstrap/dist/js/bootstrap.bundle';
-
 import ComponentHTML from './nav-bar.html';
 
-export default class NavigationBar {
+export default class NavBar {
+	constructor(args) {
+		args.target.innerHTML = ComponentHTML;
 
-  constructor(args) {
-    args.target.innerHTML = ComponentHTML;
-    //--------------------------------------------------------------------------------------
-    const ul = args.target.querySelector('ul');
-    const infoTextUserName = args.target.querySelector('#infoTextUserName');
-    const dropdownMenuPerson = args.target.querySelector('#dropdownMenuPerson');
-    const imgpic = args.target.querySelector('#imgBild');
-    const buttonSignOff = args.target.querySelector('#buttonSignOff');
+		// ─── ELEMENT REFERENCES ────────────────────────────────────────────
+		// grab all DOM (document object model) elements 
+		const productsLink			= args.target.querySelector('ul.navbar-nav a.nav-link[href="#productlist"]');
+		const ul                = args.target.querySelector('ul.navbar-nav');
+		const toggleLink        = args.target.querySelector('a.dropdown-toggle');
+		const dropdownMenu      = args.target.querySelector('#dropdownMenuPerson');
+		const buttonSignIn      = args.target.querySelector('#buttonSignIn');
+		const buttonSignOff     = args.target.querySelector('#buttonSignOff');
+		const infoTextUserName  = args.target.querySelector('#infoTextUserName');
+		const imgPic            = args.target.querySelector('#imgPic');
 
-    //--------------------------------------------------------------------------------------
-    // events
-    //--------------------------------------------------------------------------------------
-    dropdownMenuPerson.addEventListener( 'click', () => {
-      window.open('#persondetail?id=' + args.app.user.personId, '_self');
-    });
+		// conditional <li> elements
+		const liCategories      = document.createElement('li');
+		liCategories.className  = 'nav-item align-self-center';
+		liCategories.innerHTML  = `
+			<a 	class="nav-link" 
+					style="font-size: 1.5rem;" 
+					href="#categories">
+				<i 	class="bi-tags-fill fs-4"></i>
+				 		Categories
+			</a>`;
+		if (args.app.user?.roleNumber >= 1) ul.appendChild(liCategories);
 
-    buttonSignOff.addEventListener( 'click', (e) => {
-      e.stopPropagation();
-      if (confirm("Are you sure u want to sign off?")) {
-        args.app.apiGet((r) => {
-          if (r.success) {
-            args.app.user = null;
-            window.open('#main', '_self');
-          }
-        }, (ex) => {
-          alert(ex);
-        }, '/page/logout');
-      }
-    });
+		const liUsers           = document.createElement('li');
+		liUsers.className       = 'nav-item align-self-center';
+		liUsers.innerHTML       = `
+			<a 	class="nav-link" 
+					style="font-size: 1.5rem;" 
+					href="#personlist">
+				<i 	class="bi-person-fill fs-3"></i>
+				 		Users
+			</a>`;
+		if (args.app.user?.roleNumber >= 2) ul.appendChild(liUsers);
 
-    //--------------------------------------------------------------------------------------
-    // init
-    //--------------------------------------------------------------------------------------
 
-    infoTextUserName.innerText = (args.app.user.titlePre ? args.app.user.titlePre + ' ' : '') + args.app.user.forename + ' ' + args.app.user.surname + (args.app.user.titlePost ? ' ' + args.app.user.titlePost : '');
-    if (args.app.user.picString) imgpic.src = args.app.user.picString;
+		// ─── LOGGED-OUT STATE ───────────────────────────────────────────────
+		// when logged out: turn icon into a simple "#login" link
+		if (!args.app.user) {
+			toggleLink.removeAttribute('data-bs-toggle');
+			toggleLink.removeAttribute('aria-expanded');
+			toggleLink.setAttribute('href', '#login');
+			productsLink?.remove();
+			dropdownMenu.remove();
+			return;
+		}
 
-    if (args.app.user.roleNumber >= 1) {
-      const li = document.createElement('LI');
-      li.classList.add('nav-item');
-      li.style.paddingTop = '0.2rem';
-      li.innerHTML = '<a class="nav-link" style="font-size: 1.5rem;" href="#categories"><i class="bi-tags-fill"></i>Categories</a>';
-      ul.appendChild(li);
-    }
 
-    if (args.app.user.roleNumber >= 2) {
-      const li = document.createElement('LI');
-      li.classList.add('nav-item');
-      li.style.paddingTop = '0.2rem';
-      li.innerHTML = '<a class="nav-link" style="font-size: 1.5rem;" href="#personlist"><i class="bi-person-fill"></i>Users</a>';
-      ul.appendChild(li);
-    }
-  }
+		// ─── EVENTS (when LOGGED IN) ────────────────────────────────────────────────────────
+		// when logged in: wire up dropdown & sign-off button
+		dropdownMenu.addEventListener('click', e => {
+			e.stopPropagation();  // prevent dropdown from closing
+			window.open('#persondetail?id=' + args.app.user.personId, '_self');
+		});
+
+		// SIGN OFF
+		buttonSignOff.addEventListener('click', e => {
+			e.stopPropagation();
+			if (!confirm('Are you sure you want to sign off?')) return;
+			args.app.apiGet(
+				r => {
+					if (r.success) {
+						args.app.user = null;
+						location.hash = '#main';
+						// window.open('#main', '_self');  // same like line 48
+					}
+				},
+				err => alert(err),
+				'/page/logout'
+			);
+		});
+
+		// ─── INITIALIZATION (when LOGGED IN) ──────────────────────────────────────────────		
+		infoTextUserName.innerText = [
+			args.app.user?.titlePre,
+			args.app.user?.forename,
+			args.app.user?.surname,
+			args.app.user?.titlePost
+		].filter(Boolean).join(' ');
+		
+		if (args.app.user?.picString) 
+			imgPic.src = args.app.user.picString;
+
+		buttonSignIn.classList.add('d-none');  // hide sign-in button
+	}
 }
