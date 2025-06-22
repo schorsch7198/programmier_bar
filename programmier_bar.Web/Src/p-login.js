@@ -110,9 +110,12 @@ export default class pLogin {
       this.#args.app.apiLogin((r) => {
         if (r.success) {
           this.#args.app.user = r.person;
-          window.open('#productlist', '_self');
+          if (r.person.roleNumber === 0) {
+            window.open("#main", '_self');
+          } else {
+            window.open('#productlist', '_self');
           // location.hash = '#main';
-
+          }
         } else {
           alertMessage.innerText = r.message;
           alertMessage.classList.remove('d-none');
@@ -140,16 +143,6 @@ export default class pLogin {
     // }, (ex) => {
     //   alert(ex);
     // }, loginData);
-
-
-
-
-
   }
-
-
-
-
-
 } // class
 //

@@ -53,16 +53,23 @@ export default class pPersonList {
         html += `
           <tr data-id="${p.personId}">
             <td>
-              <button type="button" class="btn btn-secondary" data-aktion="del" data-id="${p.personId}"><i class="bi-trash3"></i></button>
+              <button type="button" 
+                      class="btn btn-secondary align-middle" 
+                      data-aktion="del" 
+                      data-id="${p.personId}">
+                      <i class="bi-trash3"></i></button>
             </td>
             <td class="element-clickable">
               ${(p.picString 
               ? `
                 <div class="d-flex flex-row align-items-center">
                   <div>
-                    <img src="${p.picString}" style="max-width: 6rem; max-height:5rem;" title="profilepic" />
+                    <img src="${p.picString}" 
+                         style="max-width: 6rem; 
+                         max-height:5rem;" 
+                         title="profilepic" />
                   </div>
-                  <div class="p-2">
+                  <div class="p-2 align-middle">
                     ${p.surname} ${p.forename} ${p.titlePre} ${p.titlePost}
                   </div>
                 </div>
@@ -159,7 +166,6 @@ export default class pPersonList {
   //           applicationServerKey: convertedVapidPublicKey
   //         }).then(function(newSubscription) {
   //           //post to backend and save subscription
-            
   //           console.log(JSON.stringify(newSubscription));
   //         });
   //       } else {
@@ -178,7 +184,6 @@ export default class pPersonList {
   //       for (let i = 0; i < rawData.length; ++i) {
   //         outputArray[i] = rawData.charCodeAt(i);
   //       }
-
   //       return outputArray;
   //     }
   //   }

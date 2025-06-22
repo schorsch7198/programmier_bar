@@ -15,9 +15,9 @@
 		#region static
 		// Retrieve all products with stock & category details and retrieve all product in a given category (incl. stock & category)
 		public static new List<ProductInfo> GetList() =>
-			DbSqlConnection.ExecuteQuery<ProductInfo>(VIEW_SELECT);
+			DbSqlConnection.ExecuteQuery<ProductInfo>(VIEW_SELECT + " ORDER BY category_name");
 		public static List<ProductInfo> GetList(Category category) =>
-			DbSqlConnection.ExecuteQuery<ProductInfo>($"{VIEW_SELECT} where category_id = :p0", category.CategoryId);
+			DbSqlConnection.ExecuteQuery<ProductInfo>($"{VIEW_SELECT} WHERE category_id = :p0", category.CategoryId);
 		#endregion
 
 

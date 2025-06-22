@@ -72,8 +72,15 @@ export default class Application {
         new pLogin(args);                         // Show login page
         break;
       case '#productlist':
-        if (this.user) new pProductList(args);    // Show article list if logged in
-        else window.open('#login', '_self');         // Otherwise redirect to login
+        // if (this.user) new pProductList(args);    // Show article list if logged in
+        // else window.open('#login', '_self');         // Otherwise redirect to login
+          // only allow elevated users (role ≥1) to see the product list
+        if (this.user?.roleNumber > 0) {
+          new pProductList(args);
+        } else {
+          // guests & standard users return to home
+          window.open('#main','_self');
+        }
         break;
       case '#categories':
         if (this.user) new pCategories(args);  // Show category management if logged in

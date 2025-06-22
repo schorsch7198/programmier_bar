@@ -8,7 +8,7 @@ namespace programmier_bar.DataApiControllers.Controllers
 	[ApiController]
 	public class PageController : ControllerBase
 	{
-		// GET /Page/init – FETCH CURRENT USER
+		// GET /page/init – FETCH CURRENT USER
 		[HttpGet("init")]
 		public IActionResult PageInit()
 		{
@@ -31,7 +31,7 @@ namespace programmier_bar.DataApiControllers.Controllers
 		}
 
 
-		// GET /Page/productlist – FETCH ALL PRODUCTS AND CATEGORIES for page initialization
+		// GET /page/productlist – FETCH ALL PRODUCTS AND CATEGORIES for page initialization
 		[HttpGet("productlist")]
 		public IActionResult PageProductList()
 		{
@@ -58,7 +58,7 @@ namespace programmier_bar.DataApiControllers.Controllers
 		}
 
 
-		// GET /Page/logout – DELETE LOGIN_TOKEN, delete cookie and expire session
+		// GET /page/logout – DELETE LOGIN_TOKEN, delete cookie and expire session
 		[HttpGet("logout")]
 		public IActionResult PageLogout()
 		{

@@ -54,7 +54,7 @@ namespace programmier_bar.dbClassLibrary
 		#region static
 		// Retrieve list of all person records from database
 		public static List<Person> GetList() =>
-			DbSqlConnection.ExecuteQuery<Person>(SELECT);
+			DbSqlConnection.ExecuteQuery<Person>(SELECT + " ORDER BY role_text, login_name");
 		// Retrieve currently logged-in person based on login_token-cookie
 		public static Person Get(ControllerBase control)
 		{
@@ -102,6 +102,8 @@ namespace programmier_bar.dbClassLibrary
 					object[] row = new object[read.FieldCount];
 					read.GetValues(row);
 					person = new Person(row);
+
+					person.LoginUntil = DateTime.Now.AddHours(3);
 				}
 				read.Close();
 			}

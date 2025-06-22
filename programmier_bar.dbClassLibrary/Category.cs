@@ -18,10 +18,10 @@ namespace programmier_bar.dbClassLibrary
 		#region static
 		// Retrieve all categories (ordered by 'ranking' column) 
 		public static List<Category> GetList() =>
-			DbSqlConnection.ExecuteQuery<Category>($"{SELECT} order by ranking");
+			DbSqlConnection.ExecuteQuery<Category>($"{SELECT} ORDER BY ranking");
 		// Retrieve single Category by its numeric ID
 		public static Category Get(long id) =>
-			DbSqlConnection.ExecuteQuery<Category>($"{SELECT} where category_id = :p0", id).First();
+			DbSqlConnection.ExecuteQuery<Category>($"{SELECT} WHERE category_id = :p0", id).First();
 		#endregion
 
 

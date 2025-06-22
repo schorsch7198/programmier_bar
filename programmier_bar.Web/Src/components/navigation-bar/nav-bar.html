@@ -1,10 +1,19 @@
-<nav class="navbar navbar-expand-lg bg-wifi 
-						py-3 position-relative">
+<nav class="navbar navbar-expand-lg navbar-light
+						bg-bar-color py-3 fixed-top">
   <div class="container-fluid
+              position-relative
            		d-flex
            		justify-content-center
            		justify-content-lg-between
            		align-items-center">
+
+    <!-- Dark/Light mode toggle – always visible on the left -->
+    <button id="themeToggle"
+            class="btn me-2 align-self-center"
+            title="Dark/Light Mode">
+      <i id="themeToggleIcon" 
+         class="bi bi-moon-stars-fill fs-4"></i>
+    </button>
 
     <!-- 1) Toggler for the LEFT nav -->
     <button class="navbar-toggler order-0"
@@ -29,7 +38,8 @@
         <li class="nav-item">
           <a class="nav-link active"
              aria-current="page"
-             href="#productlist">
+             href="#productlist"
+             title="Assortment">
             <i class="bi-bag-heart-fill fs-3 me-2">
 						Products</i>
           </a>
@@ -46,6 +56,7 @@
 			 href="#">
       <img src="./../../images/ProgrammierBar_Logo_old.png"
         	 alt="Programmier Bar"
+           title="Homepage"
         	 class="img-fluid"
     			 style="height:50px;">
     </a>
@@ -63,11 +74,12 @@
 
       <!-- User-menu dropdown (shown when logged in) -->
       <div class="dropdown dropstart">
-        <a class="dropdown-toggle text-light"
+        <a class="dropdown-toggle"
            href="#"
            role="button"
            data-bs-toggle="dropdown"
-           aria-expanded="false">
+           aria-expanded="false"
+           title="User">
            <i class="bi-person-fill-gear fs-1"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-end"

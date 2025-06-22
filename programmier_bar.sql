@@ -77,23 +77,33 @@
 -- -- Back-end (.NET WebAPI)
 -- dotnet watch run --urls=http://localhost:5181
 
-select * from assortment.product;
+-- DELETE PRODUCT_ID
+-- -- Step 1: Delete from filedata
+-- DELETE FROM assortment.filedata
+-- WHERE product_id IN (31, 32);
+-- -- Step 2: Delete from stock
+-- DELETE FROM assortment.stock
+-- WHERE product_id IN (31, 32);
+-- -- Step 3: Delete from product_category
+-- DELETE FROM assortment.product_category
+-- WHERE product_id IN (31, 32);
+-- -- Step 4: Now it's safe to delete from product
+-- DELETE FROM assortment.product
+-- WHERE product_id IN (31, 32);
 
-SELECT * FROM assortment.product
-ORDER BY product_id;
+-- DELETE CATEGORY_ID
+-- SELECT * FROM assortment.product_category
+ -- WHERE category_id = 8;
+-- -- 2) Remove those links:
+-- DELETE FROM assortment.product_category
+ -- WHERE category_id = 8;
+-- -- 3) Now you can delete the category itself:
+-- DELETE FROM assortment.category
+ -- WHERE category_id = 8;
+-- select * from assortment.category;
+ 
 
--- Step 1: Delete from filedata
-DELETE FROM assortment.filedata
-WHERE product_id IN (31, 32);
--- Step 2: Delete from stock
-DELETE FROM assortment.stock
-WHERE product_id IN (31, 32);
--- Step 3: Delete from product_category
-DELETE FROM assortment.product_category
-WHERE product_id IN (31, 32);
--- Step 4: Now it's safe to delete from product
-DELETE FROM assortment.product
-WHERE product_id IN (31, 32);
+
 
 
 -- ************************************************

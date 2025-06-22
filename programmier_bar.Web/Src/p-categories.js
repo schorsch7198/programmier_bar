@@ -96,11 +96,22 @@ export default class pCategories {
       html += `
         <tr>
           <td>
-            <button type="button" class="btn btn-secondary" data-action="add" data-id="${c.categoryId}"><i class="bi-plus"></i></button>
-            <button type="button" class="btn btn-danger" data-action="del" data-id="${c.categoryId}"><i class="bi-trash3-fill"></i></button>
+            <button type="button" 
+                    class="btn btn-secondary" 
+                    data-action="add" 
+                    data-id="${c.categoryId}">
+                    <i class="bi-plus"></i></button>
+            <button type="button" 
+                    class="btn btn-danger" 
+                    data-action="del" 
+                    data-id="${c.categoryId}">
+                    <i class="bi-trash3-fill"></i></button>
           </td>
-          <td class="element-clickable pt-3" style="padding-left:${level * 2}rem;" data-id="${c.categoryId}">${c.name}</td>
-          <td class="element-clickable text-end" data-id="${c.categoryId}">${c.ranking}</td>
+          <td class="element-clickable pt-3" 
+                     style="padding-left:${level * 2}rem;" 
+                     data-id="${c.categoryId}">${c.name}</td>
+          <td class="element-clickable text-end" 
+                     data-id="${c.categoryId}">${c.ranking}</td>
         </tr>
         ${this.#treeviewCreate(c, level + 1)}
       `;

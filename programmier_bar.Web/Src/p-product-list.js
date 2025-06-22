@@ -148,12 +148,16 @@ export default class pProductList {
     for (const product of this.#productList) {
       html += `
         <tr data-product-id="${product.productUid}">
-          <td class="text-center">
-            <button type="button" class="btn btn-outline-secondary" data-action="del" data-id="${product.productUid}"><i class="bi-trash"></i></button>
+          <td class="text-center align-middle">
+            <button type="button" 
+                    class="btn btn-outline-secondary" 
+                    data-action="del" 
+                    data-id="${product.productUid}">
+                    <i class="bi-trash"></i></button>
           </td>
-          <td class="element-clickable pt-3">${product.charcode}</td>
-          <td class="element-clickable pt-3">${product.name}</td>
-          <td class="element-clickable pt-3">${product.stock}</td>
+          <td class="element-clickable align-middle">${product.charcode}</td>
+          <td class="element-clickable align-middle">${product.name}</td>
+          <td class="element-clickable align-middle">${product.stock}</td>
         </tr>
       `;
     }

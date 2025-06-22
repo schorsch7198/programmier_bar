@@ -8,6 +8,7 @@ export default class NavBar {
 		// ─── ELEMENT REFERENCES ────────────────────────────────────────────
 		// grab all DOM (document object model) elements 
 		const productsLink			= args.target.querySelector('ul.navbar-nav a.nav-link[href="#productlist"]');
+		const liProduct         = productsLink?.closest('li');
 		const ul                = args.target.querySelector('ul.navbar-nav');
 		const toggleLink        = args.target.querySelector('a.dropdown-toggle');
 		const dropdownMenu      = args.target.querySelector('#dropdownMenuPerson');
@@ -47,15 +48,23 @@ export default class NavBar {
 			toggleLink.removeAttribute('aria-expanded');
 			toggleLink.setAttribute('href', '#login');
 			productsLink?.remove();
+			liProduct?.remove();
 			dropdownMenu.remove();
 			return;
 		}
 
+		if (args.app.user.roleNumber === 0) {
+			// 1) remove Products
+			liProduct?.remove();
+		}
+		
 
 		// ─── EVENTS (when LOGGED IN) ────────────────────────────────────────────────────────
 		// when logged in: wire up dropdown & sign-off button
 		dropdownMenu.addEventListener('click', e => {
 			e.stopPropagation();  // prevent dropdown from closing
+			location.hash = '';
+			
 			window.open('#persondetail?id=' + args.app.user.personId, '_self');
 		});
 
@@ -67,7 +76,9 @@ export default class NavBar {
 				r => {
 					if (r.success) {
 						args.app.user = null;
+						location.hash = '';
 						location.hash = '#main';
+						// window.location.reload();
 						// window.open('#main', '_self');  // same like line 48
 					}
 				},
@@ -86,7 +97,42 @@ export default class NavBar {
 		
 		if (args.app.user?.picString) 
 			imgPic.src = args.app.user.picString;
+			buttonSignIn.classList.add('d-none');  // hide sign-in button
 
-		buttonSignIn.classList.add('d-none');  // hide sign-in button
+			// ─── THEME TOGGLE SETUP ─────────────────────────────────────────────
+		const themeToggleBtn  = args.target.querySelector('#themeToggle');
+		const themeToggleIcon = args.target.querySelector('#themeToggleIcon');
+		// the <nav> itself, so we can swap .navbar-light / .navbar-dark
+		const navEl           = args.target.querySelector('nav.navbar');
+
+		// helper to apply a theme name ("dark" or "light")
+		function applyTheme(theme) {
+			// 1) set the Bootstrap theme attribute
+			document.body.setAttribute('data-bs-theme', theme);
+
+			// 2) swap navbar text/icon style
+			if (theme === 'dark') {
+				navEl.classList.remove('navbar-light');
+				navEl.classList.add('navbar-dark');
+				themeToggleIcon.className = 'bi bi-moon-stars-fill fs-4';
+			} else {
+				navEl.classList.remove('navbar-dark');
+				navEl.classList.add('navbar-light');
+				themeToggleIcon.className = 'bi bi-sun-fill fs-4';
+			}
+		}
+
+		// 3) initialize from localStorage or fallback to body’s current
+		let currentTheme = localStorage.getItem('theme')
+										|| document.body.getAttribute('data-bs-theme')
+										|| 'dark';
+		applyTheme(currentTheme);
+
+		// 4) wire up the toggle button
+		themeToggleBtn.addEventListener('click', () => {
+			currentTheme = (currentTheme === 'dark' ? 'light' : 'dark');
+			applyTheme(currentTheme);
+			localStorage.setItem('theme', currentTheme);
+		});
 	}
 }

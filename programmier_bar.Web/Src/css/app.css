@@ -1,0 +1,16 @@
+.bg-bar-color { background-color: #c79f1c; /* Gold */ }
+
+/* ensure all links and icons under bg-bar-color are pure black */
+.bg-bar-color .nav-link,
+.bg-bar-color .navbar-brand,
+.bg-bar-color .dropdown-toggle,
+.bg-bar-color .navbar-toggler-icon,
+.bg-bar-color i {
+  color: black !important;
+}
+
+/* optional: on hover/focus keep icons and links black */
+.bg-bar-color .nav-link:hover,
+.bg-bar-color .nav-link:focus {
+  color: black !important;
+}
