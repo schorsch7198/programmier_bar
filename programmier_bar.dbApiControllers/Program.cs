@@ -32,7 +32,7 @@ namespace programmier_bar.dbApiControllers
 				// Optionally, skip nulls (so PicType=null isn’t emitted)
 				opts.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
 			});
-			;
+			
 
 			var app = builder.Build();
 			if (app.Environment.IsDevelopment())

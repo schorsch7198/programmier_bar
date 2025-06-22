@@ -3,6 +3,13 @@
   "WorkspaceRootPath": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbApiControllers\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{E44C84C7-3AAA-46D0-8CDB-84B23AA2095A}|programmier_bar.dbApiControllers.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbapicontrollers\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E44C84C7-3AAA-46D0-8CDB-84B23AA2095A}|programmier_bar.dbApiControllers.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D26F582-C30E-41B4-AB31-03FB836F2314}|..\\programmier_bar.dbClassLibrary\\programmier_bar.dbClassLibrary.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbclasslibrary\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{7D26F582-C30E-41B4-AB31-03FB836F2314}|..\\programmier_bar.dbClassLibrary\\programmier_bar.dbClassLibrary.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbclasslibrary\\productinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -12,19 +19,12 @@
       "AbsoluteMoniker": "D:0:0:{7D26F582-C30E-41B4-AB31-03FB836F2314}|..\\programmier_bar.dbClassLibrary\\programmier_bar.dbClassLibrary.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbclasslibrary\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7D26F582-C30E-41B4-AB31-03FB836F2314}|..\\programmier_bar.dbClassLibrary\\programmier_bar.dbClassLibrary.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbclasslibrary\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E44C84C7-3AAA-46D0-8CDB-84B23AA2095A}|programmier_bar.dbApiControllers.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbapicontrollers\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E44C84C7-3AAA-46D0-8CDB-84B23AA2095A}|programmier_bar.dbApiControllers.csproj|solutionrelative:controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E44C84C7-3AAA-46D0-8CDB-84B23AA2095A}|programmier_bar.dbApiControllers.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbapicontrollers\\controllers\\personcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E44C84C7-3AAA-46D0-8CDB-84B23AA2095A}|programmier_bar.dbApiControllers.csproj|solutionrelative:controllers\\personcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E44C84C7-3AAA-46D0-8CDB-84B23AA2095A}|programmier_bar.dbApiControllers.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbapicontrollers\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E44C84C7-3AAA-46D0-8CDB-84B23AA2095A}|programmier_bar.dbApiControllers.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E44C84C7-3AAA-46D0-8CDB-84B23AA2095A}|programmier_bar.dbApiControllers.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbapicontrollers\\controllers\\pagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -71,7 +71,7 @@
       "DocumentGroups": [
         {
           "DockedHeight": 306,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 12,
           "Children": [
             {
               "$type": "Document",
@@ -113,7 +113,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "PersonController.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbApiControllers\\Controllers\\PersonController.cs",
               "RelativeDocumentMoniker": "Controllers\\PersonController.cs",
@@ -138,7 +138,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "CategoryController.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbApiControllers\\Controllers\\CategoryController.cs",
               "RelativeDocumentMoniker": "Controllers\\CategoryController.cs",
@@ -146,8 +146,7 @@
               "RelativeToolTip": "Controllers\\CategoryController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-15T12:20:56.403Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-15T12:20:56.403Z"
             },
             {
               "$type": "Document",
@@ -163,7 +162,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "Product.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbClassLibrary\\Product.cs",
               "RelativeDocumentMoniker": "..\\programmier_bar.dbClassLibrary\\Product.cs",
@@ -171,25 +170,23 @@
               "RelativeToolTip": "..\\programmier_bar.dbClassLibrary\\Product.cs",
               "ViewState": "AgIAAAgAAAAAAAAAAAAQwBsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-09T18:48:23.513Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-09T18:48:23.513Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "ProductInfo.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbClassLibrary\\ProductInfo.cs",
               "RelativeDocumentMoniker": "..\\programmier_bar.dbClassLibrary\\ProductInfo.cs",
-              "ToolTip": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbClassLibrary\\ProductInfo.cs*",
-              "RelativeToolTip": "..\\programmier_bar.dbClassLibrary\\ProductInfo.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAABCAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbClassLibrary\\ProductInfo.cs",
+              "RelativeToolTip": "..\\programmier_bar.dbClassLibrary\\ProductInfo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-14T18:32:40.266Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-14T18:32:40.266Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "Person.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbClassLibrary\\Person.cs",
               "RelativeDocumentMoniker": "..\\programmier_bar.dbClassLibrary\\Person.cs",
@@ -197,8 +194,7 @@
               "RelativeToolTip": "..\\programmier_bar.dbClassLibrary\\Person.cs",
               "ViewState": "AgIAACUAAAAAAAAAAAAcwDgAAABRAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-08T23:19:08.047Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-08T23:19:08.047Z"
             },
             {
               "$type": "Document",
@@ -214,7 +210,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "Category.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbClassLibrary\\Category.cs",
               "RelativeDocumentMoniker": "..\\programmier_bar.dbClassLibrary\\Category.cs",
@@ -227,13 +223,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbApiControllers\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbApiControllers\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAswBgAAAApAAAAAAAAAA==",
+              "ViewState": "AgIAABwAAAAAAAAAAAAuwC8AAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-03T13:32:08.494Z",
               "EditorCaption": ""

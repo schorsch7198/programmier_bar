@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("programmier_bar.dbApiControllers")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3b884320b54b6cfe4be28fe627489cd9e72239f3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3484cb978c6e73742433aa54d8dd62e9d4d1c787")]
 [assembly: System.Reflection.AssemblyProductAttribute("programmier_bar.dbApiControllers")]
 [assembly: System.Reflection.AssemblyTitleAttribute("programmier_bar.dbApiControllers")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,5 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light
-						bg-bar-color py-3 fixed-top">
+						bg-bar-color py-3"
+     style="width: 100%;"
+     id="firstNavbar">
   <div class="container-fluid
               position-relative
            		d-flex
@@ -15,6 +17,15 @@
          class="bi bi-moon-stars-fill fs-4"></i>
     </button>
 
+    <!-- Navbar Up/Down toggle – hide or show both bars -->
+    <button id="navbarToggle"
+            class="btn me-2 align-self-center"
+            title="Toggle navbars">
+      <i id="navbarToggleIcon" 
+          class="bi bi-chevron-up fs-4"></i>
+    </button>
+
+
     <!-- 1) Toggler for the LEFT nav -->
     <button class="navbar-toggler order-0"
       			type="button"
@@ -29,7 +40,7 @@
     <!-- 2) LEFT nav (collapsible) -->
     <div class="collapse navbar-collapse order-0
              		justify-content-center
-             		justify-content-lg-start"
+             		justify-content-lg-start text-center"
       	 id="navbarLeft">
       <ul class="navbar-nav w-100 
 								 justify-content-center 
@@ -114,7 +125,104 @@
 
         </div>
       </div>
-
     </div>
+
+  </div>
+</nav>
+
+<nav class="navbar navbar-expand-lg shadow-sm
+      bg-transparent text-body"
+      style="top: 6rem; width:100%;"
+      id="secondNavbar">
+  <div class="container">
+    <a  class="navbar-brand" 
+        href="#"></a>
+    <!-- <img src="./src/images/Otaku_Kingdom_transparent.png" height="80px" alt=""> -->
+    </a>
+  <button class="navbar-toggler btn btn-primary" 
+          type="button" 
+          data-bs-toggle="collapse" 
+          data-bs-target="#navbarContent">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div 	class="collapse navbar-collapse"
+        id="navbarContent">
+    <ul class="navbar-nav mb-2 mb-lg-0">	
+      <li class="nav-item dropdown">
+        <a 	class="nav-link dropdown-toggle" 
+            href="#" 
+            role="button" 
+            data-bs-toggle="dropdown">
+            Drinks</a>
+        <ul class="dropdown-menu">
+          <li><a 	class="dropdown-item" 
+                  href="#">
+                  Cocktails</a></li>
+          <li><a 	class="dropdown-item" 
+                  href="#">
+                  default Drinks</a></li>
+          <li><a 	class="dropdown-item" 
+                  href="#">
+                  Anti-Alcoholics</a></li>
+          </ul>
+      </li>
+      <li class="nav-item dropdown">
+        <a 	class="nav-link dropdown-toggle" 
+            href="#" 
+            role="button" 
+            data-bs-toggle="dropdown">
+            Tapas
+        </a>
+        <ul class="dropdown-menu">
+          <li><a 	class="dropdown-item" 
+                  href="#">
+                  Meat</a></li>
+          <li><a 	class="dropdown-item" 
+                  href="#">
+                  Fish</a></li>
+          <li><a 	class="dropdown-item" 
+                  href="#">
+                  Veggie</a></li>
+          <li><a 	class="dropdown-item" 
+                  href="#">
+                  Sweeties</a></li>
+        </ul>
+      </li>
+      <li class="nav-item dropdown">
+        <a 	class="nav-link dropdown-toggle" 
+            href="#" 
+            role="button" 
+            data-bs-toggle="dropdown">
+            Merch 
+        </a>
+        <ul class="dropdown-menu">
+          <li><a 	class="dropdown-item" 
+                  href="#">
+                  Shirts</a></li>
+          <li><a 	class="dropdown-item" 
+                  href="#">
+                  Hoodies</a></li>
+          <li><a 	class="dropdown-item" 
+                  href="#">
+                  Posters</a></li>
+          <li><a 	class="dropdown-item" 
+                  href="#">
+                  Stickers</a></li>
+        </ul>
+      </li>
+      <li class="nav-item dropdown"></li>
+    </ul>
+    <form class="d-flex ms-auto" 
+          role="search" 
+          onsubmit="return handleSearch(event)">
+      <input 	class="form-control me-2" 
+              type="search" 
+              placeholder="Search..." 
+              aria-label="Search" 
+              id="searchInput">
+      <button class="btn btn-light" 
+              type="submit">
+              Search</button>
+    </form>
   </div>
 </nav>

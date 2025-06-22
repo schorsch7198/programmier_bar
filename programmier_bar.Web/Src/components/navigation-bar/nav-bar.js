@@ -16,6 +16,10 @@ export default class NavBar {
 		const buttonSignOff     = args.target.querySelector('#buttonSignOff');
 		const infoTextUserName  = args.target.querySelector('#infoTextUserName');
 		const imgPic            = args.target.querySelector('#imgPic');
+		const navbarToggleBtn  	= args.target.querySelector('#navbarToggle');
+		const navbarToggleIcon 	= args.target.querySelector('#navbarToggleIcon');
+		const firstNav  = document.getElementById('firstNavbar');
+		const secondNav = document.getElementById('secondNavbar');
 
 		// conditional <li> elements
 		const liCategories      = document.createElement('li');
@@ -40,6 +44,62 @@ export default class NavBar {
 			</a>`;
 		if (args.app.user?.roleNumber >= 2) ul.appendChild(liUsers);
 
+
+		// ─── THEME TOGGLE SETUP ─────────────────────────────────────────────
+		const themeToggleBtn  = args.target.querySelector('#themeToggle');
+		const themeToggleIcon = args.target.querySelector('#themeToggleIcon');
+		// the <nav> itself, so we can swap .navbar-light / .navbar-dark
+		const navEl           = args.target.querySelector('nav.navbar');
+		// helper to apply a theme name ("dark" or "light")
+		function applyTheme(theme) {
+			// 1) set the Bootstrap theme attribute
+			document.body.setAttribute('data-bs-theme', theme);
+			// 2) swap navbar text/icon style
+			if (theme === 'dark') {
+				navEl.classList.remove('navbar-light');
+				navEl.classList.add('navbar-dark');
+				themeToggleIcon.className = 'bi bi-moon-stars-fill fs-4';
+			} else {
+				navEl.classList.remove('navbar-dark');
+				navEl.classList.add('navbar-light');
+				themeToggleIcon.className = 'bi bi-sun-fill fs-4';
+			}
+		}
+		// 3) initialize from localStorage or fallback to body’s current
+		let currentTheme = localStorage.getItem('theme')
+										|| document.body.getAttribute('data-bs-theme')
+										|| 'dark';
+		applyTheme(currentTheme);
+		// 4) wire up the toggle button
+		themeToggleBtn.addEventListener('click', () => {
+			currentTheme = (currentTheme === 'dark' ? 'light' : 'dark');
+			applyTheme(currentTheme);
+			localStorage.setItem('theme', currentTheme);
+		});
+
+
+
+		let flipped = false;
+		navbarToggleBtn.addEventListener('click', () => {
+			flipped = !flipped;
+			// measure the gold bar’s height right now
+			const goldHeight = firstNav.getBoundingClientRect().height;
+			// flip the gold bar
+			firstNav .classList.toggle('bottom', flipped);
+			// for the blue bar, flip AND dynamically pin it above the gold bar
+			secondNav.classList.toggle('bottom', flipped);
+			if (flipped) {
+				secondNav.style.bottom = `${goldHeight}px`;
+				secondNav.style.top    = 'auto';
+			} else {
+				secondNav.style.top    = `${goldHeight}px`;
+				secondNav.style.bottom = 'auto';
+			}
+			// swap the chevron
+			navbarToggleIcon.className = flipped
+				? 'bi bi-chevron-down fs-4'
+				: 'bi bi-chevron-up   fs-4';
+		});
 
 		// ─── LOGGED-OUT STATE ───────────────────────────────────────────────
 		// when logged out: turn icon into a simple "#login" link
@@ -98,41 +158,5 @@ export default class NavBar {
 		if (args.app.user?.picString) 
 			imgPic.src = args.app.user.picString;
 			buttonSignIn.classList.add('d-none');  // hide sign-in button
-
-			// ─── THEME TOGGLE SETUP ─────────────────────────────────────────────
-		const themeToggleBtn  = args.target.querySelector('#themeToggle');
-		const themeToggleIcon = args.target.querySelector('#themeToggleIcon');
-		// the <nav> itself, so we can swap .navbar-light / .navbar-dark
-		const navEl           = args.target.querySelector('nav.navbar');
-
-		// helper to apply a theme name ("dark" or "light")
-		function applyTheme(theme) {
-			// 1) set the Bootstrap theme attribute
-			document.body.setAttribute('data-bs-theme', theme);
-
-			// 2) swap navbar text/icon style
-			if (theme === 'dark') {
-				navEl.classList.remove('navbar-light');
-				navEl.classList.add('navbar-dark');
-				themeToggleIcon.className = 'bi bi-moon-stars-fill fs-4';
-			} else {
-				navEl.classList.remove('navbar-dark');
-				navEl.classList.add('navbar-light');
-				themeToggleIcon.className = 'bi bi-sun-fill fs-4';
-			}
-		}
-
-		// 3) initialize from localStorage or fallback to body’s current
-		let currentTheme = localStorage.getItem('theme')
-										|| document.body.getAttribute('data-bs-theme')
-										|| 'dark';
-		applyTheme(currentTheme);
-
-		// 4) wire up the toggle button
-		themeToggleBtn.addEventListener('click', () => {
-			currentTheme = (currentTheme === 'dark' ? 'light' : 'dark');
-			applyTheme(currentTheme);
-			localStorage.setItem('theme', currentTheme);
-		});
 	}
 }

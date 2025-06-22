@@ -1,19 +1,58 @@
 /*!*******************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./src/css/app.css ***!
   \*******************************************************************/
-.bg-bar-color { background-color: #c79f1c; /* Gold */ }
-
+.text-bar-color { color: #c79f1c; /* Gold */ }
+nav.bg-bar-color { background-color: #c79f1c; /* Gold */ 
+  position: fixed !important;
+  top:      0;
+  left:     0;
+  right:    0;
+  width:    100%;
+  z-index: 1030;
+}
 /* ensure all links and icons under bg-bar-color are pure black */
-.bg-bar-color .nav-link,
-.bg-bar-color .navbar-brand,
-.bg-bar-color .dropdown-toggle,
-.bg-bar-color .navbar-toggler-icon,
-.bg-bar-color i {
+nav.bg-bar-color .nav-link,
+nav.bg-bar-color .navbar-brand,
+nav.bg-bar-color .dropdown-toggle,
+nav.bg-bar-color .navbar-toggler-icon,
+nav.bg-bar-color i {
   color: black !important;
 }
-
 /* optional: on hover/focus keep icons and links black */
-.bg-bar-color .nav-link:hover,
-.bg-bar-color .nav-link:focus {
+nav.bg-bar-color .nav-link:hover,
+nav.bg-bar-color .nav-link:focus {
   color: black !important;
+}
+/* ensure any dropdown-menu floats above the second navbar */
+nav.bg-bar-color .dropdown-menu {
+  z-index: 2000 !important;
+}
+
+/* 2) Blue bar (bg-primary) fixed immediately below it */
+nav.bg-transparent {
+  position: fixed !important;
+  top: 4rem;
+  width: 100%;
+  z-index: 1020;
+}
+
+
+/* when .bottom is applied, pin the gold bar to the bottom of the viewport */
+#firstNavbar.bottom {
+  top:    auto;
+  bottom: 0;
+}
+/* when the bottom‐mode is active, render every dropdown in #secondNavbar upwards */
+#secondNavbar.bottom .dropdown-menu {
+  top:    auto !important;
+  bottom: 100%  !important;
+}
+
+
+
+/* when bars are flipped, add bottom padding instead */
+#firstNavbar.bottom ~ body,
+#secondNavbar.bottom ~ body {
+  padding-bottom: calc(4rem + 2.5rem);
+  padding-top:    0;
 }
