@@ -3,12 +3,11 @@ using programmier_bar.dbClassLibrary;
 
 namespace programmier_bar.DataApiControllers.Controllers
 {
-	// Controller for retrieving and managing categories (list, create, update, delete)
 	[Route("category")]
 	[ApiController]
 	public class CategoryController : ControllerBase
 	{
-		// GET /Category – FETCH CATEGORY LIST
+		// GET Category List
 		[HttpGet()]
 		public IActionResult GetList()
 		{
@@ -29,8 +28,7 @@ namespace programmier_bar.DataApiControllers.Controllers
 			return result;
 		}
 
-
-		// POST /Category – INSERT NEW CATEGRY (requires Disponent role or higher)
+		// POST new Category
 		[HttpPost()]
 		public IActionResult Insert([FromBody] Category category)
 		{
@@ -38,7 +36,8 @@ namespace programmier_bar.DataApiControllers.Controllers
 			try
 			{
 				Person user = Person.Get(this);
-				if (user == null || (user != null && user.RoleNumber < PersonRole.Disponent)) result = Unauthorized();
+				if (user == null || (user != null && user.RoleNumber < PersonRole.Disponent))
+					result = Unauthorized();
 				else
 				{
 					if (category.Save() == 1) result =
@@ -58,8 +57,7 @@ namespace programmier_bar.DataApiControllers.Controllers
 			return result;
 		}
 
-
-		// PUT /Category/{id} – UPDATE EXISTING CATEGORY by ID (requires Disponent role or higher)
+		// PUT (update) Category
 		[HttpPut("{id}")]
 		public IActionResult Update(long id, [FromBody] Category category)
 		{
@@ -93,8 +91,7 @@ namespace programmier_bar.DataApiControllers.Controllers
 			return result;
 		}
 
-
-		// DELETE /Category/{id} – DELETE CATEGORY by ID (requires Disponent role or higher)
+		// DELETE Category (by ID)
 		[HttpDelete("{id}")]
 		public IActionResult Delete(long id)
 		{
@@ -102,7 +99,8 @@ namespace programmier_bar.DataApiControllers.Controllers
 			try
 			{
 				Person user = Person.Get(this);
-				if (user == null || (user != null && user.RoleNumber < PersonRole.Disponent)) result = Unauthorized();
+				if (user == null || (user != null && user.RoleNumber < PersonRole.Disponent))
+					result = Unauthorized();
 				else
 				{
 					Category dbCategory = Category.Get(id);

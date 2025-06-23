@@ -283,12 +283,12 @@ export default class pProductDetail {
     });
 
     fileFiledata.addEventListener( 'change', (e) => {
-      //const imgPic = args.target.querySelector('#imgPic');
-      // const reader = new FileReader();
-      // reader.onload = (r) => {
-      //   imgPic.src = r.target.result;
-      // };
-      // reader.readAsDataURL(fileFiledata.files[0]);
+      const imgPic = args.target.querySelector('#imgPic');
+      const reader = new FileReader();
+      reader.onload = (r) => {
+        imgPic.src = r.target.result;
+      };
+      reader.readAsDataURL(fileFiledata.files[0]);
 
       args.app.apiFiledata((r) => {
         console.log(r);

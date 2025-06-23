@@ -1,4 +1,85 @@
-﻿//using Npgsql;
+﻿using Npgsql;
+
+namespace programmier_bar.dbClassLibrary
+{
+	public static class DbSqlConnection
+	{
+		// Immutable connection string built once from settings
+		private static readonly string ConnectionString;
+
+		static DbSqlConnection()
+		{
+			// Load DB settings (throws if missing/invalid)
+			var set = DbSettings.Load();
+
+			// Build the connection string safely
+			var builder = new NpgsqlConnectionStringBuilder
+			{
+				Host = set.Host,
+				Port = 5432,
+				Database = set.Db,
+				Username = set.UserName,
+				Password = set.Password,
+				SslMode = SslMode.Disable,
+				Pooling = true
+			};
+			ConnectionString = builder.ConnectionString;
+		}
+
+		// Returns a fresh NpgsqlConnection using the configured connection string.
+		// Caller is responsible for opening and disposing the connection.
+		public static NpgsqlConnection GetConnection()
+		{
+			return new NpgsqlConnection(ConnectionString);
+		}
+
+		// Executes SELECT query and maps each row to an instance of T via a constructor T(object[]).
+		public static List<T> ExecuteQuery<T>(string sql, params object[] args)
+		{
+			var list = new List<T>();
+			using var conn = GetConnection();
+			conn.Open();
+			using var comm = conn.CreateCommand();
+			comm.CommandText = sql;
+
+			if (args != null)
+			{
+				for (int i = 0; i < args.Length; i++)
+					comm.Parameters.AddWithValue($"p{i}", args[i] ?? DBNull.Value);
+			}
+
+			using var reader = comm.ExecuteReader();
+			while (reader.Read())
+			{
+				var row = new object[reader.FieldCount];
+				reader.GetValues(row);
+				var item = (T)Activator.CreateInstance(typeof(T), new object[] { row });
+				list.Add(item);
+			}
+			return list;
+		}
+
+		// Executes a non-query SQL command (INSERT, UPDATE, DELETE) and returns affected row count.
+		public static int ExecuteCommand(string sql, params object[] args)
+		{
+			using var conn = GetConnection();
+			conn.Open();
+			using var comm = conn.CreateCommand();
+			comm.CommandText = sql;
+
+			if (args != null)
+			{
+				for (int i = 0; i < args.Length; i++)
+					comm.Parameters.AddWithValue($"p{i}", args[i] ?? DBNull.Value);
+			}
+			return comm.ExecuteNonQuery();
+		}
+	}
+}
+
+
+
+//using Npgsql;
 
 //namespace programmier_bar.dbClassLibrary
 //{
@@ -121,85 +202,3 @@
 //		}
 //	}
 //}
-
-
-using System;
-using Npgsql;
-
-namespace programmier_bar.dbClassLibrary
-{
-	public static class DbSqlConnection
-	{
-		// Immutable connection string built once from settings
-		private static readonly string ConnectionString;
-
-		static DbSqlConnection()
-		{
-			// Load DB settings (throws if missing/invalid)
-			var set = DbSettings.Load();
-
-			// Build the connection string safely
-			var builder = new NpgsqlConnectionStringBuilder
-			{
-				Host = set.Host,
-				Port = 5432,
-				Database = set.Db,
-				Username = set.UserName,
-				Password = set.Password,
-				SslMode = SslMode.Disable,
-				Pooling = true
-			};
-			ConnectionString = builder.ConnectionString;
-		}
-
-		// Returns a fresh NpgsqlConnection using the configured connection string.
-		// Caller is responsible for opening and disposing the connection.
-		public static NpgsqlConnection GetConnection()
-		{
-			return new NpgsqlConnection(ConnectionString);
-		}
-
-		// Executes a SELECT query and maps each row to an instance of T via a constructor T(object[]).
-		public static List<T> ExecuteQuery<T>(string sql, params object[] args)
-		{
-			var list = new List<T>();
-			using var conn = GetConnection();
-			conn.Open();
-			using var comm = conn.CreateCommand();
-			comm.CommandText = sql;
-
-			if (args != null)
-			{
-				for (int i = 0; i < args.Length; i++)
-					comm.Parameters.AddWithValue($"p{i}", args[i] ?? DBNull.Value);
-			}
-
-			using var reader = comm.ExecuteReader();
-			while (reader.Read())
-			{
-				var row = new object[reader.FieldCount];
-				reader.GetValues(row);
-				var item = (T)Activator.CreateInstance(typeof(T), new object[] { row });
-				list.Add(item);
-			}
-			return list;
-		}
-
-		// Executes a non-query SQL command (INSERT, UPDATE, DELETE) and returns affected row count.
-		public static int ExecuteCommand(string sql, params object[] args)
-		{
-			using var conn = GetConnection();
-			conn.Open();
-			using var comm = conn.CreateCommand();
-			comm.CommandText = sql;
-
-			if (args != null)
-			{
-				for (int i = 0; i < args.Length; i++)
-					comm.Parameters.AddWithValue($"p{i}", args[i] ?? DBNull.Value);
-			}
-
-			return comm.ExecuteNonQuery();
-		}
-	}
-}

@@ -9,9 +9,9 @@ namespace programmier_bar.dbClassLibrary
 	// Permission definition
 	public enum PersonRole
 	{
-		Standard = 0,
-		Disponent = 1,
-		Administration = 2
+		Standard				= 0,
+		Disponent				= 1,
+		Administration	= 2
 	}
 	// Searchable fields when retrieving person by a given key
 	public enum PersonField
@@ -31,22 +31,21 @@ namespace programmier_bar.dbClassLibrary
 	{
 		// Database table name, its columns (comma-seperated list) and SELECT clause
 		protected const string TABLE = "assortment.person";
-		protected const string COLUMNS =
-			"person_id, " +
-			"digit, " +
-			"surname, " +
-			"forename, " +
-			"title_pre, " +
-			"title_post, " +
-			"role_number, " +
-			"role_text, " +
-			"login_name, " +
-			"password, " +
-			"login_token, " +
-			"login_until, " +
-			"login_last, " +
-			"pic, " +
-			"pic_type";
+		protected const string COLUMNS =	"person_id, " +
+																			"digit, " +
+																			"surname, " +
+																			"forename, " +
+																			"title_pre, " +
+																			"title_post, " +
+																			"role_number, " +
+																			"role_text, " +
+																			"login_name, " +
+																			"password, " +
+																			"login_token, " +
+																			"login_until, " +
+																			"login_last, " +
+																			"pic, " +
+																			"pic_type";
 		protected const string SELECT = "select " + COLUMNS + " from " + TABLE;
 
 
@@ -133,21 +132,21 @@ namespace programmier_bar.dbClassLibrary
 		// Initialize Person objec from object[] (returned by data reader)
 		public Person(object[] data)
 		{
-			this.PersonId = data[0] == DBNull.Value ? (long?)null : Convert.ToInt64(data[0]);
-			this.Digit = data[1] == DBNull.Value ? (int?)null : Convert.ToInt32(data[1]);
-			this.Surname = data[2] == DBNull.Value ? string.Empty : (string)data[2];
-			this.Forename = data[3] == DBNull.Value ? string.Empty : (string)data[3];
-			this.TitlePre = data[4] == DBNull.Value ? string.Empty : (string)data[4];
-			this.TitlePost = data[5] == DBNull.Value ? string.Empty : (string)data[5];
-			this.RoleNumber = data[6] == DBNull.Value ? (PersonRole?)null : (PersonRole)Convert.ToInt32(data[6]);
-			this.RoleText = data[7] == DBNull.Value ? string.Empty : (string)data[7];
-			this.LoginName = data[8] == DBNull.Value ? string.Empty : (string)data[8];
-			this.pwd = data[9] == DBNull.Value ? string.Empty : (string)data[9];
+			this.PersonId		= data[0]  == DBNull.Value ? null		: Convert.ToInt64(data[0]);
+			this.Digit			= data[1]  == DBNull.Value ? null		: Convert.ToInt32(data[1]);
+			this.Surname		= data[2]  == DBNull.Value ? string.Empty : (string)data[2];
+			this.Forename		= data[3]  == DBNull.Value ? string.Empty : (string)data[3];
+			this.TitlePre		= data[4]  == DBNull.Value ? string.Empty : (string)data[4];
+			this.TitlePost	= data[5]  == DBNull.Value ? string.Empty : (string)data[5];
+			this.RoleNumber = data[6]  == DBNull.Value ? null		: (PersonRole)Convert.ToInt32(data[6]);
+			this.RoleText		= data[7]  == DBNull.Value ? string.Empty : (string)data[7];
+			this.LoginName	= data[8]  == DBNull.Value ? string.Empty : (string)data[8];
+			this.pwd				= data[9]  == DBNull.Value ? string.Empty : (string)data[9];
 			this.LoginToken = data[10] == DBNull.Value ? string.Empty : (string)data[10];
-			this.LoginUntil = data[11] == DBNull.Value ? (DateTime?)null : (DateTime?)data[11];
-			this.LoginLast = data[12] == DBNull.Value ? (DateTime?)null : (DateTime?)data[12];
-			//this.Pic = data[13] == DBNull.Value ? null : (byte[])data[13];
-			this.PicType = data[14] == DBNull.Value ? string.Empty : (string)data[14];
+			this.LoginUntil = data[11] == DBNull.Value ? null		: (DateTime?)data[11];
+			this.LoginLast	= data[12] == DBNull.Value ? null		: (DateTime?)data[12];
+			this.Pic				= data[13] == DBNull.Value ? null		: (byte[])data[13];
+			this.PicType		= data[14] == DBNull.Value ? string.Empty : (string)data[14];
 		}
 		#endregion
 
@@ -160,25 +159,25 @@ namespace programmier_bar.dbClassLibrary
 
 		//******************************************************************************************************************
 		#region properties
-		public long? PersonId { get; set; }
-		public int? Digit { get; set; }
-		public string? Surname { get; set; }
-		public string? Forename { get; set; }
-		public string? TitlePre { get; set; }
-		public string? TitlePost { get; set; }
-		public PersonRole? RoleNumber { get; set; }
-		public string? RoleText { get; set; }
-		public string? LoginName { get; set; }
+		public long?		PersonId { get; set; }
+		public int?			Digit { get; set; }
+		public string?	Surname { get; set; }
+		public string?	Forename { get; set; }
+		public string?	TitlePre { get; set; }
+		public string?	TitlePost { get; set; }
+		public PersonRole?	RoleNumber { get; set; }
+		public string?	RoleText { get; set; }
+		public string?	LoginName { get; set; }
 
 		// Plain-text password for setting or updating (hashed when saed)
-		public string? Password { get; set; }
+		public string?	Password { get; set; }
 
 		// Hashed password stored in database (not exposed to JSON)
 		[JsonIgnore()]
-		public string? PasswordIntern { get; set; } = string.Empty;
+		public string?	PasswordIntern { get; set; } = string.Empty;
 
 		// Whether password has been set (based on internal hash)
-		public bool PasswordSet
+		public bool			PasswordSet
 		{
 			get
 			{
@@ -189,18 +188,16 @@ namespace programmier_bar.dbClassLibrary
 			}
 		}
 
-		public string? LoginToken { get; set; }
-		public DateTime? LoginUntil { get; set; }
-		public DateTime? LoginLast { get; set; }
-
+		public string?		LoginToken { get; set; }
+		public DateTime?	LoginUntil { get; set; }
+		public DateTime?	LoginLast { get; set; }
 		// Profile pic binary data
 		[JsonIgnore()]
-		public byte[]? Pic { get; set; }
-		public string? PicType { get; set; }
+		public byte[]?		Pic { get; set; }
+		public string?		PicType { get; set; }
 
-		public string PicString
+		public string			PicString
 		{
-
 			get
 			{
 				if (this.Pic != null && this.Pic.Length > 0)
@@ -287,15 +284,15 @@ namespace programmier_bar.dbClassLibrary
 				}
 
 				// Bind parameters (for either INSERT or UPDATE)
-				comm.Parameters.AddWithValue("persid", this.PersonId.Value);
-				comm.Parameters.AddWithValue("d", this.Digit.HasValue ? this.Digit.Value : DBNull.Value);
-				comm.Parameters.AddWithValue("sn", String.IsNullOrEmpty(this.Surname) ? DBNull.Value : this.Surname);
-				comm.Parameters.AddWithValue("fn", String.IsNullOrEmpty(this.Forename) ? DBNull.Value : this.Forename);
-				comm.Parameters.AddWithValue("tpre", String.IsNullOrEmpty(this.TitlePre) ? DBNull.Value : this.TitlePre);
-				comm.Parameters.AddWithValue("tpost", String.IsNullOrEmpty(this.TitlePost) ? DBNull.Value : this.TitlePost);
-				comm.Parameters.AddWithValue("rn", this.RoleNumber.HasValue ? (int)this.RoleNumber.Value : DBNull.Value);
-				comm.Parameters.AddWithValue("rt", this.RoleNumber.HasValue ? this.RoleNumber.Value.ToString() : DBNull.Value);
-				comm.Parameters.AddWithValue("ln", String.IsNullOrEmpty(this.LoginName) ? DBNull.Value : this.LoginName);
+				comm.Parameters.AddWithValue("persid",	this.PersonId.Value);
+				comm.Parameters.AddWithValue("d",				this.Digit.HasValue ? this.Digit.Value	: DBNull.Value);
+				comm.Parameters.AddWithValue("sn",			String.IsNullOrEmpty(this.Surname)			? DBNull.Value : this.Surname);
+				comm.Parameters.AddWithValue("fn",			String.IsNullOrEmpty(this.Forename)			? DBNull.Value : this.Forename);
+				comm.Parameters.AddWithValue("tpre",		String.IsNullOrEmpty(this.TitlePre)			? DBNull.Value : this.TitlePre);
+				comm.Parameters.AddWithValue("tpost",		String.IsNullOrEmpty(this.TitlePost)		? DBNull.Value : this.TitlePost);
+				comm.Parameters.AddWithValue("rn",			this.RoleNumber.HasValue ? (int)this.RoleNumber.Value	 : DBNull.Value);
+				comm.Parameters.AddWithValue("rt",			this.RoleNumber.HasValue ? this.RoleNumber.Value.ToString() : DBNull.Value);
+				comm.Parameters.AddWithValue("ln",			String.IsNullOrEmpty(this.LoginName)		? DBNull.Value : this.LoginName);
 
 				//If a new plain- text password was provided, hash it
 				//if (!String.IsNullOrEmpty(this.Password)) this.PasswordIntern = GetPwdHash(this.Password);
@@ -307,21 +304,18 @@ namespace programmier_bar.dbClassLibrary
 					SHA512 sha = SHA512.Create();
 					this.pwd = Convert.ToBase64String(sha.ComputeHash(Encoding.UTF8.GetBytes(this.Password)));
 				}
-				// 🔐 Ensure loginToken exists for new users
 				if (string.IsNullOrEmpty(this.LoginToken))
 					this.LoginToken = Guid.NewGuid().ToString();
 
-				comm.Parameters.AddWithValue("pwd", String.IsNullOrEmpty(this.pwd) ? DBNull.Value : this.pwd);
-
-
-				comm.Parameters.AddWithValue("lt", String.IsNullOrEmpty(this.LoginToken) ? DBNull.Value : this.LoginToken);
-				comm.Parameters.AddWithValue("lu", this.LoginUntil.HasValue ? this.LoginUntil.Value : (object)DBNull.Value);
-				comm.Parameters.AddWithValue("ll", this.LoginLast.HasValue ? this.LoginLast.Value : DBNull.Value);
-				comm.Parameters.AddWithValue("pic", this.Pic == null ? DBNull.Value : this.Pic);
+				comm.Parameters.AddWithValue("pwd",			String.IsNullOrEmpty(this.pwd) ? DBNull.Value : this.pwd);
+				comm.Parameters.AddWithValue("lt",			String.IsNullOrEmpty(this.LoginToken) ? DBNull.Value : this.LoginToken);
+				comm.Parameters.AddWithValue("lu",			this.LoginUntil.HasValue	? this.LoginUntil.Value : (object)DBNull.Value);
+				comm.Parameters.AddWithValue("ll",			this.LoginLast.HasValue		? this.LoginLast.Value	: DBNull.Value);
+				comm.Parameters.AddWithValue("pic",			this.Pic == null ? DBNull.Value : this.Pic);
 
 				//if (string.IsNullOrEmpty(this.PicType) && this.Pic != null)
 				//	this.PicType = "image/png"; // or detect from binary header
-				comm.Parameters.AddWithValue("pict", String.IsNullOrEmpty(this.PicType) ? DBNull.Value : this.PicType);
+				comm.Parameters.AddWithValue("pict",		String.IsNullOrEmpty(this.PicType) ? DBNull.Value : this.PicType);
 
 				return comm.ExecuteNonQuery();
 
@@ -343,7 +337,6 @@ namespace programmier_bar.dbClassLibrary
 			return Convert.ToBase64String(sha.ComputeHash(Encoding.UTF8.GetBytes(password))) == this.pwd.Trim();
 		}
 
-		// Delete person if it has a valid person_id
 		public int Delete()
 		{
 			NpgsqlConnection connection = DbSqlConnection.GetConnection();

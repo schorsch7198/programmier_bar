@@ -1,6 +1,4 @@
 import bootstrap from './../../../node_modules/bootstrap/dist/js/bootstrap.bundle';
-// import 'bootstrap/dist/js/bootstrap.bundle';
-
 import ComponentHTML from './d-category.html';
 
 export default class dCategory {
@@ -11,27 +9,21 @@ export default class dCategory {
   #category = null;
   #pCategory = null;
 
-  //==========================================================================================================
   constructor(args) {
     this.#args = args;
     args.target.insertAdjacentHTML('beforeend', ComponentHTML);
-
-    const modalCategory = args.target.querySelector('#modalCategory');
-    this.#modal = new bootstrap.Modal(modalCategory);
-
     const numberRanking = this.#args.target.querySelector('#numberRankingModalCategory');
     const textName = this.#args.target.querySelector('#textNameModalCategory');
     const buttonSave = this.#args.target.querySelector('#buttonSaveModalCategory');
+    const modalCategory = args.target.querySelector('#modalCategory');
+    this.#modal = new bootstrap.Modal(modalCategory);
 
-    //----------------------------------------------------
     buttonSave.addEventListener( 'click', () => {
-
       if (!this.#category) {
         this.#category = {
           categoryId: null
         };
       }
-
       if (this.#pCategory) {
         this.#category.categoryRefId = this.#pCategory.categoryId;
       }
@@ -53,7 +45,6 @@ export default class dCategory {
 
   //==========================================================================================================
   show(args) {
-
     const numberRanking = this.#args.target.querySelector('#numberRankingModalCategory');
     const textName = this.#args.target.querySelector('#textNameModalCategory');
     const modalTitle = this.#args.target.querySelector('#modalTitleModalCategory');
@@ -71,7 +62,6 @@ export default class dCategory {
         textName.value = this.#category.name;
         numberRanking.value = this.#category.ranking;
       }
-
       if (args.pCategory) {
         modalTitle.innerText = 'Under ' + args.pCategory.name + ' add Category';
         this.#pCategory = args.pCategory;

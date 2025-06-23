@@ -3,12 +3,11 @@ using programmier_bar.dbClassLibrary;
 
 namespace programmier_bar.DataApiControllers.Controllers
 {
-	// Controller responsible for serving file content for download by filedata ID
 	[Route("filedata")]
 	[ApiController]
 	public class FiledataController : ControllerBase
 	{
-		// GET /Filedata/{id}/download – FETCH FILEDATA CONTENT with correct MIME type and filename
+		// GET Filedata content (with correct MIME type)
 		[HttpGet("{id}/download")]
 		public IActionResult Download(long id)
 		{

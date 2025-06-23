@@ -3,12 +3,11 @@ using programmier_bar.dbClassLibrary;
 
 namespace programmier_bar.DataApiControllers.Controllers
 {
-	// Controller for handling product-related requests (CRUD, stock, and file data)
 	[Route("product")]
 	[ApiController]
 	public class ProductController : ControllerBase
 	{
-		// GET /Product?cid={cid} – FETCH ALL PRODUCTS or products in a given category
+		// GET Products
 		[HttpGet()]
 		public IActionResult GetList(long? cid)
 		{
@@ -39,8 +38,7 @@ namespace programmier_bar.DataApiControllers.Controllers
 			return result;
 		}
 
-
-		// GET /Product/{id} – FETCH SINGLE PRODUCT by its ID (with categories)
+		// GET (single) Product
 		[HttpGet("{id}")]
 		public IActionResult Get(string id)
 		{
@@ -68,12 +66,10 @@ namespace programmier_bar.DataApiControllers.Controllers
 			return result;
 		}
 
-
-		// POST /Product – INSERT NEW PRODUCT into database
+		// POST (insert new) Product
 		[HttpPost()]
 		public IActionResult Insert([FromBody] Product product)
 		{
-
 			IActionResult result = null;
 			try
 			{
@@ -98,8 +94,7 @@ namespace programmier_bar.DataApiControllers.Controllers
 			return result;
 		}
 
-
-		// PUT /Product/{id} – UPDATE existing product by ID
+		// PUT (update) Product
 		[HttpPut("{id}")]
 		public IActionResult Update(string id, [FromBody] Product product)
 		{
@@ -133,8 +128,7 @@ namespace programmier_bar.DataApiControllers.Controllers
 			return result;
 		}
 
-
-		// DELETE /Product/{id} – DELETE product by its ID
+		// DELETE Product
 		[HttpDelete("{id}")]
 		public IActionResult Delete(string id)
 		{
@@ -167,8 +161,7 @@ namespace programmier_bar.DataApiControllers.Controllers
 			return result;
 		}
 
-
-		// GET /Product/{id}/stock – FETCH STOCK info for specific product
+		// GET Stock for Product
 		[HttpGet("{id}/stock")]
 		public IActionResult GetStockList(string id)
 		{
@@ -200,8 +193,7 @@ namespace programmier_bar.DataApiControllers.Controllers
 			return result;
 		}
 
-
-		// POST /Product/{id}/stock – INSERT NEW STOCK entry for specific product
+		// POST (insert new) Stock for Product
 		[HttpPost("{id}/stock")]
 		public IActionResult PostStock(string id, [FromBody] Stock stock)
 		{
@@ -218,7 +210,8 @@ namespace programmier_bar.DataApiControllers.Controllers
 						stock.ProductId = product.ProductId;
 						stock.PersonId = user.PersonId.Value;
 						if (stock.Save() == 1) result = Ok(new { success = true });
-						else result = StatusCode(500, new { success = false, message = "Could not save stock" });
+						else result = StatusCode(500, 
+							new { success = false, message = "Could not save stock" });
 					}
 				}
 				else result = Unauthorized();
@@ -234,8 +227,7 @@ namespace programmier_bar.DataApiControllers.Controllers
 			return result;
 		}
 
-
-		// GET /Product/{id}/filedata – FETCH FILEDATA entries for specified product
+		// GET Filedata for Product
 		[HttpGet("{id}/filedata")]
 		public IActionResult GetListFiledata(string id)
 		{
@@ -266,13 +258,11 @@ namespace programmier_bar.DataApiControllers.Controllers
 			return result;
 		}
 
-
-		// POST /Product/{id}/filedata – INSERT NEW FILE(S) for given product
+		// POST (insert new) Filedata for Product
 		[HttpPost("{id}/filedata")]
 		[RequestFormLimits(MultipartBodyLengthLimit = 52428800)]
 		public IActionResult SaveFiledataList(string id)
 		{
-
 			IActionResult result = null;
 			try
 			{
@@ -280,7 +270,8 @@ namespace programmier_bar.DataApiControllers.Controllers
 				if (user != null)
 				{
 					Product dbProduct = Product.Get(id);
-					if (dbProduct == null) result = NotFound(new { success = false, message = $"Product '{id}' not found." });
+					if (dbProduct == null) result = NotFound(
+						new { success = false, message = $"Product '{id}' not found." });
 					else
 					{
 						if (this.Request.Form.Files.Count > 0)
@@ -292,7 +283,6 @@ namespace programmier_bar.DataApiControllers.Controllers
 							{
 								stream = new MemoryStream();
 								file.CopyTo(stream);
-
 								filedata = new Filedata()
 								{
 									ProductId = dbProduct.ProductId,
@@ -303,11 +293,14 @@ namespace programmier_bar.DataApiControllers.Controllers
 								saveCnt += filedata.Save();
 							}
 							if (saveCnt == this.Request.Form.Files.Count) result =
-									Ok(new { success = true, message = $"All {saveCnt} File(s) saved!" });
+									Ok(new { success = true, 
+										message = $"All {saveCnt} File(s) saved!" });
 							else result =
-									Ok(new { success = false, message = $"{saveCnt} / {this.Request.Form.Files.Count} File(s) saved!" });
+									Ok(new { success = false, 
+										message = $"{saveCnt} / {this.Request.Form.Files.Count} File(s) saved!" });
 						}
-						else result = Ok(new { success = false, message = "No file data showed off / specified!" });
+						else result = Ok(new { success = false, 
+							message = "No file data showed off / specified!" });
 					}
 				}
 				else result = Unauthorized();

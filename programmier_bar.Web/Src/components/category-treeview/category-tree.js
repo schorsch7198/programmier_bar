@@ -1,28 +1,24 @@
 import bootstrap from 'bootstrap/dist/js/bootstrap.bundle';
-// import 'bootstrap/dist/js/bootstrap.bundle';
 
 import HTML from './category-tree.html';
 
 export default class categoryTree {
-  //===================================================================================================================================
   // private vars
+  //===================================================================================================================================
   #args = null;
   #categoryList = null;
   #selCats = null;
 
-  //===================================================================================================================================
   constructor(args) {
     this.#args = args;
     this.#args.target.innerHTML = HTML;
 
-    //-------------------------------------------------------
     const containerCategory = this.#args.target.querySelector('#containerCategory');
     const offcanvasBody = this.#args.target.querySelector('.offcanvas-body');
     const offcanvasCategory = new bootstrap.Offcanvas('#offcanvasCategory');
 
-    //-------------------------------------------------------
-    // events
-    //-------------------------------------------------------
+    // Events
+    //===================================================================================================================================
     args.target.addEventListener('hidden.bs.collapse', (e) => {
       const btn = args.target.querySelector('button[data-bs-target="#' + e.target.id + '"]');
       if (btn) {
@@ -45,7 +41,8 @@ export default class categoryTree {
       if (e.target.nodeName == 'SPAN' && e.target.dataset.categoryId) {
         this.#selCats = this.#categoryList.filter( c => c.categoryId == parseInt(e.target.dataset.categoryId));
         offcanvasCategory.hide();
-        if (this.#args.click && typeof this.#args.click === 'function') this.#args.click(this.#selCats[0]);
+        if (this.#args.click && typeof this.#args.click === 'function') 
+          this.#args.click(this.#selCats[0]);
       }
     });
 
@@ -62,24 +59,13 @@ export default class categoryTree {
         cb.checked = e.target.checked;
       }
     });
-
-
-
-    //-------------------------------------------------------
-    // init
-    //-------------------------------------------------------
-
-    //-------------------------------------------------------
-    //-------------------------------------------------------
   } // constructor
 
-  //===================================================================================================================================
   // properties
   //===================================================================================================================================
   get categoryList() {
     return this.#categoryList;
   }
-
   set categoryList(v) {
     this.#categoryList = v;
     this.#treeviewShow();
@@ -97,7 +83,6 @@ export default class categoryTree {
     }
     return this.#selCats;
   }
-
   set selCats(v) {
     this.#selCats = v;
 
@@ -106,7 +91,6 @@ export default class categoryTree {
 
     if (this.#args.multiSelect) {
       let checkBox = null;
-
       for (const selCat of this.#selCats) {
         const ids = selCat.idPath.split('|');
         for (const id of ids) {
@@ -119,10 +103,8 @@ export default class categoryTree {
         }
       }
     }
-
   }
 
-  //===================================================================================================================================
   // private methods
   //===================================================================================================================================
   #treeviewShow() {
@@ -150,17 +132,11 @@ export default class categoryTree {
               </div>`
             : `<span class="ms-2 element-clickable" data-category-id="${c.categoryId}">${c.name}</span>`
           )}
-          
         </div>
         <div class="collapse ps-3" id="collapse${c.categoryId}">
           ${this.#treeviewBuild(c)}
-        </div>
-      `;
+        </div>`;
     }
     return html;
   }
-
-
-  //===================================================================================================================================
-  //===================================================================================================================================
 } // class

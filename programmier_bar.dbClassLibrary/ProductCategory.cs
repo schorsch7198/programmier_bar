@@ -5,9 +5,9 @@ namespace programmier_bar.dbClassLibrary
 	public class ProductCategory
 	{
 		// String constant definitions for; TABLE name, comma-seperated COLUMN list and SELECT statement
-		protected const string TABLE = "assortment.product_category";
-		protected const string COLUMNS = "product_id, category_id";
-		protected const string SELECT = "select " + COLUMNS + " from " + TABLE;
+		protected const string TABLE		= "assortment.product_category";
+		protected const string COLUMNS	= "product_id, category_id";
+		protected const string SELECT		= "select " + COLUMNS + " from " + TABLE;
 
 
 		//******************************************************************************************************************
@@ -30,7 +30,7 @@ namespace programmier_bar.dbClassLibrary
 		// cast and assign for newly constructed ProductCategory instance
 		public ProductCategory(object[] data)
 		{
-			this.ProductId = Convert.ToInt64(data[0]);
+			this.ProductId	= Convert.ToInt64(data[0]);
 			this.CategoryId = Convert.ToInt64(data[1]);
 		}
 		#endregion

@@ -14,13 +14,12 @@ namespace programmier_bar.dbClassLibrary
 	{
 		// String constant definitions for; TABLE name, comma-seperated COLUMN list and SELECT statement
 		protected const string TABLE = "assortment.stock";
-		protected const string COLUMNS =
-															"stock_id, " +
-															"product_id, " +
-															"person_id, " +
-															"amount, " +
-															"date_time, " +
-															"note";
+		protected const string COLUMNS =	"stock_id, " +
+																			"product_id, " +
+																			"person_id, " +
+																			"amount, " +
+																			"date_time, " +
+																			"note";
 		protected const string SELECT = "select " + COLUMNS + " from " + TABLE;
 
 
@@ -52,12 +51,12 @@ namespace programmier_bar.dbClassLibrary
 		// Cast & assign for new stock instance
 		public Stock(object[] data)
 		{
-			this.StockId = data[0] == DBNull.Value ? (long?)null : Convert.ToInt64(data[0]);
-			this.ProductId = data[1] == DBNull.Value ? (long?)null : Convert.ToInt64(data[1]);
-			this.PersonId = data[2] == DBNull.Value ? (long?)null : Convert.ToInt64(data[2]);
-			this.Amount = data[3] == DBNull.Value ? (int?)null : Convert.ToInt32(data[3]);
-			this.DateTime = data[4] == DBNull.Value ? (DateTime?)null : (DateTime?)data[4];
-			this.Note = data[5] == DBNull.Value ? string.Empty : (string)data[5];
+			this.StockId		= data[0] == DBNull.Value ? (long?)null : Convert.ToInt64(data[0]);
+			this.ProductId	= data[1] == DBNull.Value ? (long?)null : Convert.ToInt64(data[1]);
+			this.PersonId		= data[2] == DBNull.Value ? (long?)null : Convert.ToInt64(data[2]);
+			this.Amount			= data[3] == DBNull.Value ? (int?)null	: Convert.ToInt32(data[3]);
+			this.DateTime		= data[4] == DBNull.Value ? (DateTime?)null : (DateTime?)data[4];
+			this.Note				= data[5] == DBNull.Value ? string.Empty : (string)data[5];
 		}
 		#endregion
 
@@ -69,12 +68,12 @@ namespace programmier_bar.dbClassLibrary
 
 		//******************************************************************************************************************
 		#region properties
-		public long? StockId { get; set; }
-		public long? ProductId { get; set; }
-		public long? PersonId { get; set; }
-		public int? Amount { get; set; }
-		public DateTime? DateTime { get; set; }
-		public string? Note { get; set; }
+		public long?			StockId { get; set; }
+		public long?			ProductId { get; set; }
+		public long?			PersonId { get; set; }
+		public int?				Amount { get; set; }
+		public DateTime?	DateTime { get; set; }
+		public string?		Note { get; set; }
 		#endregion
 
 		//******************************************************************************************************************
@@ -98,13 +97,13 @@ namespace programmier_bar.dbClassLibrary
 				{
 					// UPDATE clause
 					comm.CommandText =
-										$"update {TABLE} set " +
-										"product_id	= :prodid, " +
-										"person_id = :persid, " +
-										"amount = :am, " +
-										"date_time = :dt, " +
-										"note = :note " +
-										"where stock_id = :sid";
+						$"update {TABLE} set " +
+						"product_id	= :prodid, " +
+						"person_id = :persid, " +
+						"amount = :am, " +
+						"date_time = :dt, " +
+						"note = :note " +
+						"where stock_id = :sid";
 				}
 				else
 				{
@@ -112,22 +111,22 @@ namespace programmier_bar.dbClassLibrary
 					comm.CommandText = $"select nextval('{TABLE}_seq')";
 					this.StockId = (long)comm.ExecuteScalar();
 					comm.CommandText =
-										$"insert into {TABLE} ({COLUMNS}) values (" +
-										":sid, " +
-										":prodid, " +
-										":persid, " +
-										":am, " +
-										":dt, " +
-										":note)";
+						$"insert into {TABLE} ({COLUMNS}) values (" +
+						":sid, " +
+						":prodid, " +
+						":persid, " +
+						":am, " +
+						":dt, " +
+						":note)";
 				}
 
 				// Bind SQL parameters before execution
-				comm.Parameters.AddWithValue("sid", this.StockId.Value);
-				comm.Parameters.AddWithValue("prodid", this.ProductId.HasValue ? this.ProductId.Value : DBNull.Value);
-				comm.Parameters.AddWithValue("persid", this.PersonId.HasValue ? this.PersonId.Value : DBNull.Value);
-				comm.Parameters.AddWithValue("am", this.Amount.HasValue ? this.Amount.Value : DBNull.Value);
-				comm.Parameters.AddWithValue("dt", this.DateTime.HasValue ? this.DateTime.Value : DBNull.Value);
-				comm.Parameters.AddWithValue("note", String.IsNullOrEmpty(this.Note) ? DBNull.Value : this.Note);
+				comm.Parameters.AddWithValue("sid",			this.StockId.Value);
+				comm.Parameters.AddWithValue("prodid",	this.ProductId.HasValue ? this.ProductId.Value	: DBNull.Value);
+				comm.Parameters.AddWithValue("persid",	this.PersonId.HasValue	? this.PersonId.Value		: DBNull.Value);
+				comm.Parameters.AddWithValue("am",			this.Amount.HasValue		? this.Amount.Value			: DBNull.Value);
+				comm.Parameters.AddWithValue("dt",			this.DateTime.HasValue	? this.DateTime.Value		: DBNull.Value);
+				comm.Parameters.AddWithValue("note",		String.IsNullOrEmpty(this.Note) ? DBNull.Value	: this.Note);
 				return comm.ExecuteNonQuery();
 			}
 			catch (Exception)
@@ -139,7 +138,6 @@ namespace programmier_bar.dbClassLibrary
 				if (trans == null) conn.Close();
 			}
 		}
-
 
 		// Return formatted string for display purposes
 		public override string ToString()

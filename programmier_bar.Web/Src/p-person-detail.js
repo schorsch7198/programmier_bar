@@ -36,7 +36,6 @@ export default class pPersonDetail{
 
     let person = null;
 
-
     //------------------------------------------------------------
     // events
     //------------------------------------------------------------
@@ -65,13 +64,12 @@ export default class pPersonDetail{
 
 
     buttonSave.addEventListener( 'click', () => {
-      // reset/hide the alert
       alertMessage.classList.remove('alert-success','alert-danger');
       alertMessage.classList.add('d-none');
 
       if (!person) {
         person = {
-          // personId: null
+          // personId: ''
         };
       }
 
@@ -93,14 +91,13 @@ export default class pPersonDetail{
 
       if (passwordPassword.value && passwordPassword.value != '##########') person.password = passwordPassword.value;
       person.picType = person.picType || 'image/png'; // fallback if none
-      // if (imgPic.dataset.pic == 'ok') person.picStr = imgPic.src;
-      if (!person.picString && imgPic.src && imgPic.src.startsWith('data:')) {
-        person.picString = imgPic.src;
-        imgPic.dataset.pic = 'ok';
-      }
+      if (imgPic.dataset.pic == 'ok') person.picStr = imgPic.src;
+      // if (!person.picString && imgPic.src && imgPic.src.startsWith('data:')) {
+      //   person.picString = imgPic.src;
+      //   imgPic.dataset.pic = 'ok';
+      // }
 
       args.app.apiSet((r) => {
-        // display the message in the bottom‐bar alert
         alertMessage.innerText = r.message;
         if (r.success) {
           person = r.person;
@@ -117,7 +114,6 @@ export default class pPersonDetail{
         alertMessage.classList.remove('d-none');
         alertMessage.classList.add('alert-danger');
       }, '/person', person.personId, person);
-
     });
 
     //------------------------------------------------------------

@@ -4,10 +4,9 @@
 	{
 		// Constant string definitions for: view name, added properties VIEW_COLUMNS for base table, full SELECT for base table
 		protected const string VIEW = TABLE + "_info";
-		protected const string VIEW_COLUMNS =
-															"stock, " +
-															"category_id, " +
-															"category_name";
+		protected const string VIEW_COLUMNS = "stock, " +
+																					"category_id, " +
+																					"category_name";
 		protected const string VIEW_SELECT = "select " + COLUMNS + ", " + VIEW_COLUMNS + " from " + VIEW;
 
 
@@ -31,8 +30,8 @@
 		// Cast & assign (add elements to base table)
 		public ProductInfo(object[] data) : base(data)
 		{
-			this.Stock = data[10] == DBNull.Value ? 0L : Convert.ToInt64(data[10]);
-			this.CategoryId = data[11] == DBNull.Value ? (long?)null : Convert.ToInt64(data[11]);
+			this.Stock				= data[10] == DBNull.Value ? 0L : Convert.ToInt64(data[10]);
+			this.CategoryId		= data[11] == DBNull.Value ? (long?)null  : Convert.ToInt64(data[11]);
 			this.CategoryName = data[12] == DBNull.Value ? string.Empty : (string)data[12];
 		}
 		#endregion
@@ -45,8 +44,8 @@
 
 		//******************************************************************************************************************
 		#region properties
-		public long? Stock { get; set; }
-		public long? CategoryId { get; set; }
+		public long?	Stock { get; set; }
+		public long?	CategoryId { get; set; }
 		public string CategoryName { get; set; }
 		#endregion
 

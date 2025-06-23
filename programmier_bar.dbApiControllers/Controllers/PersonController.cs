@@ -1,17 +1,15 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using programmier_bar.dbClassLibrary;
 
 namespace programmier_bar.DataApiControllers.Controllers
 {
-	// Controller for managing user accounts: list, fetch, authenticating, create, update and delete person(s)
 	[Route("person")]
 	[ApiController]
 	public class PersonController : ControllerBase
 	{
-		// GET /person – FETCH USER LIST (requires Administration role)
+		// GET PersonList (if role admin)
 		[HttpGet()]
 		public IActionResult GetList()
 		{
@@ -20,7 +18,8 @@ namespace programmier_bar.DataApiControllers.Controllers
 			try
 			{
 				Person user = Person.Get(this);
-				if (user == null || (user != null && user.RoleNumber != PersonRole.Administration)) result = Unauthorized();
+				if (user == null || (user != null && user.RoleNumber != PersonRole.Administration))
+					result = Unauthorized();
 				else
 				{
 					List<Person> personList = Person.GetList();
@@ -39,13 +38,11 @@ namespace programmier_bar.DataApiControllers.Controllers
 			return result;
 		}
 
-
-		// GET /person/{id} – FETCH USER by ID. Administrators can read all; others only itself
+		// GET Person (can be seen by current user and admin)
 		[HttpGet("{id}")]
 		public IActionResult Get(string id)
 		{
 			IActionResult result = null;
-
 			try
 			{
 				Person user = Person.Get(this);
@@ -71,13 +68,11 @@ namespace programmier_bar.DataApiControllers.Controllers
 #else
 				result = StatusCode(500);
 #endif
-
 			}
 			return result;
 		}
 
-
-		// POST /person/login – INSERT/FETCH USER CREDENTIALS via form fields "username"/"password"
+		// POST (get) Login Credentials
 		[HttpPost("login")]
 		public IActionResult Login()
 		{
@@ -98,7 +93,8 @@ namespace programmier_bar.DataApiControllers.Controllers
 							person.LoginUntil = DateTime.Now.AddDays(1);
 							SHA512 sha = SHA512.Create();
 							person.LoginToken = Convert.ToBase64String(
-								sha.ComputeHash(Encoding.UTF8.GetBytes($"{person.LoginName} {DateTime.Now:yyyyMMddHHmmssfff}")));
+								sha.ComputeHash(Encoding.UTF8.GetBytes
+									($"{person.LoginName} {DateTime.Now:yyyyMMddHHmmssfff}")));
 							person.Save();
 							this.Response.Cookies.Append("logintoken", person.LoginToken, new CookieOptions()
 							{
@@ -106,9 +102,11 @@ namespace programmier_bar.DataApiControllers.Controllers
 								SameSite = SameSiteMode.Unspecified,
 								Secure = true
 							});
-							result = Ok(new { success = true, message = "Login successful!", person = person });
+							result = Ok(
+								new { success = true, message = "Login successful!", person = person });
 						}
-						else result = Unauthorized(new { success = false, message = "Username/Password NOT found" });
+						else result = Unauthorized(
+							new { success = false, message = "Username/Password NOT found" });
 					}
 				}
 				else throw new Exception("Username/Passwort was not specified!");
@@ -121,12 +119,10 @@ namespace programmier_bar.DataApiControllers.Controllers
 				result = StatusCode(500);
 #endif
 			}
-
 			return result;
 		}
 
-
-		// POST /person – INSERT NEW USER (requires any authenticated user; adjust as needed)
+		// POST (insert new) Person 
 		[HttpPost()]
 		//[AllowAnonymous]
 		[RequestSizeLimit(10485760)]
@@ -157,8 +153,7 @@ namespace programmier_bar.DataApiControllers.Controllers
 
 		}
 
-
-		// PUT /person/{id} – UPDATE EXISTING USER by ID. If password is empty, preserves existing password.
+		// PUT (update) Person
 		[HttpPut("{id}")]
 		[RequestSizeLimit(10485760)]
 		public IActionResult Update(string id, [FromBody] Person person)
@@ -198,11 +193,9 @@ namespace programmier_bar.DataApiControllers.Controllers
 #endif
 			}
 			return result;
-
 		}
 
-
-		// DELETE /person/{id} – DELETE USER by ID (requires any authenticated user; adjust role checks as necessary)
+		// DELETE Person ID
 		[HttpDelete("{id}")]
 		public IActionResult Delete(string id)
 		{

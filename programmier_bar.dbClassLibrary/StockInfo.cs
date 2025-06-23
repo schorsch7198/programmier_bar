@@ -5,7 +5,7 @@
 		// String constant definitions for; VIEW name, VIEW column, SELECT statement
 		protected const string VIEW = "assortment.stock_info";
 		protected const string VIEW_COLUMNS = "person_name_full";
-		protected const string VIEW_SELECT = "select " + COLUMNS + ", " + VIEW_COLUMNS + " from " + VIEW;
+		protected const string VIEW_SELECT	= "select " + COLUMNS + ", " + VIEW_COLUMNS + " from " + VIEW;
 
 
 		//******************************************************************************************************************

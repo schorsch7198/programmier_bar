@@ -7,13 +7,12 @@ namespace programmier_bar.dbClassLibrary
 	{
 		// String constant definitions for; TABLE name, comma-seperated COLUMN list and SELECT statement
 		protected const string TABLE = "assortment.filedata";
-		protected const string COLUMNS =
-															"filedata_id, " +
-															"product_id, " +
-															"person_id, " +
-															"name, " +
-															"media_type, " +
-															"content";
+		protected const string COLUMNS =	"filedata_id, " +
+																			"product_id, " +
+																			"person_id, " +
+																			"name, " +
+																			"media_type, " +
+																			"content";
 		protected const string SELECT = "select " + COLUMNS + " from " + TABLE;
 
 
@@ -46,11 +45,11 @@ namespace programmier_bar.dbClassLibrary
 		public Filedata(object[] data)
 		{
 			this.FiledataId = data[0] == DBNull.Value ? (long?)null : Convert.ToInt64(data[0]);
-			this.ProductId = data[1] == DBNull.Value ? (long?)null : Convert.ToInt64(data[1]);
-			this.PersonId = data[2] == DBNull.Value ? (long?)null : Convert.ToInt64(data[2]);
-			this.Name = data[3] == DBNull.Value ? string.Empty : (string)data[3];
-			this.MediaType = data[4] == DBNull.Value ? string.Empty : (string)data[4];
-			this.Content = data[5] == DBNull.Value ? null : (byte[])data[5];
+			this.ProductId	= data[1] == DBNull.Value ? (long?)null : Convert.ToInt64(data[1]);
+			this.PersonId		= data[2] == DBNull.Value ? (long?)null : Convert.ToInt64(data[2]);
+			this.Name				= data[3] == DBNull.Value ? string.Empty : (string)data[3];
+			this.MediaType	= data[4] == DBNull.Value ? string.Empty : (string)data[4];
+			this.Content		= data[5] == DBNull.Value ? null : (byte[])data[5];
 		}
 		#endregion
 
@@ -62,18 +61,18 @@ namespace programmier_bar.dbClassLibrary
 
 		//******************************************************************************************************************
 		#region properties
-		public long? FiledataId { get; set; }
-		public long? ProductId { get; set; }
-		public long? PersonId { get; set; }
-		public string? Name { get; set; }
-		public string? MediaType { get; set; }
+		public long?		FiledataId { get; set; }
+		public long?		ProductId { get; set; }
+		public long?		PersonId { get; set; }
+		public string?	Name { get; set; }
+		public string?	MediaType { get; set; }
 
 		// ignore byte (binary) array for serialization
 		[JsonIgnore()]
-		public byte[] Content { get; set; }
+		public byte[]		Content { get; set; }
 
 		// Expose data Url instead
-		public string? ContentUrl
+		public string?	ContentUrl
 		{
 			get
 			{
@@ -107,21 +106,21 @@ namespace programmier_bar.dbClassLibrary
 				{
 					// UPDATE
 					comm.CommandText =
-									$"update {TABLE} set " +
-									"product_id = :prodid, " +
-									"person_id	= :persid, " +
-									"name				= :name, " +
-									"media_type = :mt, " +
-									"content		= :con " +
-									"where filedata_id = :fid";
+						$"update {TABLE} set " +
+						"product_id = :prodid, " +
+						"person_id	= :persid, " +
+						"name				= :name, " +
+						"media_type = :mt, " +
+						"content		= :con " +
+						"where filedata_id = :fid";
 				}
 				else
 				{
 					// SELECT
-					comm.CommandText = $"select nextval('{TABLE}_seq')";
-					this.FiledataId = (long)comm.ExecuteScalar();
+					comm.CommandText	= $"select nextval('{TABLE}_seq')";
+					this.FiledataId		= (long)comm.ExecuteScalar();
 					// INSERT
-					comm.CommandText =
+					comm.CommandText	=
 						$"insert into {TABLE} ({COLUMNS}) values (" +
 						":fid, " +
 						":prodid, " +
@@ -132,12 +131,12 @@ namespace programmier_bar.dbClassLibrary
 				}
 
 				// Bind parameters (use DBNull.Nalue for any null property)
-				comm.Parameters.AddWithValue("fid", this.FiledataId.Value);
-				comm.Parameters.AddWithValue("prodid", this.ProductId.HasValue ? this.ProductId.Value : DBNull.Value);
-				comm.Parameters.AddWithValue("persid", this.PersonId.HasValue ? this.PersonId.Value : DBNull.Value);
-				comm.Parameters.AddWithValue("name", String.IsNullOrEmpty(this.Name) ? DBNull.Value : this.Name);
-				comm.Parameters.AddWithValue("mt", String.IsNullOrEmpty(this.MediaType) ? DBNull.Value : this.MediaType);
-				comm.Parameters.AddWithValue("con", this.Content == null ? DBNull.Value : this.Content);
+				comm.Parameters.AddWithValue("fid",			this.FiledataId.Value);
+				comm.Parameters.AddWithValue("prodid",	this.ProductId.HasValue ? this.ProductId.Value	: DBNull.Value);
+				comm.Parameters.AddWithValue("persid",	this.PersonId.HasValue	? this.PersonId.Value		: DBNull.Value);
+				comm.Parameters.AddWithValue("name",		String.IsNullOrEmpty(this.Name) ? DBNull.Value	: this.Name);
+				comm.Parameters.AddWithValue("mt",			String.IsNullOrEmpty(this.MediaType)	? DBNull.Value : this.MediaType);
+				comm.Parameters.AddWithValue("con",			this.Content == null ? DBNull.Value		: this.Content);
 				return comm.ExecuteNonQuery();
 			}
 			catch (Exception)

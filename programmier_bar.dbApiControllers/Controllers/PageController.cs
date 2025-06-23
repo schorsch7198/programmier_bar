@@ -3,12 +3,11 @@ using programmier_bar.dbClassLibrary;
 
 namespace programmier_bar.DataApiControllers.Controllers
 {
-	// Controller for handling page initialization, logout, and fetching initial product/category data
 	[Route("page")]
 	[ApiController]
 	public class PageController : ControllerBase
 	{
-		// GET /page/init – FETCH CURRENT USER
+		// GET Page (by current user)
 		[HttpGet("init")]
 		public IActionResult PageInit()
 		{
@@ -30,8 +29,7 @@ namespace programmier_bar.DataApiControllers.Controllers
 			return result;
 		}
 
-
-		// GET /page/productlist – FETCH ALL PRODUCTS AND CATEGORIES for page initialization
+		// GET /page/productlist
 		[HttpGet("productlist")]
 		public IActionResult PageProductList()
 		{
@@ -57,8 +55,7 @@ namespace programmier_bar.DataApiControllers.Controllers
 			return result;
 		}
 
-
-		// GET /page/logout – DELETE LOGIN_TOKEN, delete cookie and expire session
+		// GET /page/logout – DELETE logintoken & cookie
 		[HttpGet("logout")]
 		public IActionResult PageLogout()
 		{
