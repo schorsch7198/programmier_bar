@@ -5,13 +5,11 @@ export default class pPersonList {
   constructor(args) {
     args.target.innerHTML = HTML;
 
-    //-----------------------------------------------------------------------------
     const tablePerson = args.target.querySelector('#tablePerson>tbody');
     // const registerButton = args.target.querySelector('#registerButton');
 
     let personList = null;
 
-    //-----------------------------------------------------------------------------
     // events
     //-----------------------------------------------------------------------------
     tablePerson.addEventListener( 'click', (e) => {
@@ -36,14 +34,12 @@ export default class pPersonList {
           window.open('#persondetail?id=' + tr.dataset.id, '_self');
         }
       }
-
     });
 
   // registerButton.addEventListener('click', (e) => { 
   //   this.askForNotificationPermission();
   // });
     
-    //-----------------------------------------------------------------------------
     // init
     //-----------------------------------------------------------------------------
     args.app.apiGet((pl) => {
@@ -70,12 +66,11 @@ export default class pPersonList {
                          title="profilepic" />
                   </div>
                   <div class="p-2 align-middle">
-                    ${p.surname} ${p.forename} ${p.titlePre} ${p.titlePost}
+                    ${p.titlePre} ${p.surname} ${p.forename} ${p.titlePost}
                   </div>
                 </div>
               `
-              : `${p.surname} ${p.forename} ${p.titlePre} ${p.titlePost}`)}
-              
+              : `${p.titlePre} ${p.surname} ${p.forename} ${p.titlePost}`)}
             </td>
             <td class="element-clickable">${p.roleText}</td>
             <td class="element-clickable">${p.loginName}</td>
@@ -88,9 +83,6 @@ export default class pPersonList {
     }, (ex) =>  {
       alert(ex);
     }, '/person');
-
-    //-----------------------------------------------------------------------------
-    //-----------------------------------------------------------------------------
   } // constructor
 
   // askForNotificationPermission() {
@@ -187,8 +179,4 @@ export default class pPersonList {
   //       return outputArray;
   //     }
   //   }
-
-
-  //===================================================================================================================================
-  //===================================================================================================================================
 } // class

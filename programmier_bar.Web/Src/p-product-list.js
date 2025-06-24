@@ -119,7 +119,6 @@ export default class pProductList {
       }, '/product?cid=' + category.categoryId);
   
     } else {
-
       // if ('indexedDB' in window) {
       //   readAllData('product-cache')
       //     .then(data => {
@@ -136,7 +135,6 @@ export default class pProductList {
         this.#productList = r.productList;
         this.#categoryTree.categoryList = r.categoryList;
         tableProduct.innerHTML = this.#htmlBuild();
-  
       }, (ex) => {
         alert(ex);
       }, '/page/productlist');
@@ -163,7 +161,4 @@ export default class pProductList {
     }
     return html;
   }
-
-  //================================================================================================
-  //================================================================================================
 } // class

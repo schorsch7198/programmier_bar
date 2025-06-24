@@ -36,7 +36,6 @@ nav.bg-transparent {
   z-index: 1020;
 }
 
-
 /* when .bottom is applied, pin the gold bar to the bottom of the viewport */
 #firstNavbar.bottom {
   top:    auto;
@@ -48,11 +47,21 @@ nav.bg-transparent {
   bottom: 100%  !important;
 }
 
-
-
 /* when bars are flipped, add bottom padding instead */
 #firstNavbar.bottom ~ body,
 #secondNavbar.bottom ~ body {
   padding-bottom: calc(4rem + 2.5rem);
   padding-top:    0;
+}
+
+/* make the default white carousel arrows black in Light mode */
+body[data-bs-theme="light"] .carousel-control-prev-icon,
+body[data-bs-theme="light"] .carousel-control-next-icon {
+  /* invert the white arrow to black */
+  filter: invert(1) !important;
+}
+/* Light mode: make both the arrows and the Prev/Next text black */
+body[data-bs-theme="light"] .carousel-control-prev,
+body[data-bs-theme="light"] .carousel-control-next {
+  color: #000 !important;       /* text color */
 }

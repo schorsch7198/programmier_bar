@@ -1,12 +1,4 @@
-// import 'bootstrap/dist/js/bootstrap.bundle';
-// import 'bootstrap/dist/js/bootstrap.bundle';
 import bootstrap from 'bootstrap/dist/js/bootstrap.bundle';
-
-// import './../bootstrap/dist/js/bootstrap.bundle';
-// import 'bootstrap/dist/js/bootstrap';
-// import './../node_modules/bootstrap/dist/js/bootstrap.bundle';
-
-
 import dStock from './components/dialogues/d-stock';
 import PageHTML from './p-product-detail.html';
 import categoryTree from './components/category-treeview/category-tree';
@@ -23,23 +15,21 @@ export default class pProductDetail {
   constructor(args) {
     this.#args = args;
     args.target.innerHTML = PageHTML;
-    //-----------------------------------------
-    const textCharcode = args.target.querySelector('#textCharcode');
-    const textName = args.target.querySelector('#textName');
-    const buttonSave = args.target.querySelector('#buttonSave');
-    const alertMessage = args.target.querySelector('#alertMessage');
-    const accordionItem2 = args.target.querySelector('#accordionItem2');
-    const accordionItem3 = args.target.querySelector('#accordionItem3');
-    //----------
+
+    const textCharcode     = args.target.querySelector('#textCharcode');
+    const textName         = args.target.querySelector('#textName');
+    const buttonSave       = args.target.querySelector('#buttonSave');
+    const alertMessage     = args.target.querySelector('#alertMessage');
+    const accordionItem2   = args.target.querySelector('#accordionItem2');
+    const accordionItem3   = args.target.querySelector('#accordionItem3');
     // Stock
-    const collapseTwo = args.target.querySelector('#collapseTwo');
-    const buttonStockPlus = args.target.querySelector('#buttonStockPlus');
+    const collapseTwo      = args.target.querySelector('#collapseTwo');
+    const buttonStockPlus  = args.target.querySelector('#buttonStockPlus');
     const buttonStockMinus = args.target.querySelector('#buttonStockMinus');
-    //----------
     // Filedata
-    const collapseThree = args.target.querySelector('#collapseThree');
-    const rowFiledata = args.target.querySelector('#rowFiledata');
-    const fileFiledata = args.target.querySelector('#fileFiledata');
+    const collapseThree    = args.target.querySelector('#collapseThree');
+    const rowFiledata      = args.target.querySelector('#rowFiledata');
+    const fileFiledata     = args.target.querySelector('#fileFiledata');
     // const containerFiledata = args.target.querySelector('#containerFiledata');
     
     // if (!this.#product.stockList) {
@@ -78,14 +68,6 @@ export default class pProductDetail {
       multiSelect: true,
     });
 
-    //-----------------------------------------
-    // events
-    //-----------------------------------------
-    // buttonSave.addEventListener( 'click', () => {
-
-    //   alertMessage.classList.remove('alert-success', 'alert-danger');
-    //   alertMessage.classList.add('d-none');
-
     //   if (!this.#product) {
     //     this.#product = {
     //       productId: null,
@@ -95,70 +77,48 @@ export default class pProductDetail {
     //   }
 
     //   // Set the name afterward
-    //   this.#product.name = textName.value ? textName.value : null;
     //   // product.charcode = textCharcode.value ? textCharcode.value : null;
 
-    //   if (this.#categoryTree.selCats?.length > 0) {
-    //     this.#product.productCategoryList = this.#categoryTree.selCats.map(c => ({
-    //       categoryId: c.categoryId
-    //     }));
-    //   }
     //   // product.productUid = Date.now().toString();
     //   if (this.#product.stockList && this.#product.stockList.length > 0) {
     //     this.#product.stockList.forEach(entry => delete entry.personNameFull); // optional cleanup
     //   }
 
-    //   args.app.apiSet((r) => {
-    //     alertMessage.innerText = r.message;
-    //     if (r.success) {
-    //       this.#product = r.product;
-    //       alert(r.message);
-    //       window.open('#productdetail?id=' + r.product.productUid, '_self');
-    //       setTimeout(() => alertMessage.classList.add('d-none'), 3000);
-    //        } else {
-    //       alertMessage.classList.add('alert-danger');
-    //       alertMessage.classList.remove('d-none');
-    //     }
-    //   }, (ex) => {
-    //       // if('serviceWorker' in navigator && 'SyncManager' in window) {
-    //       //   navigator.serviceWorker.ready
-    //       //     .then(sw => {
-    //       //       if (product.artikelId == null) 
-    //       //       {
-    //       //         writeData('product-create', product)
-    //       //           .then(() => {
-    //       //             return sw.sync.register('sync-new-product');
-    //       //           })
-    //       //           .then(() => {
-    //       //             writeData('product-cache', product);
-    //       //           })
-    //       //           .catch(function(err) {
-    //       //             console.log(err);
-    //       //           }).finally(()=> {
-    //       //         });
-    //       //       }
-    //       //     else {
-    //       //         writeData('product-update', product)
-    //       //           .then(() => {
-    //       //             return sw.sync.register('sync-updated-product');
-    //       //           })
-    //       //           .then(() => {
-    //       //             deleteItemFromData('product-cache', product.productId);
-    //       //             writeData('product-cache', product);
-    //       //           })
-    //       //           .catch(function(err) {
-    //       //             console.log(err);
-    //       //           }).finally(()=> {
-    //       //         });
-    //       //       }
-    //       //     });
-    //       //   }
+    // }, (ex) => {
+    // if('serviceWorker' in navigator && 'SyncManager' in window) {
+    //   navigator.serviceWorker.ready
+    //     .then(sw => {
+    //       if (product.artikelId == null) 
+    //       {
+    //         writeData('product-create', product)
+    //           .then(() => {
+    //             return sw.sync.register('sync-new-product');
+    //           })
+    //           .then(() => {
+    //             writeData('product-cache', product);
+    //           })
+    //           .catch(function(err) {
+    //             console.log(err);
+    //           }).finally(()=> {
+    //         });
+    //       }
+    //     else {
+    //         writeData('product-update', product)
+    //           .then(() => {
+    //             return sw.sync.register('sync-updated-product');
+    //           })
+    //           .then(() => {
+    //             deleteItemFromData('product-cache', product.productId);
+    //             writeData('product-cache', product);
+    //           })
+    //           .catch(function(err) {
+    //             console.log(err);
+    //           }).finally(()=> {
+    //         });
+    //       }
+    //     });
+    //   }
         
-    //     alertMessage.classList.add('alert-danger');
-    //     alertMessage.classList.remove('d-none');
-    //     alertMessage.innerText = ex;
-    //   }, '/product', this.#product.productId, this.#product);
-    // });
     buttonSave.addEventListener('click', () => {
       alertMessage.classList.remove('alert-success', 'alert-danger');
       alertMessage.classList.add('d-none');
@@ -200,6 +160,7 @@ export default class pProductDetail {
             dateTime
           }));
       }
+      
       // ✅ Send cleaned object
       args.app.apiSet((r) => {
         alertMessage.innerText = r.message;
@@ -337,14 +298,9 @@ export default class pProductDetail {
       }, '/product/' + this.#product.productUid + '/filedata');
     });
 
-
-
-    //-----------------------------------------
     // init
     //-----------------------------------------
-    
     // let networkDataReceived = false;
-
     // if ('indexedDB' in window) {
     //   readItemFromData('product-cache', args.id)
     //     .then(data => {
@@ -387,16 +343,11 @@ export default class pProductDetail {
     }, (ex) => {
       alert(ex);
     }, '/category');
-
-    //-----------------------------------------
-    //-----------------------------------------
   } // constructor
 
-  //================================================================================================
   // private
   //================================================================================================
   #stockListRead(id)  {
-
     const tableStock = this.#args.target.querySelector('#tableStock>tbody');
     const infoTextSum = this.#args.target.querySelector('#infoSum');
 
@@ -453,10 +404,7 @@ export default class pProductDetail {
       </tr>
     `;
   }
-
   tableStock.innerHTML = html;
   infoTextSum.innerText = ga;
 }
-  //================================================================================================
-  //================================================================================================
 } // class

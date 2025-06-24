@@ -12,40 +12,40 @@ import pPersonDetail   from "./p-person-detail";
 import pPersonList     from "./p-person-list";
 
 export default class Application {
-  #header = null;                     // Reference to <header> element
-  #main = null;                       // Reference to <main> element
-  #footer = null;                     // Reference to <footer> element
+  #header = null;
+  #main = null;
+  #footer = null;
   #apiUrl = 'http://localhost:5181';  // Base URL for API requests
-  #user = null;                       // Currently authenticated user
+  #user = null;
 
   constructor() {
-    this.#header = document.querySelector('header');       // Grab header from DOM
-    this.#main = document.querySelector('main');           // Grab main from DOM
-    this.#footer = document.querySelector('footer');       // Grab footer from DOM
+    this.#header = document.querySelector('header');
+    this.#main = document.querySelector('main');
+    this.#footer = document.querySelector('footer');
 
-    window.addEventListener('hashchange', () => {          // Re-run navigation on URL hash change
+    window.addEventListener('hashchange', () => {     // Re-run navigation on URL hash change
       this.#navigate(location.hash);
     });
 
-    if (document.cookie && document.cookie.startsWith('logintoken=')) {   // If login token cookie exists
+    if (document.cookie && document.cookie.startsWith('logintoken=')) {
       this.apiGet((r) => {
-        this.#user = r;                                    // Set user on successful init
-        this.#navigate(location.hash);                     // Navigate after successful init
+        this.#user = r;
+        this.#navigate(location.hash);
       }, (ex) => {
         console.error(ex);
-        this.#navigate('#login');                          // Redirect to login if init fails
+        this.#navigate('#login');
       }, '/page/init');
     } else {
-      this.#navigate(location.hash);                       // Navigate immediately if no token
+      this.#navigate(location.hash);
     }
   } // constructor
 
-  get user() { return this.#user; }               // Getter for user
-  set user(v) { this.#user = v; }                 // Setter for user
-  get apiUrl() { return this.#apiUrl; }            // Getter for API URL
+  get user() { return this.#user; }
+  set user(v) { this.#user = v; }
+  get apiUrl() { return this.#apiUrl; }
 
   #navigate(completeHash) {
-    this.#main.innerHTML = '';                     // Clear main content
+    this.#main.innerHTML = '';        // Clear main content
 
     // if (!this.#user) {
     //   this.#header.innerHTML = '';   // Hide header if not logged in
@@ -53,12 +53,11 @@ export default class Application {
     //   new pNavBar({ target: this.#header, app: this });   // Render navigation bar if user exists
     // }
 
-    // Always render our navbar (even if args.app.user is null)
+    // Always render navbar (even if args.app.user is null)
     this.#header.innerHTML = '';
     new NavBar({ target: this.#header, app: this });
 
     const args = { target: this.#main, app: this }; // Prepare args for page components
-
     const hashParts = completeHash.split('?');      // Separate hash from query parameters
     let hash = completeHash;
     if (hashParts.length > 1) {
@@ -69,7 +68,7 @@ export default class Application {
 
     switch(hash) {
       case '#login':
-        new pLogin(args);                         // Show login page
+        new pLogin(args);
         break;
       case '#productlist':
         // if (this.user) new pProductList(args);    // Show article list if logged in
@@ -83,28 +82,27 @@ export default class Application {
         }
         break;
       case '#categories':
-        if (this.user) new pCategories(args);  // Show category management if logged in
-        else window.open('#login', '_self');                 // Otherwise redirect
+        if (this.user) new pCategories(args);
+        else window.open('#login', '_self');
         break;
       case '#productdetail':
-        if (this.user) new pProductDetail(args);  // Show article detail if logged in
-        else window.open('#login', '_self');         // Otherwise redirect
+        if (this.user) new pProductDetail(args);
+        else window.open('#login', '_self');
         break;
       case '#persondetail':
-        if (this.user) new pPersonDetail(args);   // Show person detail if logged in
-        else window.open('#login', '_self');         // Otherwise redirect
+        if (this.user) new pPersonDetail(args);
+        else window.open('#login', '_self');
         break;
       case '#personlist':
-        if (this.user) new pPersonList(args);     // Show person list if logged in
-        else window.open('#login', '_self');         // Otherwise redirect
+        if (this.user) new pPersonList(args);
+        else window.open('#login', '_self');
         break;
       default:
-        new pMain(args);                          // Default: show main (home) page
+        new pMain(args);     // Default: show main (home) page
         break;
     }
   }
 
-  //============================================================================================================================
   // public methods
   //============================================================================================================================
   apiLogin(successCallback, errorCallback, loginData) {

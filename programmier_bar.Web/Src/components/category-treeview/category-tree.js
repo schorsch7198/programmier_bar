@@ -27,7 +27,6 @@ export default class categoryTree {
         icon.classList.add('bi-chevron-down');
       }
     });
-
     args.target.addEventListener('shown.bs.collapse', (e) => {
       const btn = args.target.querySelector('button[data-bs-target="#' + e.target.id + '"]');
       if (btn) {

@@ -3,22 +3,25 @@
   "WorkspaceRootPath": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbApiControllers\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7D26F582-C30E-41B4-AB31-03FB836F2314}|..\\programmier_bar.dbClassLibrary\\programmier_bar.dbClassLibrary.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbclasslibrary\\stockinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E44C84C7-3AAA-46D0-8CDB-84B23AA2095A}|programmier_bar.dbApiControllers.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbapicontrollers\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E44C84C7-3AAA-46D0-8CDB-84B23AA2095A}|programmier_bar.dbApiControllers.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7D26F582-C30E-41B4-AB31-03FB836F2314}|..\\programmier_bar.dbClassLibrary\\programmier_bar.dbClassLibrary.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbclasslibrary\\stock.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E44C84C7-3AAA-46D0-8CDB-84B23AA2095A}|programmier_bar.dbApiControllers.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbapicontrollers\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E44C84C7-3AAA-46D0-8CDB-84B23AA2095A}|programmier_bar.dbApiControllers.csproj|solutionrelative:controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7D26F582-C30E-41B4-AB31-03FB836F2314}|..\\programmier_bar.dbClassLibrary\\programmier_bar.dbClassLibrary.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbclasslibrary\\productinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E44C84C7-3AAA-46D0-8CDB-84B23AA2095A}|programmier_bar.dbApiControllers.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbapicontrollers\\controllers\\pagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E44C84C7-3AAA-46D0-8CDB-84B23AA2095A}|programmier_bar.dbApiControllers.csproj|solutionrelative:controllers\\pagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D26F582-C30E-41B4-AB31-03FB836F2314}|..\\programmier_bar.dbClassLibrary\\programmier_bar.dbClassLibrary.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbclasslibrary\\categoryinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7D26F582-C30E-41B4-AB31-03FB836F2314}|..\\programmier_bar.dbClassLibrary\\programmier_bar.dbClassLibrary.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbclasslibrary\\productcategory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7D26F582-C30E-41B4-AB31-03FB836F2314}|..\\programmier_bar.dbClassLibrary\\programmier_bar.dbClassLibrary.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbclasslibrary\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7D26F582-C30E-41B4-AB31-03FB836F2314}|..\\programmier_bar.dbClassLibrary\\programmier_bar.dbClassLibrary.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbclasslibrary\\person.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7D26F582-C30E-41B4-AB31-03FB836F2314}|..\\programmier_bar.dbClassLibrary\\programmier_bar.dbClassLibrary.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbclasslibrary\\stockinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7D26F582-C30E-41B4-AB31-03FB836F2314}|..\\programmier_bar.dbClassLibrary\\programmier_bar.dbClassLibrary.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbclasslibrary\\filedatainfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
@@ -27,40 +30,37 @@
       "AbsoluteMoniker": "D:0:0:{7D26F582-C30E-41B4-AB31-03FB836F2314}|..\\programmier_bar.dbClassLibrary\\programmier_bar.dbClassLibrary.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbclasslibrary\\filedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7D26F582-C30E-41B4-AB31-03FB836F2314}|..\\programmier_bar.dbClassLibrary\\programmier_bar.dbClassLibrary.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbclasslibrary\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7D26F582-C30E-41B4-AB31-03FB836F2314}|..\\programmier_bar.dbClassLibrary\\programmier_bar.dbClassLibrary.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbclasslibrary\\categoryinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7D26F582-C30E-41B4-AB31-03FB836F2314}|..\\programmier_bar.dbClassLibrary\\programmier_bar.dbClassLibrary.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbclasslibrary\\dbsqlconnection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{7D26F582-C30E-41B4-AB31-03FB836F2314}|..\\programmier_bar.dbClassLibrary\\programmier_bar.dbClassLibrary.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbclasslibrary\\dbsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E44C84C7-3AAA-46D0-8CDB-84B23AA2095A}|programmier_bar.dbApiControllers.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbapicontrollers\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E44C84C7-3AAA-46D0-8CDB-84B23AA2095A}|programmier_bar.dbApiControllers.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7D26F582-C30E-41B4-AB31-03FB836F2314}|..\\programmier_bar.dbClassLibrary\\programmier_bar.dbClassLibrary.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbclasslibrary\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E44C84C7-3AAA-46D0-8CDB-84B23AA2095A}|programmier_bar.dbApiControllers.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbapicontrollers\\controllers\\stockcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E44C84C7-3AAA-46D0-8CDB-84B23AA2095A}|programmier_bar.dbApiControllers.csproj|solutionrelative:controllers\\stockcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7D26F582-C30E-41B4-AB31-03FB836F2314}|..\\programmier_bar.dbClassLibrary\\programmier_bar.dbClassLibrary.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbclasslibrary\\stock.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E44C84C7-3AAA-46D0-8CDB-84B23AA2095A}|programmier_bar.dbApiControllers.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbapicontrollers\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E44C84C7-3AAA-46D0-8CDB-84B23AA2095A}|programmier_bar.dbApiControllers.csproj|solutionrelative:controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7D26F582-C30E-41B4-AB31-03FB836F2314}|..\\programmier_bar.dbClassLibrary\\programmier_bar.dbClassLibrary.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbclasslibrary\\person.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E44C84C7-3AAA-46D0-8CDB-84B23AA2095A}|programmier_bar.dbApiControllers.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbapicontrollers\\controllers\\personcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E44C84C7-3AAA-46D0-8CDB-84B23AA2095A}|programmier_bar.dbApiControllers.csproj|solutionrelative:controllers\\personcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7D26F582-C30E-41B4-AB31-03FB836F2314}|..\\programmier_bar.dbClassLibrary\\programmier_bar.dbClassLibrary.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbclasslibrary\\productinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D26F582-C30E-41B4-AB31-03FB836F2314}|..\\programmier_bar.dbClassLibrary\\programmier_bar.dbClassLibrary.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbclasslibrary\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D26F582-C30E-41B4-AB31-03FB836F2314}|..\\programmier_bar.dbClassLibrary\\programmier_bar.dbClassLibrary.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbclasslibrary\\dbsqlconnection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E44C84C7-3AAA-46D0-8CDB-84B23AA2095A}|programmier_bar.dbApiControllers.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbapicontrollers\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E44C84C7-3AAA-46D0-8CDB-84B23AA2095A}|programmier_bar.dbApiControllers.csproj|solutionrelative:controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E44C84C7-3AAA-46D0-8CDB-84B23AA2095A}|programmier_bar.dbApiControllers.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbapicontrollers\\controllers\\pagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E44C84C7-3AAA-46D0-8CDB-84B23AA2095A}|programmier_bar.dbApiControllers.csproj|solutionrelative:controllers\\pagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E44C84C7-3AAA-46D0-8CDB-84B23AA2095A}|programmier_bar.dbApiControllers.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbapicontrollers\\controllers\\stockcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E44C84C7-3AAA-46D0-8CDB-84B23AA2095A}|programmier_bar.dbApiControllers.csproj|solutionrelative:controllers\\stockcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E44C84C7-3AAA-46D0-8CDB-84B23AA2095A}|programmier_bar.dbApiControllers.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbapicontrollers\\controllers\\personcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E44C84C7-3AAA-46D0-8CDB-84B23AA2095A}|programmier_bar.dbApiControllers.csproj|solutionrelative:controllers\\personcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E44C84C7-3AAA-46D0-8CDB-84B23AA2095A}|programmier_bar.dbApiControllers.csproj|c:\\users\\administrator\\onedrive\\projekt\\programmier_bar\\programmier_bar.dbapicontrollers\\controllers\\filedatacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -74,8 +74,12 @@
       "DocumentGroups": [
         {
           "DockedHeight": 306,
-          "SelectedChildIndex": 16,
+          "SelectedChildIndex": 13,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 18,
@@ -86,51 +90,50 @@
               "RelativeToolTip": "Controllers\\FiledataController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-20T02:02:12.13Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-20T02:02:12.13Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 2,
               "Title": "PageController.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbApiControllers\\Controllers\\PageController.cs",
               "RelativeDocumentMoniker": "Controllers\\PageController.cs",
               "ToolTip": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbApiControllers\\Controllers\\PageController.cs",
               "RelativeToolTip": "Controllers\\PageController.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAqwDkAAAApAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-10T14:29:08.997Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 1,
               "Title": "ProductController.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbApiControllers\\Controllers\\ProductController.cs",
               "RelativeDocumentMoniker": "Controllers\\ProductController.cs",
               "ToolTip": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbApiControllers\\Controllers\\ProductController.cs",
               "RelativeToolTip": "Controllers\\ProductController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAPoAAAAEAAAAAAAAAA==",
+              "ViewState": "AgIAABYAAAAAAAAAAAAgwA0AAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-10T12:28:41.749Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 17,
               "Title": "PersonController.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbApiControllers\\Controllers\\PersonController.cs",
               "RelativeDocumentMoniker": "Controllers\\PersonController.cs",
               "ToolTip": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbApiControllers\\Controllers\\PersonController.cs",
               "RelativeToolTip": "Controllers\\PersonController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-07T22:27:38.199Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 16,
               "Title": "StockController.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbApiControllers\\Controllers\\StockController.cs",
               "RelativeDocumentMoniker": "Controllers\\StockController.cs",
@@ -138,12 +141,11 @@
               "RelativeToolTip": "Controllers\\StockController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAFAAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-15T16:10:39.016Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-15T16:10:39.016Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 15,
               "Title": "CategoryController.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbApiControllers\\Controllers\\CategoryController.cs",
               "RelativeDocumentMoniker": "Controllers\\CategoryController.cs",
@@ -151,12 +153,11 @@
               "RelativeToolTip": "Controllers\\CategoryController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAGYAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-15T12:20:56.403Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-15T12:20:56.403Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 14,
               "Title": "DbSqlConnection.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbClassLibrary\\DbSqlConnection.cs",
               "RelativeDocumentMoniker": "..\\programmier_bar.dbClassLibrary\\DbSqlConnection.cs",
@@ -164,12 +165,11 @@
               "RelativeToolTip": "..\\programmier_bar.dbClassLibrary\\DbSqlConnection.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-03T15:26:19.942Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-03T15:26:19.942Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 13,
               "Title": "Product.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbClassLibrary\\Product.cs",
               "RelativeDocumentMoniker": "..\\programmier_bar.dbClassLibrary\\Product.cs",
@@ -177,12 +177,11 @@
               "RelativeToolTip": "..\\programmier_bar.dbClassLibrary\\Product.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-09T18:48:23.513Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-09T18:48:23.513Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 12,
               "Title": "ProductInfo.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbClassLibrary\\ProductInfo.cs",
               "RelativeDocumentMoniker": "..\\programmier_bar.dbClassLibrary\\ProductInfo.cs",
@@ -190,25 +189,23 @@
               "RelativeToolTip": "..\\programmier_bar.dbClassLibrary\\ProductInfo.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-14T18:32:40.266Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-14T18:32:40.266Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 11,
               "Title": "Person.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbClassLibrary\\Person.cs",
               "RelativeDocumentMoniker": "..\\programmier_bar.dbClassLibrary\\Person.cs",
               "ToolTip": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbClassLibrary\\Person.cs",
               "RelativeToolTip": "..\\programmier_bar.dbClassLibrary\\Person.cs",
-              "ViewState": "AgIAAEUBAAAAAAAAAADwv0wBAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEwBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-08T23:19:08.047Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-08T23:19:08.047Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 10,
               "Title": "Stock.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbClassLibrary\\Stock.cs",
               "RelativeDocumentMoniker": "..\\programmier_bar.dbClassLibrary\\Stock.cs",
@@ -216,12 +213,11 @@
               "RelativeToolTip": "..\\programmier_bar.dbClassLibrary\\Stock.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAIwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-14T18:15:30.821Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-14T18:15:30.821Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "Category.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbClassLibrary\\Category.cs",
               "RelativeDocumentMoniker": "..\\programmier_bar.dbClassLibrary\\Category.cs",
@@ -229,25 +225,24 @@
               "RelativeToolTip": "..\\programmier_bar.dbClassLibrary\\Category.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-14T18:26:20.925Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-14T18:26:20.925Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbApiControllers\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbApiControllers\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAACAAAAAAAAAA==",
+              "ViewState": "AgIAABsAAAAAAAAAAAAgwCwAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-03T13:32:08.494Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 8,
               "Title": "DbSettings.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbClassLibrary\\DbSettings.cs",
               "RelativeDocumentMoniker": "..\\programmier_bar.dbClassLibrary\\DbSettings.cs",
@@ -255,8 +250,7 @@
               "RelativeToolTip": "..\\programmier_bar.dbClassLibrary\\DbSettings.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-10T19:43:49.843Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-10T19:43:49.843Z"
             },
             {
               "$type": "Document",
@@ -268,8 +262,7 @@
               "RelativeToolTip": "..\\programmier_bar.dbClassLibrary\\Filedata.cs",
               "ViewState": "AgIAAAIAAAAAAAAAAAAUwEAAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-14T18:28:16.462Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-14T18:28:16.462Z"
             },
             {
               "$type": "Document",
@@ -281,38 +274,35 @@
               "RelativeToolTip": "..\\programmier_bar.dbClassLibrary\\FiledataInfo.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-16T12:54:06.717Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-16T12:54:06.717Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "StockInfo.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbClassLibrary\\StockInfo.cs",
               "RelativeDocumentMoniker": "..\\programmier_bar.dbClassLibrary\\StockInfo.cs",
-              "ToolTip": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbClassLibrary\\StockInfo.cs*",
-              "RelativeToolTip": "..\\programmier_bar.dbClassLibrary\\StockInfo.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAlAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbClassLibrary\\StockInfo.cs",
+              "RelativeToolTip": "..\\programmier_bar.dbClassLibrary\\StockInfo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-16T12:54:40.146Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-16T12:54:40.146Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "ProductCategory.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbClassLibrary\\ProductCategory.cs",
               "RelativeDocumentMoniker": "..\\programmier_bar.dbClassLibrary\\ProductCategory.cs",
               "ToolTip": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbClassLibrary\\ProductCategory.cs",
               "RelativeToolTip": "..\\programmier_bar.dbClassLibrary\\ProductCategory.cs",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAswDMAAAAHAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADMAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-14T18:31:40.86Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-14T18:31:40.86Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 3,
               "Title": "CategoryInfo.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\OneDrive\\Projekt\\programmier_bar\\programmier_bar.dbClassLibrary\\CategoryInfo.cs",
               "RelativeDocumentMoniker": "..\\programmier_bar.dbClassLibrary\\CategoryInfo.cs",
@@ -320,8 +310,7 @@
               "RelativeToolTip": "..\\programmier_bar.dbClassLibrary\\CategoryInfo.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-23T00:37:52.357Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-23T00:37:52.357Z"
             }
           ]
         }

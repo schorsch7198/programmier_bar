@@ -77,8 +77,6 @@ export default class NavBar {
 			localStorage.setItem('theme', currentTheme);
 		});
 
-
-
 		let flipped = false;
 		navbarToggleBtn.addEventListener('click', () => {
 			flipped = !flipped;
@@ -86,7 +84,7 @@ export default class NavBar {
 			const goldHeight = firstNav.getBoundingClientRect().height;
 			// flip the gold bar
 			firstNav .classList.toggle('bottom', flipped);
-			// for the blue bar, flip AND dynamically pin it above the gold bar
+			// for the second bar, flip AND dynamically pin it above the gold bar
 			secondNav.classList.toggle('bottom', flipped);
 			if (flipped) {
 				secondNav.style.bottom = `${goldHeight}px`;

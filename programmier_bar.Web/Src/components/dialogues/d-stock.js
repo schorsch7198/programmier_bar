@@ -25,14 +25,6 @@ export default class dStock {
     this.#textNote = this.#args.target.querySelector('#textNoteModalStock');
     const buttonSave = this.#args.target.querySelector('#buttonSaveModalStock');
 
-    //----------------------------------------------------
-    // buttonSave.addEventListener( 'click', () => {
-
-    //   this.#stock = {
-    //     stockId: null,
-    //     productId: this.#product.productId
-    //   };
-
     //   // if (numberAmount.value) {
     //   //   this.#stock.amount = (this.#modus == 'p') 
     //   //     ? parseInt(numberAmount.value) 
@@ -70,28 +62,23 @@ export default class dStock {
     //     }
     //   }
 
-    //   // ✅ FIX: remove focus to prevent aria-hidden warning
-    //   document.activeElement?.blur();
-    //   setTimeout(() => this.#modal.hide(), 50);
-
-    //   // args.app.apiSet(() => {
-    //   //   // if (r.success) {
-    //   //   //   if (args.saveClick && typeof args.saveClick === 'function') args.saveClick();
-    //   //   //   // buttonSave.blur();
-    //   //   //   setTimeout(() => this.#modal.hide(), 50);
-    //   //   // }
-    //   //   if (!this.#stock.dateTime) {
-    //   //   this.#stock.dateTime = new Date().toISOString();  // mimic backend-generated timestamp
-    //   //   }
-    //   //   if (args.addStockToProduct && typeof args.addStockToProduct === 'function') {
-    //   //       args.addStockToProduct(this.#stock);
-    //   //     }
-    //   //     this.#modal.hide();
-    //   // }, (ex) => {
-    //   //   alert(ex);
-    //   // }, '/stock', this.#stock.stockId, this.#stock);
-    //   // this.#modal.hide();
-    // });
+    // args.app.apiSet(() => {
+    //   // if (r.success) {
+    //   //   if (args.saveClick && typeof args.saveClick === 'function') args.saveClick();
+    //   //   // buttonSave.blur();
+    //   //   setTimeout(() => this.#modal.hide(), 50);
+    //   // }
+    //   if (!this.#stock.dateTime) {
+    //   this.#stock.dateTime = new Date().toISOString();  // mimic backend-generated timestamp
+    //   }
+    //   if (args.addStockToProduct && typeof args.addStockToProduct === 'function') {
+    //       args.addStockToProduct(this.#stock);
+    //     }
+    //     this.#modal.hide();
+    // }, (ex) => {
+    //   alert(ex);
+    // }, '/stock', this.#stock.stockId, this.#stock);
+    // this.#modal.hide();
     buttonSave.addEventListener('click', () => {
       // debugger;
       this.#stock = {
@@ -106,15 +93,11 @@ export default class dStock {
       if (!this.#stock.dateTime) {
         this.#stock.dateTime = new Date().toISOString();
       }
-
-      // ✅ Just pass it back – let parent handle cleanup
       if (args.addStockToProduct && typeof args.addStockToProduct === 'function') {
         const stockClone = JSON.parse(JSON.stringify(this.#stock));
         args.addStockToProduct(stockClone);
         this.#stock = null;
       }
-
-      // ✅ Optional: remove focus to avoid modal warning
       document.activeElement?.blur();
       setTimeout(() => this.#modal.hide(), 50);
     });
@@ -122,7 +105,6 @@ export default class dStock {
   }
   //==========================================================================================================
   show(args) {
-
     if (args) {
       if (args.product) this.#product = args.product;
       if (args.modus) this.#modus = args.modus;

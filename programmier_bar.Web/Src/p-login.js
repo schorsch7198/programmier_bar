@@ -58,49 +58,11 @@ export default class pLogin {
       localStorage.setItem('programmier_bar-logindata', JSON.stringify(p));
     }
 
-    // if (textUsername.value && textPassword.value) {
-    //   const loginData = new FormData();
-    //   loginData.append('username', textUsername.value);
-    //   loginData.append('password', textPassword.value);
-
     //   // log out the pairs so you can see them in DevTools - for seeing username/password in browser console
     //   for (const [key, val] of loginData.entries()) {
     //     console.log(key, val);
     //   }
 
-    //   //   this.#args.app.apiLogin((r) => {
-    //   //     if (r.success) {
-    //   //       localStorage.setItem('programmier_bar-token', r.loginToken);
-    //   //       this.#args.app.user = r.person;
-    //   //       window.open('#productlist', '_self');
-    //   //     } else {
-    //   //       alertMessage.innerText = r.message;
-    //   //       alertMessage.classList.remove('d-none');
-    //   //     }
-    //   //   }, (ex) => {
-    //   //     alert(ex);
-    //   //   }, loginData);
-    //   // }
-
-    //   if (textUsername.value && textPassword.value) {
-    //     const loginBody = new URLSearchParams();
-    //     loginBody.append('username', textUsername.value);
-    //     loginBody.append('password', textPassword.value);
-
-    //     this.#args.app.apiLogin((r) => {
-    //       if (r.success) {
-    //         this.#args.app.user = r.person;
-    //         // window.open('#productlist', '_self');
-    //         location.hash = 'productlist';
-    //       } else {
-    //         alertMessage.innerText = r.message;
-    //         alertMessage.classList.remove('d-none');
-    //       }
-    //     }, (ex) => {
-    //       alert(ex);
-    //     }, loginBody);
-    //   }
-    // }
 
     if (textUsername.value && textPassword.value) {
       const loginData = new FormData();
@@ -109,6 +71,7 @@ export default class pLogin {
 
       this.#args.app.apiLogin((r) => {
         if (r.success) {
+//       localStorage.setItem('programmier_bar-token', r.loginToken);
           this.#args.app.user = r.person;
           if (r.person.roleNumber === 0) {
             window.open("#main", '_self');

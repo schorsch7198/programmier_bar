@@ -12,26 +12,26 @@ export default class pPersonDetail{
     args.target.innerHTML = PageHTML;
 
     //------------------------------------------------------------
-    const filePic = args.target.querySelector('#filePic');
-    const imgPic = args.target.querySelector('#imgPic');
-    const textTitlePre = args.target.querySelector('#textTitlePre');
-    const textForename = args.target.querySelector('#textForename');
-    const textSurname = args.target.querySelector('#textSurname');
+    const filePic       = args.target.querySelector('#filePic');
+    const imgPic        = args.target.querySelector('#imgPic');
+    const textTitlePre  = args.target.querySelector('#textTitlePre');
+    const textForename  = args.target.querySelector('#textForename');
+    const textSurname   = args.target.querySelector('#textSurname');
     const textTitlePost = args.target.querySelector('#textTitlePost');
-    const numberDigit = args.target.querySelector('#numberDigit');
+    const numberDigit   = args.target.querySelector('#numberDigit');
     const textLoginName = args.target.querySelector('#textLoginName');
     const passwordPassword = args.target.querySelector('#passwordPassword');
-    const buttonSave = args.target.querySelector('#buttonSave');
+    const buttonSave    = args.target.querySelector('#buttonSave');
 
-    this.video = document.getElementById('player');
-    this.canvas = document.getElementById('canvas');
-    this.capture = document.getElementById('capture-button');
+    this.video    = document.getElementById('player');
+    this.canvas   = document.getElementById('canvas');
+    this.capture  = document.getElementById('capture-button');
 
-    const rowAdmin = args.target.querySelector('#rowAdmin');
-    const selectRole = args.target.querySelector('#selectRole');
+    const rowAdmin      = args.target.querySelector('#rowAdmin');
+    const selectRole    = args.target.querySelector('#selectRole');
     const textLoginLast = args.target.querySelector('#textLoginLast');
 
-    const alertMessage = args.target.querySelector('#alertMessage');
+    const alertMessage  = args.target.querySelector('#alertMessage');
 
 
     let person = null;
@@ -72,35 +72,33 @@ export default class pPersonDetail{
           // personId: ''
         };
       }
-
-      person.personId = person.personId ?? args.id ? parseInt(args.id) : null;
-
       // person.titlePre = textTitlePre.value ? textTitlePre.value : null;
-      person.titlePre = textTitlePre.value || '';
-      person.forename = textForename.value ? textForename.value : null;
-      person.surname = textSurname.value ? textSurname.value : null;
       // person.titlePost = textTitlePost.value ? textTitlePost.value : null;
-      person.titlePost = textTitlePost.value || '';
-      person.digit = numberDigit.value ? parseInt(numberDigit.value) : null;
-      person.loginName = textLoginName.value ? textLoginName.value   : null;
       // person.passwordPassword = passwordPassword.value || '';
+
+      person.personId   = person.personId ?? args.id ? parseInt(args.id) : null;
+      person.titlePre   = textTitlePre.value || '';
+      person.forename   = textForename.value ? textForename.value : null;
+      person.surname    = textSurname.value ? textSurname.value : null;
+      person.titlePost  = textTitlePost.value || '';
+      person.digit      = numberDigit.value ? parseInt(numberDigit.value) : null;
+      person.loginName  = textLoginName.value ? textLoginName.value   : null;
       person.roleNumber = parseInt(selectRole.value);
-
-      person.roleText = selectRole.options[selectRole.selectedIndex]?.text || '';
-      // person.loginToken = person.loginToken || ''; // required but empty is fine
-
-      if (passwordPassword.value && passwordPassword.value != '##########') person.password = passwordPassword.value;
+      person.roleText   = selectRole.options[selectRole.selectedIndex]?.text || '';
+      if (passwordPassword.value && passwordPassword.value != '##########') 
+        person.password = passwordPassword.value;
       person.picType = person.picType || 'image/png'; // fallback if none
-      if (imgPic.dataset.pic == 'ok') person.picStr = imgPic.src;
-      // if (!person.picString && imgPic.src && imgPic.src.startsWith('data:')) {
-      //   person.picString = imgPic.src;
-      //   imgPic.dataset.pic = 'ok';
-      // }
+      if (imgPic.dataset.pic == 'ok') person.picString = imgPic.src;
 
       args.app.apiSet((r) => {
         alertMessage.innerText = r.message;
         if (r.success) {
           person = r.person;
+
+          if (person.picString) {
+            imgPic.src         = person.picString;
+            imgPic.dataset.pic = 'ok';
+          }
           alertMessage.classList.remove('d-none');
           alertMessage.classList.add('alert-success');
           setTimeout(() => alertMessage.classList.add('d-none'), 3000);
@@ -116,7 +114,6 @@ export default class pPersonDetail{
       }, '/person', person.personId, person);
     });
 
-    //------------------------------------------------------------
     // init
     //------------------------------------------------------------
     if (args.app.user.roleNumber == 2) {
@@ -124,42 +121,30 @@ export default class pPersonDetail{
       numberDigit.readOnly = false;
     }
 
-
     if (args.id) {
       args.app.apiGet((r) => {
         person = r;
-
-        // if (person.picString) {
-        //   imgPic.src = person.picString;
-        //   imgPic.dataset.pic = 'ok';
-        // }
-        if (imgPic.dataset.pic === 'ok' && imgPic.src && imgPic.src.startsWith('data:image/')) {
-          person.picString = imgPic.src;
+        if (person.picString) {
+          imgPic.src            = person.picString;
+          imgPic.dataset.pic    = '';
         }
-        textTitlePre.value = person.titlePre ?  person.titlePre : '';
-        textForename.value = person.forename ? person.forename : '';
-        textSurname.value = person.surname ? person.surname : '';
-        textTitlePost.value = person.titlePost ?  person.titlePost : '';
-        numberDigit.value = person.digit ? person.digit : '';
-        textLoginName.value = person.loginName ? person.loginName : '';
-        selectRole.value = person.roleNumber ? person.roleNumber : '0';
-        textLoginLast.value = person.loginLast ? args.app.formatDate(person.loginLast) : 'never';
-
+        textTitlePre.value  = person.titlePre   ?  person.titlePre : '';
+        textForename.value  = person.forename   ?  person.forename : '';
+        textSurname.value   = person.surname    ?  person.surname : '';
+        textTitlePost.value = person.titlePost  ?  person.titlePost : '';
+        numberDigit.value   = person.digit      ?  person.digit : '';
+        textLoginName.value = person.loginName  ?  person.loginName : '';
+        selectRole.value    = person.roleNumber ?  person.roleNumber : '0';
+        textLoginLast.value = person.loginLast  ?  args.app.formatDate(person.loginLast) : 'never';
         if (person.passwordSet) passwordPassword.value = '##########';
-
       }, (ex) =>  {
         alert(ex);
       }, '/person/' + args.id);
-
     }
     // this.initializeMedia();
 
-
-    //------------------------------------------------------------
-    //------------------------------------------------------------
   } // constructor
 
-  //======================================================================================================================================
   // private methods
   //======================================================================================================================================
   #picRead(data) {
@@ -176,7 +161,6 @@ export default class pPersonDetail{
     if (!('mediaDevices' in navigator)) {
       navigator.mediaDevices = {};
     }
-
     if (!('getUserMedia' in navigator.mediaDevices)) {
       navigator.mediaDevices.getUserMedia = function(constraints) {
         var getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
@@ -184,13 +168,11 @@ export default class pPersonDetail{
         if (!getUserMedia) {
           return Promise.reject(new Error('getUserMedia is not implemented!'));
         }
-
         return new Promise(function(resolve, reject) {
           getUserMedia.call(navigator, constraints, resolve, reject);
         });
       };
     }
-
     navigator.mediaDevices.getUserMedia({ video: true, audio: false})
       .then(stream => {
         this.video.srcObject = stream;
