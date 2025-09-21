@@ -40,8 +40,6 @@ CREATE SCHEMA IF NOT EXISTS assortment;
 GRANT USAGE ON SCHEMA assortment TO "barAdmin";
 
 
-
-
 -- ************************************************
 -- OBJECT: PERSON
 -- ************************************************
