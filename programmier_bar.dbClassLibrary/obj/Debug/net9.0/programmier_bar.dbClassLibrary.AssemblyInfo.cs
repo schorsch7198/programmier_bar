@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("programmier_bar.dbClassLibrary")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+499ff6a83fb6cb349e5357d67a4f1c8f8d73ce7b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cae28a0c51b730cc365c35c7255c02b68aad61cf")]
 [assembly: System.Reflection.AssemblyProductAttribute("programmier_bar.dbClassLibrary")]
 [assembly: System.Reflection.AssemblyTitleAttribute("programmier_bar.dbClassLibrary")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
