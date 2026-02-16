@@ -1,0 +1,10 @@
+programmier_bar_webapi  | warn: Microsoft.AspNetCore.Hosting.Diagnostics[15]
+programmier_bar_webapi  |       Overriding HTTP_PORTS '8080' and HTTPS_PORTS ''. Binding to values defined by URLS instead 'http://+:80'.
+programmier_bar_webapi  | info: Microsoft.Hosting.Lifetime[14]
+programmier_bar_webapi  |       Now listening on: http://[::]:80
+programmier_bar_webapi  | info: Microsoft.Hosting.Lifetime[0]
+programmier_bar_webapi  |       Application started. Press Ctrl+C to shut down.
+programmier_bar_webapi  | info: Microsoft.Hosting.Lifetime[0]
+programmier_bar_webapi  |       Hosting environment: Development
+programmier_bar_webapi  | info: Microsoft.Hosting.Lifetime[0]
+programmier_bar_webapi  |       Content root path: /app
