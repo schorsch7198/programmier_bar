@@ -16,7 +16,6 @@ C:\Users\Administrator\OneDrive\Projekt\programmier_bar\programmier_bar.dbApiCon
 C:\Users\Administrator\OneDrive\Projekt\programmier_bar\programmier_bar.dbApiControllers\obj\Debug\net9.0\staticwebassets.build.json.cache
 C:\Users\Administrator\OneDrive\Projekt\programmier_bar\programmier_bar.dbApiControllers\obj\Debug\net9.0\staticwebassets.development.json
 C:\Users\Administrator\OneDrive\Projekt\programmier_bar\programmier_bar.dbApiControllers\obj\Debug\net9.0\staticwebassets.build.endpoints.json
-C:\Users\Administrator\OneDrive\Projekt\programmier_bar\programmier_bar.dbApiControllers\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 C:\Users\Administrator\OneDrive\Projekt\programmier_bar\programmier_bar.dbApiControllers\obj\Debug\net9.0\programmier_bar.dbApiControllers.dll
 C:\Users\Administrator\OneDrive\Projekt\programmier_bar\programmier_bar.dbApiControllers\obj\Debug\net9.0\refint\programmier_bar.dbApiControllers.dll
 C:\Users\Administrator\OneDrive\Projekt\programmier_bar\programmier_bar.dbApiControllers\obj\Debug\net9.0\programmier_bar.dbApiControllers.pdb
@@ -37,3 +36,4 @@ C:\Users\Administrator\OneDrive\Projekt\programmier_bar\programmier_bar.dbApiCon
 C:\Users\Administrator\OneDrive\Projekt\programmier_bar\programmier_bar.dbApiControllers\obj\Debug\net9.0\rjsmrazor.dswa.cache.json
 C:\Users\Administrator\OneDrive\Projekt\programmier_bar\programmier_bar.dbApiControllers\obj\Debug\net9.0\rjsmcshtml.dswa.cache.json
 C:\Users\Administrator\OneDrive\Projekt\programmier_bar\programmier_bar.dbApiControllers\obj\Debug\net9.0\programmier_bar.dbApiControllers.sourcelink.json
+C:\Users\Administrator\OneDrive\Projekt\programmier_bar\programmier_bar.dbApiControllers\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
