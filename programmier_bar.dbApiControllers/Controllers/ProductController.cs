@@ -38,22 +38,20 @@ namespace programmier_bar.DataApiControllers.Controllers
 			return result;
 		}
 
-		// GET (single) Product
+		// GET (single) Product — public; storefront catalog needs this without auth.
 		[HttpGet("{id}")]
 		public IActionResult Get(string id)
 		{
 			IActionResult result = null;
 			try
 			{
-				Person user = Person.Get(this);
-				if (user != null)
+				Product product = Product.Get(id);
+				if (product == null) result = NotFound();
+				else
 				{
-					Product product = Product.Get(id);
 					product.ProductCategoryList = ProductCategory.GetList(product);
-					if (product == null) result = NotFound();
-					else result = Ok(product);
+					result = Ok(product);
 				}
-				else result = Unauthorized();
 			}
 			catch (Exception ex)
 			{

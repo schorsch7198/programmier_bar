@@ -84,6 +84,9 @@ export default class NavBar {
 		this.#refreshBadge();
 		window.addEventListener('cart:changed', this.#refreshBadge);
 
+		// ─── DYNAMIC CATEGORY DROPDOWNS (second nav-bar) ────────────────────
+		this.#renderCategoryDropdowns(args);
+
 
 		// ─── THEME TOGGLE SETUP ─────────────────────────────────────────────
 		const themeToggleBtn  = args.target.querySelector('#themeToggle');
@@ -204,5 +207,56 @@ export default class NavBar {
 			window.removeEventListener('cart:changed', this.#refreshBadge);
 			this.#refreshBadge = null;
 		}
+	}
+
+	// Populate #navbarCategories from the category table. Top-level → dropdown buttons,
+	// their direct children → dropdown items. Top-level click navigates to the listing
+	// (per the design choice); CSS makes the dropdown open on hover (desktop) / show
+	// inline (mobile).
+	#renderCategoryDropdowns(args) {
+		args.app.apiGet((categories) => {
+			const list = Array.isArray(categories) ? categories : [];
+			const top = list
+				.filter((c) => c.categoryRefId == null)
+				.sort((a, b) => (a.ranking ?? 0) - (b.ranking ?? 0));
+
+			const ul = args.target.querySelector('#navbarCategories');
+			if (!ul || top.length === 0) return;
+			ul.innerHTML = '';
+
+			for (const t of top) {
+				const children = list
+					.filter((c) => c.categoryRefId === t.categoryId)
+					.sort((a, b) => (a.ranking ?? 0) - (b.ranking ?? 0));
+
+				const itemsHtml = children.length > 0
+					? children
+						.map((ch) =>
+							`<li><a class="dropdown-item" href="#shop?cat=${ch.categoryId}">` +
+							`${this.#escape(ch.name)}</a></li>`)
+						.join('')
+					: '<li><span class="dropdown-item text-muted small">No subcategories</span></li>';
+
+				const li = document.createElement('li');
+				li.className = 'nav-item dropdown';
+				li.innerHTML = `
+					<a class="nav-link dropdown-toggle" href="#shop?cat=${t.categoryId}">
+						${this.#escape(t.name)}
+					</a>
+					<ul class="dropdown-menu">
+						${itemsHtml}
+					</ul>
+				`;
+				ul.appendChild(li);
+			}
+		}, () => { /* silently leave empty on error */ }, '/category');
+	}
+
+	#escape(str) {
+		return String(str)
+			.replace(/&/g, '&amp;')
+			.replace(/</g, '&lt;')
+			.replace(/>/g, '&gt;')
+			.replace(/"/g, '&quot;');
 	}
 }

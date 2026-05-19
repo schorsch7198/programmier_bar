@@ -62,3 +62,22 @@ body[data-bs-theme="light"] .carousel-control-prev,
 body[data-bs-theme="light"] .carousel-control-next {
   color: #000 !important;       /* text color */
 }
+
+/* Dynamic category dropdowns in the second nav-bar:
+   - Desktop (>= lg): open on hover, top-level click navigates to that category's listing.
+   - Mobile (< lg): show subcategories inline since hover isn't available. */
+@media (min-width: 992px) {
+  #navbarCategories .nav-item.dropdown:hover > .dropdown-menu {
+    display: block;
+    margin-top: 0;
+  }
+}
+@media (max-width: 991.98px) {
+  #navbarCategories .dropdown-menu {
+    display: block;
+    position: static;
+    border: 0;
+    box-shadow: none;
+    padding-left: 1rem;
+  }
+}

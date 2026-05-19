@@ -135,93 +135,34 @@
       style="top: 6rem; width:100%;"
       id="secondNavbar">
   <div class="container">
-    <a  class="navbar-brand" 
-        href="#"></a>
-    </a>
-  <button class="navbar-toggler btn btn-primary" 
-          type="button" 
-          data-bs-toggle="collapse" 
-          data-bs-target="#navbarContent">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div 	class="collapse navbar-collapse"
-        id="navbarContent">
-    <ul class="navbar-nav mb-2 mb-lg-0">	
-      <li class="nav-item dropdown">
-        <a 	class="nav-link dropdown-toggle" 
-            href="#" 
-            role="button" 
-            data-bs-toggle="dropdown">
-            Drinks</a>
-        <ul class="dropdown-menu">
-          <li><a 	class="dropdown-item" 
-                  href="#">
-                  Cocktails</a></li>
-          <li><a 	class="dropdown-item" 
-                  href="#">
-                  default Drinks</a></li>
-          <li><a 	class="dropdown-item" 
-                  href="#">
-                  Anti-Alcoholics</a></li>
-          </ul>
-      </li>
-      <li class="nav-item dropdown">
-        <a 	class="nav-link dropdown-toggle" 
-            href="#" 
-            role="button" 
-            data-bs-toggle="dropdown">
-            Tapas
-        </a>
-        <ul class="dropdown-menu">
-          <li><a 	class="dropdown-item" 
-                  href="#">
-                  Meat</a></li>
-          <li><a 	class="dropdown-item" 
-                  href="#">
-                  Fish</a></li>
-          <li><a 	class="dropdown-item" 
-                  href="#">
-                  Veggie</a></li>
-          <li><a 	class="dropdown-item" 
-                  href="#">
-                  Sweeties</a></li>
-        </ul>
-      </li>
-      <li class="nav-item dropdown">
-        <a 	class="nav-link dropdown-toggle" 
-            href="#" 
-            role="button" 
-            data-bs-toggle="dropdown">
-            Merch 
-        </a>
-        <ul class="dropdown-menu">
-          <li><a 	class="dropdown-item" 
-                  href="#">
-                  Shirts</a></li>
-          <li><a 	class="dropdown-item" 
-                  href="#">
-                  Hoodies</a></li>
-          <li><a 	class="dropdown-item" 
-                  href="#">
-                  Posters</a></li>
-          <li><a 	class="dropdown-item" 
-                  href="#">
-                  Stickers</a></li>
-        </ul>
-      </li>
-      <li class="nav-item dropdown"></li>
-    </ul>
-    <form class="d-flex ms-auto" 
-          role="search" 
-          onsubmit="return handleSearch(event)">
-      <input 	class="form-control me-2" 
-              type="search" 
-              placeholder="Search..." 
-              aria-label="Search" 
-              id="searchInput">
-      <button class="btn btn-light" 
-              type="submit">
-              Search</button>
-    </form>
+    <a  class="navbar-brand"
+        href="#shop"></a>
+    <button class="navbar-toggler btn btn-primary"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse"
+         id="navbarContent">
+      <!-- Top-level categories rendered dynamically by nav-bar.js -->
+      <ul class="navbar-nav mb-2 mb-lg-0" id="navbarCategories"></ul>
+
+      <!-- Search input — wiring deferred to a later slice -->
+      <form class="d-flex ms-auto"
+            role="search"
+            onsubmit="return false;">
+        <input class="form-control me-2"
+               type="search"
+               placeholder="Search..."
+               aria-label="Search"
+               id="searchInput"
+               disabled>
+        <button class="btn btn-light"
+                type="submit"
+                disabled>
+                Search</button>
+      </form>
+    </div>
   </div>
 </nav>

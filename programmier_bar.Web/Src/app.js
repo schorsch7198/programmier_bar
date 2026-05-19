@@ -11,6 +11,8 @@ import pCategories     from "@pages/categories/categories";
 import pPersonDetail   from "@pages/person-detail/person-detail";
 import pPersonList     from "@pages/person-list/person-list";
 import pCart           from "@pages/cart/cart";
+import pShop           from "@pages/shop/shop";
+import pShopItem       from "@pages/shop-item/shop-item";
 
 import * as api       from "@shared/api/client";
 import { formatDate } from "@shared/lib/format";
@@ -79,15 +81,18 @@ export default class Application {
         new pLogin(args);
         break;
       case '#productlist':
-        // if (this.user) new pProductList(args);    // Show article list if logged in
-        // else window.open('#login', '_self');         // Otherwise redirect to login
-          // only allow elevated users (role ≥1) to see the product list
+        // Admin/disponent edit-oriented list. Customers go to the storefront instead.
         if (this.user?.roleNumber > 0) {
           new pProductList(args);
         } else {
-          // guests & standard users return to home
-          window.open('#main','_self');
+          window.open('#shop', '_self');
         }
+        break;
+      case '#shop':
+        new pShop(args);
+        break;
+      case '#shop-item':
+        new pShopItem(args);
         break;
       case '#categories':
         if (this.user) new pCategories(args);
