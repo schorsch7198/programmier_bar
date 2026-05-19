@@ -7,6 +7,7 @@
 /home/schorsch7198/Documents/programmier_bar/programmier_bar.dbApiControllers/bin/Debug/net10.0/programmier_bar.dbApiControllers.dll
 /home/schorsch7198/Documents/programmier_bar/programmier_bar.dbApiControllers/bin/Debug/net10.0/programmier_bar.dbApiControllers.pdb
 /home/schorsch7198/Documents/programmier_bar/programmier_bar.dbApiControllers/bin/Debug/net10.0/Magick.NET.Core.dll
+/home/schorsch7198/Documents/programmier_bar/programmier_bar.dbApiControllers/bin/Debug/net10.0/Newtonsoft.Json.dll
 /home/schorsch7198/Documents/programmier_bar/programmier_bar.dbApiControllers/bin/Debug/net10.0/Npgsql.dll
 /home/schorsch7198/Documents/programmier_bar/programmier_bar.dbApiControllers/bin/Debug/net10.0/programmier_bar.dbClassLibrary.dll
 /home/schorsch7198/Documents/programmier_bar/programmier_bar.dbApiControllers/bin/Debug/net10.0/programmier_bar.dbClassLibrary.pdb
@@ -34,4 +35,3 @@
 /home/schorsch7198/Documents/programmier_bar/programmier_bar.dbApiControllers/obj/Debug/net10.0/programmier_bar.dbApiControllers.pdb
 /home/schorsch7198/Documents/programmier_bar/programmier_bar.dbApiControllers/obj/Debug/net10.0/programmier_bar.dbApiControllers.genruntimeconfig.cache
 /home/schorsch7198/Documents/programmier_bar/programmier_bar.dbApiControllers/obj/Debug/net10.0/ref/programmier_bar.dbApiControllers.dll
-/home/schorsch7198/Documents/programmier_bar/programmier_bar.dbApiControllers/bin/Debug/net10.0/Newtonsoft.Json.dll

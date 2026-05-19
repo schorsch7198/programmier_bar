@@ -15,7 +15,7 @@ namespace programmier_bar.dbApiControllers
 			builder.Services.AddCors(options =>
 				options.AddDefaultPolicy(policy => policy
 					.WithOrigins("http://127.0.0.1:5500", "http://localhost:5500")   // or whatever your front-end URL is
-					.AllowAnyHeader()
+					.AllowAnyHeader() 
 					.AllowAnyMethod()
 					.AllowCredentials()));
 			builder.Services.AddRouting(options =>

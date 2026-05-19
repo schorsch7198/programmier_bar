@@ -8,15 +8,5 @@
     "/home/schorsch7198/.nuget/packages/newtonsoft.json/13.0.4/newtonsoft.json.13.0.4.nupkg.sha512",
     "/home/schorsch7198/.nuget/packages/npgsql/9.0.3/npgsql.9.0.3.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "message": "Problem reading the cache file /home/schorsch7198/Documents/programmier_bar/programmier_bar.dbApiControllers/obj/project.nuget.cache : '<' is an invalid start of a property name. Expected a '\"'. Path: $ | LineNumber: 2 | BytePositionInLine: 0.",
-      "projectPath": "/home/schorsch7198/Documents/programmier_bar/programmier_bar.dbApiControllers/programmier_bar.dbApiControllers.csproj",
-      "warningLevel": 1,
-      "filePath": "/home/schorsch7198/Documents/programmier_bar/programmier_bar.dbApiControllers/programmier_bar.dbApiControllers.csproj",
-      "targetGraphs": []
-    }
-  ]
+  "logs": []
 }
