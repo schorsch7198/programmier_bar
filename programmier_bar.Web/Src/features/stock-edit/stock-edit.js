@@ -1,6 +1,5 @@
-import bootstrap from './../../../node_modules/bootstrap/dist/js/bootstrap.bundle';
-// import 'bootstrap/dist/js/bootstrap.bundle';
-import ComponentHTML from './d-stock.html';
+import bootstrap from 'bootstrap/dist/js/bootstrap.bundle';
+import ComponentHTML from './stock-edit.html';
 
 export default class dStock {
   //==========================================================================================================

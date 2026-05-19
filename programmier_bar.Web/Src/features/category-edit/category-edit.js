@@ -1,5 +1,5 @@
-import bootstrap from './../../../node_modules/bootstrap/dist/js/bootstrap.bundle';
-import ComponentHTML from './d-category.html';
+import bootstrap from 'bootstrap/dist/js/bootstrap.bundle';
+import ComponentHTML from './category-edit.html';
 
 export default class dCategory {
   //==========================================================================================================

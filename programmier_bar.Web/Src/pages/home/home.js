@@ -1,4 +1,4 @@
-import pHTML from './p-main.html';
+import pHTML from './home.html';
 
 export default class pMain {
 

@@ -175,6 +175,57 @@ GRANT INSERT, SELECT, UPDATE, DELETE, REFERENCES 	ON TABLE assortment.filedata T
 GRANT SELECT, USAGE, UPDATE 						ON SEQUENCE assortment.filedata_seq TO "barAdmin";
 
 
+-- ************************************************
+-- OBJECT: CART
+-- ************************************************
+
+DROP TABLE IF EXISTS assortment.cart CASCADE;
+CREATE SEQUENCE IF NOT EXISTS assortment.cart_seq START WITH 1 INCREMENT BY 1;
+CREATE TABLE assortment.cart
+(
+	cart_id				integer			NOT NULL DEFAULT NEXTVAL('assortment.cart_seq'),
+	person_id			integer			NOT NULL,
+	insuser				varchar(100)	NOT NULL DEFAULT CURRENT_USER,
+	insdate				timestamptz		NOT NULL DEFAULT now(),
+	upduser				varchar(100),
+	upddate				timestamptz		NOT NULL DEFAULT now(),
+	deluser				varchar(100),
+	deldate				timestamptz,
+	CONSTRAINT cart_pk				PRIMARY KEY (cart_id),
+	CONSTRAINT cart_person_fk		FOREIGN KEY (person_id)	REFERENCES assortment.person(person_id),
+	CONSTRAINT cart_person_uq		UNIQUE (person_id)
+);
+GRANT INSERT, SELECT, UPDATE, DELETE, REFERENCES	ON TABLE assortment.cart TO "barAdmin";
+GRANT SELECT, USAGE, UPDATE							ON SEQUENCE assortment.cart_seq TO "barAdmin";
+
+
+-- ************************************************
+-- OBJECT: CART_ITEM
+-- ************************************************
+
+DROP TABLE IF EXISTS assortment.cart_item CASCADE;
+CREATE SEQUENCE IF NOT EXISTS assortment.cart_item_seq START WITH 1 INCREMENT BY 1;
+CREATE TABLE assortment.cart_item
+(
+	cart_item_id		integer			NOT NULL DEFAULT NEXTVAL('assortment.cart_item_seq'),
+	cart_id				integer			NOT NULL,
+	product_id			integer			NOT NULL,
+	quantity			integer			NOT NULL DEFAULT 1,
+	insuser				varchar(100)	NOT NULL DEFAULT CURRENT_USER,
+	insdate				timestamptz		NOT NULL DEFAULT now(),
+	upduser				varchar(100),
+	upddate				timestamptz		NOT NULL DEFAULT now(),
+	deluser				varchar(100),
+	deldate				timestamptz,
+	CONSTRAINT cart_item_pk				PRIMARY KEY (cart_item_id),
+	CONSTRAINT cart_item_cart_fk		FOREIGN KEY (cart_id)		REFERENCES assortment.cart(cart_id),
+	CONSTRAINT cart_item_product_fk		FOREIGN KEY (product_id)	REFERENCES assortment.product(product_id),
+	CONSTRAINT cart_item_quantity_ck	CHECK (quantity > 0)
+);
+GRANT INSERT, SELECT, UPDATE, DELETE, REFERENCES	ON TABLE assortment.cart_item TO "barAdmin";
+GRANT SELECT, USAGE, UPDATE							ON SEQUENCE assortment.cart_item_seq TO "barAdmin";
+
+
 
 --************************************************
 -- FUNCTIONS

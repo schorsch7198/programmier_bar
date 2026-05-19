@@ -1,57 +1,34 @@
 {
   "devDependencies": {
     "css-loader": "^7.1.4",
-<<<<<<< HEAD
     "eslint-webpack-plugin": "^6.0.0",
-=======
-    "eslint-webpack-plugin": "^5.0.2",
->>>>>>> refs/remotes/origin/main
     "html-loader": "^5.1.0",
     "html-webpack-plugin": "^5.6.7",
     "mini-css-extract-plugin": "^2.10.2",
     "style-loader": "^4.0.0",
-<<<<<<< HEAD
     "webpack": "^5.106.2",
     "webpack-cli": "^7.0.2"
-=======
-    "webpack": "^5.105.2",
-    "webpack-cli": "^6.0.1"
->>>>>>> refs/remotes/origin/main
   },
   "name": "programmier_bar.web",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-<<<<<<< HEAD
     "acorn": "^8.16.0",
     "ajv": "^8.20.0",
-=======
-    "acorn": "^8.15.0",
-    "ajv": "^8.18.0",
->>>>>>> refs/remotes/origin/main
     "ajv-formats": "^3.0.1",
     "ajv-keywords": "^5.1.0",
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
     "browserslist": "^4.28.2",
     "buffer-from": "^1.1.2",
-<<<<<<< HEAD
     "caniuse-lite": "^1.0.30001793",
-=======
-    "caniuse-lite": "^1.0.30001770",
->>>>>>> refs/remotes/origin/main
     "chrome-trace-event": "^1.0.4",
     "clone-deep": "^4.0.1",
     "colorette": "^2.0.20",
     "commander": "^14.0.3",
     "cross-spawn": "^7.0.6",
-<<<<<<< HEAD
     "electron-to-chromium": "^1.5.359",
     "enhanced-resolve": "^5.21.4",
-=======
-    "electron-to-chromium": "^1.5.286",
-    "enhanced-resolve": "^5.19.0",
->>>>>>> refs/remotes/origin/main
     "envinfo": "^7.21.0",
     "es-module-lexer": "^2.1.0",
     "escalade": "^3.2.0",
@@ -85,11 +62,7 @@
     "mime-db": "^1.54.0",
     "mime-types": "^3.0.2",
     "neo-async": "^2.6.2",
-<<<<<<< HEAD
     "node-releases": "^2.0.44",
-=======
-    "node-releases": "^2.0.27",
->>>>>>> refs/remotes/origin/main
     "p-limit": "^7.3.0",
     "p-locate": "^7.0.0",
     "p-try": "^3.0.0",
@@ -114,28 +87,16 @@
     "source-map-support": "^0.5.21",
     "supports-color": "^10.2.2",
     "supports-preserve-symlinks-flag": "^1.0.0",
-<<<<<<< HEAD
     "tapable": "^2.3.3",
     "terser": "^5.47.1",
     "terser-webpack-plugin": "^5.6.0",
     "undici-types": "^8.3.0",
-=======
-    "tapable": "^2.3.0",
-    "terser": "^5.46.0",
-    "terser-webpack-plugin": "^5.3.16",
-    "undici-types": "^7.22.0",
->>>>>>> refs/remotes/origin/main
     "update-browserslist-db": "^1.2.3",
     "watchpack": "^2.5.1",
     "web": "^0.0.2",
     "webpack-merge": "^6.0.1",
-<<<<<<< HEAD
     "webpack-sources": "^3.4.1",
     "which": "^7.0.0",
-=======
-    "webpack-sources": "^3.3.4",
-    "which": "^6.0.1",
->>>>>>> refs/remotes/origin/main
     "wildcard": "^2.0.1"
   },
   "scripts": {

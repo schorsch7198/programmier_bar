@@ -1,4 +1,4 @@
-import HTML from './p-person-list.html';
+import HTML from './person-list.html';
 
 export default class pPersonList {
 

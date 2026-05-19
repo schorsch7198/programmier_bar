@@ -1,5 +1,5 @@
-import CategoryTree from './components/category-treeview/category-tree';
-import PageHTML from './p-product-list.html';
+import CategoryTree from '@widgets/category-tree/category-tree';
+import PageHTML from './product-list.html';
 
 export default class pProductList {
   //================================================================================================

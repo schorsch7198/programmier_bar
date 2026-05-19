@@ -1,4 +1,4 @@
-import PageHTML from './p-login.html';
+import PageHTML from './login.html';
 
 export default class pLogin {
 
@@ -73,6 +73,8 @@ export default class pLogin {
         if (r.success) {
 //       localStorage.setItem('programmier_bar-token', r.loginToken);
           this.#args.app.user = r.person;
+          // Merge any anonymous (localStorage) cart items into the now-authenticated server cart.
+          this.#args.app.syncLocalCart();
           if (r.person.roleNumber === 0) {
             window.open("#main", '_self');
           } else {

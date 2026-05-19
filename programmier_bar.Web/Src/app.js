@@ -1,15 +1,20 @@
 import 'bootstrap/dist/js/bootstrap.bundle';
 
 
-import NavBar         from "./components/navigation-bar/nav-bar";
+import NavBar         from "@widgets/nav-bar/nav-bar";
 
-import pLogin          from "./p-login";
-import pMain           from "./p-main";
-import pProductList    from "./p-product-list";
-import pProductDetail  from "./p-product-detail";
-import pCategories     from "./p-categories";
-import pPersonDetail   from "./p-person-detail";
-import pPersonList     from "./p-person-list";
+import pLogin          from "@pages/login/login";
+import pMain           from "@pages/home/home";
+import pProductList    from "@pages/product-list/product-list";
+import pProductDetail  from "@pages/product-detail/product-detail";
+import pCategories     from "@pages/categories/categories";
+import pPersonDetail   from "@pages/person-detail/person-detail";
+import pPersonList     from "@pages/person-list/person-list";
+import pCart           from "@pages/cart/cart";
+
+import * as api       from "@shared/api/client";
+import { formatDate } from "@shared/lib/format";
+import { readLocalCart, clearLocalCart } from "@entities/cart/model";
 
 export default class Application {
   #header = null;
@@ -17,6 +22,7 @@ export default class Application {
   #footer = null;
   #apiUrl = 'http://localhost:5181';  // Base URL for API requests
   #user = null;
+  #currentNavBar = null;
 
   constructor() {
     this.#header = document.querySelector('header');
@@ -53,9 +59,11 @@ export default class Application {
     //   new pNavBar({ target: this.#header, app: this });   // Render navigation bar if user exists
     // }
 
-    // Always render navbar (even if args.app.user is null)
+    // Always render navbar (even if args.app.user is null).
+    // Tear the previous one down first so its window listeners (e.g. cart:changed) don't accumulate.
+    this.#currentNavBar?.destroy?.();
     this.#header.innerHTML = '';
-    new NavBar({ target: this.#header, app: this });
+    this.#currentNavBar = new NavBar({ target: this.#header, app: this });
 
     const args = { target: this.#main, app: this }; // Prepare args for page components
     const hashParts = completeHash.split('?');      // Separate hash from query parameters
@@ -97,105 +105,55 @@ export default class Application {
         if (this.user) new pPersonList(args);
         else window.open('#login', '_self');
         break;
+      case '#cart':
+        // Cart page is accessible to anonymous users too; the page itself handles the auth-aware UX.
+        new pCart(args);
+        break;
       default:
         new pMain(args);     // Default: show main (home) page
         break;
     }
   }
 
-  // public methods
+  // public methods — thin delegates to shared/api and shared/lib
   //============================================================================================================================
   apiLogin(successCallback, errorCallback, loginData) {
-    fetch(this.#apiUrl + '/person/login', {
-      method: 'POST',
-      body: loginData,
-      cache: 'no-cache',
-      credentials: 'include'
-    }).then((r) => {
-      if (r.status == 200 || r.status == 401) return r.json();  // Parse JSON on 200 or 401
-      throw new Error(r.status + ' ' + r.statusText);
-    }).then(successCallback).catch(errorCallback);              // Call callbacks based on result
+    api.apiLogin(this.#apiUrl, successCallback, errorCallback, loginData);
   }
 
   apiGet(successCallback, errorCallback, url) {
-    const token = localStorage.getItem('programmier_bar-token');
-    fetch(this.#apiUrl + url, {
-      method: 'GET',
-      cache: 'no-cache',
-      credentials: 'include',
-      headers: {
-        ...(token && { 'Authorization': 'Bearer ' + token })
-      }
-    }).then((r) => {
-      if (r.status == 200) return r.json();                     // Parse JSON only on 200
-      throw new Error(r.status + ' ' + r.statusText);
-    }).then(successCallback).catch(errorCallback);              // Call callbacks based on result
+    api.apiGet(this.#apiUrl, successCallback, errorCallback, url);
   }
 
-    // POST => insert new resource; PUT => update existing resource
   apiSet(successCallback, errorCallback, url, id, dataObject) {
-    const token = localStorage.getItem('programmier_bar-token');
-    fetch(this.#apiUrl + url + (id ? '/' + id : ''), {
-      method: id ? 'PUT' : 'POST',
-      cache: 'no-cache',
-      credentials: 'include',
-      body: JSON.stringify(dataObject),
-      headers: { 'Content-Type': 'application/json',
-        ...(token && { 'Authorization': 'Bearer ' + token })
-      }
-    }).then((r) => {
-      if (r.status == 200) return r.json();                     // Parse JSON only on 200
-      throw new Error(r.status + ' ' + r.statusText);
-    }).then(successCallback).catch(errorCallback);              // Call callbacks based on result
+    api.apiSet(this.#apiUrl, successCallback, errorCallback, url, id, dataObject);
   }
 
   apiDelete(successCallback, errorCallback, url) {
-    const token = localStorage.getItem('programmier_bar-token');
-    fetch(this.#apiUrl + url, {
-      method: 'DELETE',
-      cache: 'no-cache',
-      credentials: 'include',
-      headers: {
-        ...(token && { 'Authorization': 'Bearer ' + token })
-      }
-    }).then((r) => {
-      if (r.status == 200) return r.json();                     // Parse JSON only on 200
-      throw new Error(r.status + ' ' + r.statusText);
-    }).then(successCallback).catch(errorCallback);              // Call callbacks based on result
+    api.apiDelete(this.#apiUrl, successCallback, errorCallback, url);
   }
 
-
-  apiFiledata(successCallback, errorCallback, product, dateiListe) {
-    const fd = new FormData();                              // Create FormData for files
-    let idx = 0;
-    for (const d of filedataList) {
-      fd.append('filedata' + (idx++), d, d.name);               // Append each file with a unique field name
-    }
-    fetch(this.#apiUrl + '/product/' + product.productUid + '/filedata', {
-      method: 'POST',
-      cache: 'no-cache',
-      credentials: 'include',
-      body: fd
-    }).then((r) => {
-      if (r.status == 200) return r.json();                   // Parse JSON only on 200
-      throw new Error(r.status + ' ' + r.statusText);
-    }).then(successCallback).catch(errorCallback);            // Call callbacks based on result
+  apiFiledata(successCallback, errorCallback, product, fileList) {
+    api.apiFiledata(this.#apiUrl, successCallback, errorCallback, product, fileList);
   }
 
   formatDate(d) {
-    const dateFormat = new Intl.DateTimeFormat(navigator.language, {
-      dateStyle: "medium",
-      timeStyle: "short",
-      hour12: false
-    });
+    return formatDate(d);
+  }
 
-    try {
-      if (!d) return '-';
-
-      const parsed = d instanceof Date ? d : new Date(d);
-      return isNaN(parsed.getTime()) ? '-' : dateFormat.format(parsed);
-    } catch {
-      return '-';
-    }
+  // Push any anonymous (localStorage) cart items up to the server and clear local storage.
+  // Called by the login page after authentication succeeds.
+  syncLocalCart() {
+    const items = readLocalCart();
+    if (items.length === 0) return;
+    api.apiSet(
+      this.#apiUrl,
+      () => {
+        clearLocalCart();
+        window.dispatchEvent(new CustomEvent('cart:changed'));
+      },
+      (ex) => console.error('cart sync failed', ex),
+      '/cart/sync', null, items
+    );
   }
 }

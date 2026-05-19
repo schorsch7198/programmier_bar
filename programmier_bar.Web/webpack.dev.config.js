@@ -41,6 +41,17 @@ module.exports = {
     clean: true,
   },
 
+  resolve: {
+    alias: {
+      '@app':      path.resolve(__dirname, 'Src/app'),
+      '@pages':    path.resolve(__dirname, 'Src/pages'),
+      '@widgets':  path.resolve(__dirname, 'Src/widgets'),
+      '@features': path.resolve(__dirname, 'Src/features'),
+      '@entities': path.resolve(__dirname, 'Src/entities'),
+      '@shared':   path.resolve(__dirname, 'Src/shared'),
+    },
+  },
+
   plugins: [
     new HtmlWebpackPlugin({
       template: 'index.html',

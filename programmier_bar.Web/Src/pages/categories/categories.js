@@ -1,5 +1,5 @@
-import PageHTML from './p-categories.html';
-import dCategory from './components/dialogues/d-category';
+import PageHTML from './categories.html';
+import dCategory from '@features/category-edit/category-edit';
 
 export default class pCategories {
   //============================================================================================================================

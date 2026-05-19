@@ -1,0 +1,36 @@
+<div class="container my-4">
+  <h2 class="mb-3">Your cart</h2>
+
+  <div id="cartLoading" class="text-center text-muted my-5">Loading…</div>
+
+  <div id="cartEmpty" class="alert alert-info d-none" role="alert">
+    Your cart is empty. <a href="#productlist">Browse products</a>.
+  </div>
+
+  <div id="cartAlert" class="alert d-none mt-3" role="alert"></div>
+
+  <div id="cartContent" class="d-none">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th scope="col">Product</th>
+          <th scope="col" style="width: 10rem;">Quantity</th>
+          <th scope="col" style="width: 4rem;"></th>
+        </tr>
+      </thead>
+      <tbody id="cartTableBody"></tbody>
+      <tfoot>
+        <tr>
+          <th scope="row">Total items</th>
+          <th id="cartTotalCount">0</th>
+          <th></th>
+        </tr>
+      </tfoot>
+    </table>
+
+    <div class="d-flex justify-content-end gap-2">
+      <a href="#productlist" class="btn btn-outline-secondary">Continue shopping</a>
+      <button id="buttonCheckout" class="btn btn-primary" type="button">Checkout</button>
+    </div>
+  </div>
+</div>

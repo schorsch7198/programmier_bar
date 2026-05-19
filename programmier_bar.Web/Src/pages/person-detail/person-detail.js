@@ -1,7 +1,7 @@
 // import bootstrap from  './../node_modules/bootstrap/dist/js/bootstrap.bundle';
 
 
-import PageHTML from './p-person-detail.html';
+import PageHTML from './person-detail.html';
 
 export default class pPersonDetail{
   //======================================================================================================================================

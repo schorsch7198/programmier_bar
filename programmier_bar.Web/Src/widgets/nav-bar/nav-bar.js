@@ -1,7 +1,10 @@
-import './../../../node_modules/bootstrap/dist/js/bootstrap.bundle';
+import 'bootstrap/dist/js/bootstrap.bundle';
 import ComponentHTML from './nav-bar.html';
+import { readLocalCart, totalItemCount } from '@entities/cart/model';
 
 export default class NavBar {
+	#refreshBadge = null;
+
 	constructor(args) {
 		args.target.innerHTML = ComponentHTML;
 
@@ -36,13 +39,50 @@ export default class NavBar {
 		const liUsers           = document.createElement('li');
 		liUsers.className       = 'nav-item align-self-center';
 		liUsers.innerHTML       = `
-			<a 	class="nav-link" 
-					style="font-size: 1.5rem;" 
+			<a 	class="nav-link"
+					style="font-size: 1.5rem;"
 					href="#personlist">
 				<i 	class="bi-person-fill fs-3"></i>
 				 		Users
 			</a>`;
 		if (args.app.user?.roleNumber >= 2) ul.appendChild(liUsers);
+
+		// ─── CART LINK (visible to all; badge shows item count) ────────────
+		const liCart            = document.createElement('li');
+		liCart.className        = 'nav-item align-self-center';
+		liCart.innerHTML        = `
+			<a 	class="nav-link"
+					style="font-size: 1.5rem;"
+					href="#cart"
+					title="Cart">
+				<i 	class="bi-cart3 fs-3"></i>
+				 		Cart
+				<span id="cartBadge" class="badge bg-primary rounded-pill ms-1 d-none">0</span>
+			</a>`;
+		ul.appendChild(liCart);
+
+		const cartBadge = liCart.querySelector('#cartBadge');
+		const updateBadge = (count) => {
+			if (count > 0) {
+				cartBadge.textContent = count;
+				cartBadge.classList.remove('d-none');
+			} else {
+				cartBadge.classList.add('d-none');
+			}
+		};
+		this.#refreshBadge = () => {
+			if (args.app.user) {
+				args.app.apiGet(
+					(cart) => updateBadge(totalItemCount(cart?.itemList || [])),
+					() => updateBadge(0),
+					'/cart'
+				);
+			} else {
+				updateBadge(totalItemCount(readLocalCart()));
+			}
+		};
+		this.#refreshBadge();
+		window.addEventListener('cart:changed', this.#refreshBadge);
 
 
 		// ─── THEME TOGGLE SETUP ─────────────────────────────────────────────
@@ -153,8 +193,16 @@ export default class NavBar {
 			args.app.user?.titlePost
 		].filter(Boolean).join(' ');
 		
-		if (args.app.user?.picString) 
+		if (args.app.user?.picString)
 			imgPic.src = args.app.user.picString;
 			buttonSignIn.classList.add('d-none');  // hide sign-in button
+	}
+
+	// Detach window listeners so Application can recreate the navbar without leaking.
+	destroy() {
+		if (this.#refreshBadge) {
+			window.removeEventListener('cart:changed', this.#refreshBadge);
+			this.#refreshBadge = null;
+		}
 	}
 }

@@ -1,7 +1,8 @@
 import bootstrap from 'bootstrap/dist/js/bootstrap.bundle';
-import dStock from './components/dialogues/d-stock';
-import PageHTML from './p-product-detail.html';
-import categoryTree from './components/category-treeview/category-tree';
+import dStock from '@features/stock-edit/stock-edit';
+import PageHTML from './product-detail.html';
+import categoryTree from '@widgets/category-tree/category-tree';
+import CartAddItem from '@features/cart-add-item/cart-add-item';
 
 export default class pProductDetail {
   //================================================================================================
@@ -331,9 +332,19 @@ export default class pProductDetail {
             }
             this.#categoryTree.selCats = sc;
           }
+
+          // Mount the "Add to cart" button now that we have a saved product to reference
+          const cartTarget = args.target.querySelector('#cartAddTarget');
+          if (cartTarget) {
+            new CartAddItem({
+              target: cartTarget,
+              app: args.app,
+              product: this.#product,
+            });
+          }
         }, (ex) => {
           alert(ex);
-        }, '/product/' + args.id); 
+        }, '/product/' + args.id);
       } else {
         const co = new bootstrap.Collapse('#collapseOne');
         co.show();
