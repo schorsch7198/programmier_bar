@@ -40,6 +40,8 @@ services:
       ASPNETCORE_URLS: "http://+:80"
       ASPNETCORE_ENVIRONMENT: "Development"
       ConnectionStrings__Default: "Host=postgres;Database=programmier_bar;Username=barAdmin;Password=barAdmin"
+    volumes:
+      - ./programmier_bar.settings:/home/app/.config/programmier_bar.settings:ro
     ports:
       - "5181:80"
     depends_on:

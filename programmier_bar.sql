@@ -2,8 +2,9 @@
 -- DATABASE
 -- ************************************************
 
-DROP DATABASE IF EXISTS programmier_bar;
-CREATE DATABASE programmier_bar;
+-- uncommented for docker
+-- DROP DATABASE IF EXISTS programmier_bar; 
+-- CREATE DATABASE programmier_bar;
 
 
 -- ************************************************
@@ -22,6 +23,12 @@ BEGIN
     END IF;
 END
 $$;
+
+-- for DOCKER!!!
+-- NOTE: encode(digest(...), 'base64') may insert a newline at 76 chars depending on PostgreSQL version.
+--       If login fails after Docker rebuild, replace with the pre-computed hash:
+-- 'PN+PgCq/sqVoLk8Buom+BCbySqWyEBffTg+CatYysi9akgN9mT6mehjdYW1aJf3mKhzqSwuVkBpF4BB/7aL0jA=='
+
 
 
 -- ************************************************
