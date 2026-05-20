@@ -44,13 +44,6 @@ nav.bg-transparent {
   bottom: 100%  !important;
 }
 
-/* when bars are flipped, add bottom padding instead */
-#firstNavbar.bottom ~ body,
-#secondNavbar.bottom ~ body {
-  padding-bottom: calc(4rem + 2.5rem);
-  padding-top:    0;
-}
-
 /* make the default white carousel arrows black in Light mode */
 body[data-bs-theme="light"] .carousel-control-prev-icon,
 body[data-bs-theme="light"] .carousel-control-next-icon {

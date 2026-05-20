@@ -5,6 +5,7 @@ import { readLocalCart, totalItemCount } from '@entities/cart/model';
 export default class NavBar {
 	#refreshBadge = null;
 	#refreshCategories = null;
+	#resizeObserver = null;
 
 	constructor(args) {
 		args.target.innerHTML = ComponentHTML;
@@ -14,7 +15,6 @@ export default class NavBar {
 		const productsLink			= args.target.querySelector('ul.navbar-nav a.nav-link[href="#productlist"]');
 		const liProduct         = productsLink?.closest('li');
 		const ul                = args.target.querySelector('ul.navbar-nav');
-		const toggleLink        = args.target.querySelector('a.dropdown-toggle');
 		const dropdownMenu      = args.target.querySelector('#dropdownMenuPerson');
 		const buttonSignIn      = args.target.querySelector('#buttonSignIn');
 		const buttonSignOff     = args.target.querySelector('#buttonSignOff');
@@ -123,37 +123,59 @@ export default class NavBar {
 			localStorage.setItem('theme', currentTheme);
 		});
 
-		let flipped = false;
-		navbarToggleBtn.addEventListener('click', () => {
-			flipped = !flipped;
-			// measure the gold bar’s height right now
-			const goldHeight = firstNav.getBoundingClientRect().height;
-			// flip the gold bar
+		// Apply the flipped/unflipped layout. Extracted so we can both restore
+		// the persisted state on mount and use it from the click handler.
+		const applyFlipped = (flipped) => {
+			const goldHeight   = firstNav .getBoundingClientRect().height;
+			const secondHeight = secondNav.getBoundingClientRect().height;
 			firstNav .classList.toggle('bottom', flipped);
-			// for the second bar, flip AND dynamically pin it above the gold bar
 			secondNav.classList.toggle('bottom', flipped);
 			if (flipped) {
 				secondNav.style.bottom = `${goldHeight}px`;
 				secondNav.style.top    = 'auto';
+				// Push page content away from the bottom navbars (add breathing room).
+				document.body.style.paddingTop    = '0';
+				document.body.style.paddingBottom = `${goldHeight + secondHeight + 24}px`;
 			} else {
 				secondNav.style.top    = `${goldHeight}px`;
 				secondNav.style.bottom = 'auto';
+				// Restore the defaults from index.html.
+				document.body.style.paddingTop    = '7rem';
+				document.body.style.paddingBottom = '4.5rem';
 			}
-			// swap the chevron
 			navbarToggleIcon.className = flipped
 				? 'bi bi-chevron-down fs-4'
 				: 'bi bi-chevron-up   fs-4';
+		};
+
+		// Restore previously chosen position (only apply when actually flipped,
+		// so the default HTML/CSS top stays untouched in the normal case).
+		let flipped = localStorage.getItem('navbarFlipped') === 'true';
+		if (flipped) applyFlipped(true);
+
+		// Category dropdowns load asynchronously, so the second navbar's height
+		// grows after mount. Re-apply on any size change so body padding stays
+		// in sync. Also handles window resize.
+		if ('ResizeObserver' in window) {
+			this.#resizeObserver = new ResizeObserver(() => {
+				if (flipped) applyFlipped(true);
+			});
+			this.#resizeObserver.observe(firstNav);
+			this.#resizeObserver.observe(secondNav);
+		}
+
+		navbarToggleBtn.addEventListener('click', () => {
+			flipped = !flipped;
+			applyFlipped(flipped);
+			localStorage.setItem('navbarFlipped', String(flipped));
 		});
 
 		// ─── LOGGED-OUT STATE ───────────────────────────────────────────────
-		// when logged out: turn icon into a simple "#login" link
+		// Hide the user-menu icon entirely; only the "Sign in" button is shown.
 		if (!args.app.user) {
-			toggleLink.removeAttribute('data-bs-toggle');
-			toggleLink.removeAttribute('aria-expanded');
-			toggleLink.setAttribute('href', '#login');
+			dropdownMenu.closest('.dropdown')?.classList.add('d-none');
 			productsLink?.remove();
 			liProduct?.remove();
-			dropdownMenu.remove();
 			return;
 		}
 
@@ -213,6 +235,10 @@ export default class NavBar {
 		if (this.#refreshCategories) {
 			window.removeEventListener('category:changed', this.#refreshCategories);
 			this.#refreshCategories = null;
+		}
+		if (this.#resizeObserver) {
+			this.#resizeObserver.disconnect();
+			this.#resizeObserver = null;
 		}
 	}
 
