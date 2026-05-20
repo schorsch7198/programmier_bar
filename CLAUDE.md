@@ -98,10 +98,13 @@ Everything lives in PostgreSQL schema `assortment` (owned by role `barAdmin`). T
 
 The script runs **only on a fresh Postgres volume** (`docker compose down -v && up`). Edits to `programmier_bar.sql` therefore don't reach a live DB — for schema/data changes against an existing instance, write an additive idempotent SQL script and run it via `docker exec -i programmier_bar_postgres psql -U barAdmin -d programmier_bar < script.sql`.
 
+## Editing conventions
+
+- When writing or editing any file, do **not** leave a trailing newline at the end. The last line must end without a final `\n`.
+
 ## Gotchas
 
 - The `.NET` API csproj targets **`net10.0`**, but the Dockerfile builds with **`mcr.microsoft.com/dotnet/sdk:9.0-alpine`**. If you change the target framework or the base image, keep them consistent.
 - Linux is case-sensitive: prefer lowercase paths everywhere (the SPA folder is `src/`, not `Src/`; all image filenames in `programmier_bar.Web/images/` are `.png`, not `.PNG`). Webpack and `html-loader` will not silently match case mismatches.
-- The repo contains a checked-in `cookie.txt` and `webapi_logs.txt` — these are dev artifacts, not part of the build.
 - `Stock`, `Category`, `Filedata`, and `Person` do **not** have audit / soft-delete columns; only `Product`, `Cart`, and `CartItem` do. If you copy the data-access pattern wholesale, decide deliberately whether the new entity needs them.
 - There is **no `price` column on `product`** yet — the storefront, cart, and checkout deliberately have no money math. Adding price requires schema migration + propagation through `Product.cs` COLUMNS/positions, `product_info` view, admin form, and all storefront/cart UI.
