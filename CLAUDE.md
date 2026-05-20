@@ -8,7 +8,13 @@ Three sibling projects in one repo, plus Docker orchestration:
 
 - `programmier_bar.dbClassLibrary/` — .NET class library: domain models (`Person`, `Product`, `Category`, `Stock`, `Filedata`, …) + lightweight data-access layer (`DbSqlConnection`, `DbSettings`). All SQL lives here.
 - `programmier_bar.dbApiControllers/` — ASP.NET Core Web API. Thin controllers (`Controllers/*Controller.cs`) that delegate to the class library. References the class library project.
-- `programmier_bar.Web/` — Vanilla-JS SPA built with Webpack 5 + Bootstrap 5 (no framework). Entry: `Src/index.js` → `Src/app.js`. Pages are `Src/p-*.js` / `Src/p-*.html`.
+- `programmier_bar.Web/` — Vanilla-JS SPA built with Webpack 5 + Bootstrap 5 (no framework). Entry: `src/index.js` → `src/app.js`. Pragmatic Feature-Sliced layout under `src/`:
+  - `pages/<name>/<name>.{js,html}` — one folder per route (`home`, `login`, `shop`, `shop-item`, `cart`, `product-list`, `product-detail`, `categories`, `person-list`, `person-detail`).
+  - `widgets/` — reusable assembled UI (`nav-bar`, `category-tree`).
+  - `features/` — user-action slices (`cart-add-item`, `category-edit`, `stock-edit`).
+  - `entities/` — domain models + local state (`cart` holds anonymous-cart localStorage helpers).
+  - `shared/` — `api/client.js` (apiGet/apiSet/apiDelete/apiLogin/apiFiledata) and `lib/format.js` (date formatting).
+  - Webpack `resolve.alias` exposes these as `@app @pages @widgets @features @entities @shared` (see `webpack.dev.config.js`).
 - `programmier_bar.sql` — full PostgreSQL bootstrap script (drops/creates DB, role `barAdmin`, schema `assortment`, all tables). Mounted into the postgres container at startup.
 
 The .NET solution file (`programmier_bar.dbApiControllers.sln`) lives **inside** the API project folder, not at the repo root.
@@ -26,7 +32,7 @@ Services and host ports:
 - `pgadmin` — pgAdmin 4, host port **5050** (login `pgadmin4@pgadmin.org` / `admin`)
 - `webapi` — ASP.NET API, host port **5181** → container 80
 - `spa` — nginx serving the prebuilt SPA from `programmier_bar.Web/dist/dev`, host port **5500**
-- `nginx` — reverse proxy on host port **80**, routes `/person|/product|/category|/stock|/page|/filedata` to the webapi and everything else to the SPA (see `nginx.conf`)
+- `nginx` — reverse proxy on host port **80**, routes `/person|/product|/category|/stock|/page|/filedata|/cart` to the webapi and everything else to the SPA (see `nginx.conf`)
 
 The SPA container serves whatever is already in `programmier_bar.Web/dist/dev` — it does **not** build the frontend. You must run the frontend build yourself before (or while) running Docker. Frontend changes are not picked up by `docker compose up` alone.
 
@@ -76,19 +82,26 @@ There is no EF / no ORM. Every domain class follows the same convention — copy
 
 ### Frontend SPA
 
-- Routing is **hash-based**, handled in `Src/app.js` `#navigate()` via a `switch` on `location.hash` (`#login`, `#productlist`, `#productdetail`, …). Add a new page by adding a `case` plus a `p-<name>.js` / `p-<name>.html` pair.
+- Routing is **hash-based**, handled in `src/app.js` `#navigate()` via a `switch` on `location.hash` (`#login`, `#shop`, `#shop-item`, `#cart`, `#productlist`, `#productdetail`, `#categories`, `#persondetail`, `#personlist`; default → home). Add a new page by adding a `case` plus a `pages/<name>/<name>.js` + `.html` pair and an import using the `@pages/<name>/<name>` alias.
+- The navbar is **rebuilt on every navigation**: `#navigate()` calls `this.#currentNavBar?.destroy?.()` then `new NavBar(...)`. Any widget that adds `window` event listeners must remove them in its own `destroy()` — `NavBar` does this for `cart:changed`, `category:changed`, and a `ResizeObserver`.
+- Cross-cutting refresh signals are dispatched as `window` `CustomEvent`s: the cart page / cart-add-item feature dispatch `cart:changed`; the categories page dispatches `category:changed` after save/delete. The navbar listens and re-renders the cart badge / category dropdowns accordingly.
 - API base URL is hard-coded as `this.#apiUrl = 'http://localhost:5181'` in `app.js`. There is no build-time env injection — change it there if the port moves.
-- All API access goes through `apiGet` / `apiSet` / `apiDelete` / `apiLogin` / `apiFiledata` on the `Application` instance. They send `credentials: 'include'` and also attach a `Bearer` token from `localStorage['programmier_bar-token']` if present (the cookie remains the source of truth on the server side).
-- Role gating in the SPA is by `this.user.roleNumber` (numeric). Roles defined server-side (`PersonRole` enum): `Standard=0`, `Disponent=1`, `Administration=2`.
+- All API access goes through `apiGet` / `apiSet` / `apiDelete` / `apiLogin` / `apiFiledata` on the `Application` instance (thin delegates to `@shared/api/client.js`). They send `credentials: 'include'` and also attach a `Bearer` token from `localStorage['programmier_bar-token']` if present (the cookie remains the source of truth on the server side).
+- Role gating in the SPA is by `this.user.roleNumber` (numeric). Roles defined server-side (`PersonRole` enum): `Standard=0`, `Disponent=1`, `Administration=2`. Role 0 / anonymous users navigating to `#productlist` are redirected to `#shop` (admin product list vs. public catalog).
+- **Public vs. authenticated endpoints**: `GET /product`, `GET /product/{id}`, and `GET /category` are intentionally **unauthenticated** so the storefront (`#shop`, `#shop-item`, navbar dropdowns) works for logged-out visitors. Everything else (cart, stock, filedata, person, mutations) still requires the `logintoken` cookie.
+- **Anonymous cart**: when no user is logged in, `entities/cart/model.js` keeps cart items in `localStorage`. After a successful login, `app.syncLocalCart()` posts them to `POST /cart/sync` (server merges by product) and clears localStorage. The cart page renders both flavors uniformly and the checkout button becomes "Sign in to checkout" in the anonymous case.
+- **Fixed navbars & body padding**: both navbars are `position: fixed` (see `css/app.css`). The body's inline `padding-top: 7rem; padding-bottom: 4.5rem` in `index.html` keeps content clear of them. The "flip to bottom" toggle in the navbar persists in `localStorage['navbarFlipped']` and is restored on each mount; when flipped, JS sets `body.style.padding{Top,Bottom}` to match the actual navbar heights (a `ResizeObserver` re-applies on category-dropdown async load). Individual pages (home, cart, shop) also include their own top/bottom spacers so the first/last item clears the bars in either orientation.
 
 ### Database schema
 
-Everything lives in PostgreSQL schema `assortment` (owned by role `barAdmin`). Tables: `person`, `product`, `category`, `product_category` (join), `stock`, `filedata`. Each has a matching `*_seq` sequence. Passwords use the `pgcrypto` extension. The full DDL is `programmier_bar.sql` — treat it as the source of truth for column order, which the C# row-mapping constructors depend on.
+Everything lives in PostgreSQL schema `assortment` (owned by role `barAdmin`). Tables: `person`, `product`, `category` (self-referencing tree via `category_ref_id`), `product_category` (join), `stock`, `filedata`, `cart`, `cart_item`. Each has a matching `*_seq` sequence. Views: `product_info`, `stock_info`, `filedata_info`, `category_info` (recursive CTE producing `id_path` / `name_path`). Passwords use the `pgcrypto` extension. The full DDL is `programmier_bar.sql` — treat it as the source of truth for column order, which the C# row-mapping constructors depend on. The bootstrap also seeds a default `barAdmin` admin user (login `barAdmin` / password `barAdmin`) so a fresh install has a way in; remove or rotate before any non-dev deploy.
+
+The script runs **only on a fresh Postgres volume** (`docker compose down -v && up`). Edits to `programmier_bar.sql` therefore don't reach a live DB — for schema/data changes against an existing instance, write an additive idempotent SQL script and run it via `docker exec -i programmier_bar_postgres psql -U barAdmin -d programmier_bar < script.sql`.
 
 ## Gotchas
 
 - The `.NET` API csproj targets **`net10.0`**, but the Dockerfile builds with **`mcr.microsoft.com/dotnet/sdk:9.0-alpine`**. If you change the target framework or the base image, keep them consistent.
-- `programmier_bar.Web/package.json` currently contains **unresolved Git merge conflict markers** (`<<<<<<<`, `=======`, `>>>>>>>`). `npm install` will fail until that is resolved.
-- `programmier_bar.Web/node_modules/` and `programmier_bar.Web/dist/` are present in the working tree from earlier commits; `.gitignore` now excludes them but they may already be tracked locally — check `git ls-files` before assuming a path is clean.
+- Linux is case-sensitive: prefer lowercase paths everywhere (the SPA folder is `src/`, not `Src/`; all image filenames in `programmier_bar.Web/images/` are `.png`, not `.PNG`). Webpack and `html-loader` will not silently match case mismatches.
 - The repo contains a checked-in `cookie.txt` and `webapi_logs.txt` — these are dev artifacts, not part of the build.
-- `app.js`'s `apiFiledata` references an undefined `filedataList` (the parameter is named `dateiListe`). The function is broken as written; don't call it without fixing the binding.
+- `Stock`, `Category`, `Filedata`, and `Person` do **not** have audit / soft-delete columns; only `Product`, `Cart`, and `CartItem` do. If you copy the data-access pattern wholesale, decide deliberately whether the new entity needs them.
+- There is **no `price` column on `product`** yet — the storefront, cart, and checkout deliberately have no money math. Adding price requires schema migration + propagation through `Product.cs` COLUMNS/positions, `product_info` view, admin form, and all storefront/cart UI.
