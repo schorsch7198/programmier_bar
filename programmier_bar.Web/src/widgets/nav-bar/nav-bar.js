@@ -4,6 +4,7 @@ import { readLocalCart, totalItemCount } from '@entities/cart/model';
 
 export default class NavBar {
 	#refreshBadge = null;
+	#refreshCategories = null;
 
 	constructor(args) {
 		args.target.innerHTML = ComponentHTML;
@@ -86,6 +87,8 @@ export default class NavBar {
 
 		// ─── DYNAMIC CATEGORY DROPDOWNS (second nav-bar) ────────────────────
 		this.#renderCategoryDropdowns(args);
+		this.#refreshCategories = () => this.#renderCategoryDropdowns(args);
+		window.addEventListener('category:changed', this.#refreshCategories);
 
 
 		// ─── THEME TOGGLE SETUP ─────────────────────────────────────────────
@@ -206,6 +209,10 @@ export default class NavBar {
 		if (this.#refreshBadge) {
 			window.removeEventListener('cart:changed', this.#refreshBadge);
 			this.#refreshBadge = null;
+		}
+		if (this.#refreshCategories) {
+			window.removeEventListener('category:changed', this.#refreshCategories);
+			this.#refreshCategories = null;
 		}
 	}
 

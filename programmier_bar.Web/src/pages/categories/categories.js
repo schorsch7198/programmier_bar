@@ -19,6 +19,7 @@ export default class pCategories {
       app: args.app,
       saveClick: () => {
         this.#dataRead();
+        window.dispatchEvent(new CustomEvent('category:changed'));
       }
     });
 
@@ -47,7 +48,10 @@ export default class pCategories {
           case 'del':
             if (confirm('Are you sure u want to delete ' + cat.name + ' ?')) {
               args.app.apiDelete( (r) => {
-                if (r.success) this.#dataRead();
+                if (r.success) {
+                  this.#dataRead();
+                  window.dispatchEvent(new CustomEvent('category:changed'));
+                }
                 else alert(r.message);
               }, (ex) => {
                 alert(ex);
