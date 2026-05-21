@@ -63,7 +63,7 @@
     "mime-db": "^1.54.0",
     "mime-types": "^3.0.2",
     "neo-async": "^2.6.2",
-    "node-releases": "^2.0.44",
+    "node-releases": "^2.0.45",
     "p-limit": "^7.3.0",
     "p-locate": "^7.0.0",
     "p-try": "^3.0.0",

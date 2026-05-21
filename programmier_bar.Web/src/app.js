@@ -22,7 +22,8 @@ export default class Application {
   #header = null;
   #main = null;
   #footer = null;
-  #apiUrl = 'http://localhost:5181';  // Base URL for API requests
+  // #apiUrl = 'http://localhost:5181';  // Base URL for API requests
+  #apiUrl = `${location.protocol}//${location.hostname}:5181`;  // Same hostname as the page → same-site cookie flow
   #user = null;
   #currentNavBar = null;
 
@@ -41,7 +42,10 @@ export default class Application {
         this.#navigate(location.hash);
       }, (ex) => {
         console.error(ex);
-        this.#navigate('#login');
+        // Stale/invalid logintoken: clear it so subsequent loads skip the failing /page/init call.
+        document.cookie = 'logintoken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+        // this.#navigate('#login');         // Old behavior: stale/invalid token → force login page
+        this.#navigate(location.hash);       // New behavior: fall back to the requested hash (default → home) so anonymous browsing keeps working
       }, '/page/init');
     } else {
       this.#navigate(location.hash);
