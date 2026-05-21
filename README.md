@@ -62,7 +62,7 @@ Everything is containerized; one `docker compose up` brings up the database, adm
 - 👥 **Three-role authorization** — `Standard`, `Disponent`, `Administration`; the SPA gates pages by `roleNumber`
 - 🗂 **Soft delete + audit columns** — `deldate`/`deluser`/`insuser`/`insdate`/`upduser`/`upddate` on every mutating entity
 - 🧾 **Stock tracking** — per-product stock with its own admin UI
-- 🖼 **File / image storage** — `filedata` table backs product images and other binary assets
+- 🖼 **Product images on the storefront** — admins upload images on the product-detail page (drag-and-drop or click); the shop catalog displays each product's first image with a soft-blurred backdrop fill so non-matching aspect ratios don't leave white gaps. Per-file delete via a trash icon.
 - 🪟 **Flippable navbar** — fixed top or bottom, preference persisted in `localStorage`, body padding auto-adjusts via `ResizeObserver`
 - ⚡ **Same-origin mode** — optional Nginx reverse proxy serves SPA + API on port 80 to skip CORS entirely
 
@@ -189,7 +189,9 @@ Public, unauthenticated endpoints (so the storefront works for logged-out visito
 ```
 GET /product
 GET /product/{id}
+GET /product/{id}/filedata
 GET /category
+GET /filedata/{id}/download
 ```
 
 Everything else requires the `logintoken` cookie.
@@ -205,7 +207,7 @@ Everything else requires the `logintoken` cookie.
 | `/category` | list (public) · create/update/delete (auth) |
 | `/stock`    | per-product stock CRUD |
 | `/cart`     | get/add/update/remove · `POST /cart/sync` for anonymous → user migration |
-| `/filedata` | upload/serve product images and assets |
+| `/filedata` | public download (`GET /filedata/{id}/download`) · upload via `POST /product/{id}/filedata` · `DELETE /filedata/{id}` (auth) |
 | `/page`     | static content blocks |
 
 URL conventions: **lowercase** (`LowercaseUrls` + `LowercaseQueryStrings` enabled in `Program.cs`).
@@ -253,6 +255,13 @@ Logged-out users get a cart in `localStorage`. On successful login the SPA posts
 <summary><strong>Same-origin via reverse proxy (optional)</strong></summary>
 
 The `nginx` service proxies `/person /product /category /stock /page /filedata /cart` to the API and everything else to the SPA on port 80. Use it to demo the app on a single origin and bypass the hard-coded CORS allowlist.
+
+</details>
+
+<details>
+<summary><strong>Dynamic API origin for same-site cookies</strong></summary>
+
+The SPA derives its API base URL from the page's own origin: `${location.protocol}//${location.hostname}:5181`. This way the `logintoken` cookie qualifies as same-site whether you reach the SPA via `localhost:5500`, `127.0.0.1:5500`, or a custom hostname like `programmier-bar:5500` (added to `/etc/hosts`). The matching origins are in the API's CORS allowlist in `Program.cs`. The port (`5181`) is still hard-coded — change there if the API moves.
 
 </details>
 

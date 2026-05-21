@@ -7,6 +7,7 @@ namespace programmier_bar.DataApiControllers.Controllers
 	[ApiController]
 	public class StockController : ControllerBase
 	{
+		#region Stock endpoints
 		// POST (insert new) Stock entry
 		[HttpPost()]
 		public IActionResult Insert([FromBody] Stock stock)
@@ -103,5 +104,6 @@ namespace programmier_bar.DataApiControllers.Controllers
 //			}
 //			return result;
 //		}
+		#endregion
 	}
 }

@@ -19,20 +19,23 @@ import { formatDate } from "@shared/lib/format";
 import { readLocalCart, clearLocalCart } from "@entities/cart/model";
 
 export default class Application {
+  //#region private vars
   #header = null;
   #main = null;
   #footer = null;
-  // #apiUrl = 'http://localhost:5181';  // Base URL for API requests
+  // #apiUrl = 'http://localhost:5181';
   #apiUrl = `${location.protocol}//${location.hostname}:5181`;  // Same hostname as the page → same-site cookie flow
   #user = null;
   #currentNavBar = null;
+  //#endregion
 
+  //#region constructor
   constructor() {
     this.#header = document.querySelector('header');
     this.#main = document.querySelector('main');
     this.#footer = document.querySelector('footer');
 
-    window.addEventListener('hashchange', () => {     // Re-run navigation on URL hash change
+    window.addEventListener('hashchange', () => {
       this.#navigate(location.hash);
     });
 
@@ -44,40 +47,43 @@ export default class Application {
         console.error(ex);
         // Stale/invalid logintoken: clear it so subsequent loads skip the failing /page/init call.
         document.cookie = 'logintoken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
-        // this.#navigate('#login');         // Old behavior: stale/invalid token → force login page
-        this.#navigate(location.hash);       // New behavior: fall back to the requested hash (default → home) so anonymous browsing keeps working
+        // this.#navigate('#login');
+        this.#navigate(location.hash);
       }, '/page/init');
     } else {
       this.#navigate(location.hash);
     }
-  } // constructor
+  }
+  //#endregion
 
+  //#region properties
   get user() { return this.#user; }
   set user(v) { this.#user = v; }
   get apiUrl() { return this.#apiUrl; }
+  //#endregion
 
+  //#region private methods
   #navigate(completeHash) {
-    this.#main.innerHTML = '';        // Clear main content
+    this.#main.innerHTML = '';
 
     // if (!this.#user) {
-    //   this.#header.innerHTML = '';   // Hide header if not logged in
+    //   this.#header.innerHTML = '';
     // } else {
-    //   new pNavBar({ target: this.#header, app: this });   // Render navigation bar if user exists
+    //   new pNavBar({ target: this.#header, app: this });
     // }
 
-    // Always render navbar (even if args.app.user is null).
-    // Tear the previous one down first so its window listeners (e.g. cart:changed) don't accumulate.
+    // Tear the previous navbar down first so its window listeners (cart:changed, category:changed) don't accumulate.
     this.#currentNavBar?.destroy?.();
     this.#header.innerHTML = '';
     this.#currentNavBar = new NavBar({ target: this.#header, app: this });
 
-    const args = { target: this.#main, app: this }; // Prepare args for page components
-    const hashParts = completeHash.split('?');      // Separate hash from query parameters
+    const args = { target: this.#main, app: this };
+    const hashParts = completeHash.split('?');
     let hash = completeHash;
     if (hashParts.length > 1) {
       hash = hashParts[0];
       const usp = new URLSearchParams(hashParts[1]);
-      for (const [key, value] of usp) args[key] = value;    // Add query params to args
+      for (const [key, value] of usp) args[key] = value;
     }
 
     switch(hash) {
@@ -115,17 +121,17 @@ export default class Application {
         else window.open('#login', '_self');
         break;
       case '#cart':
-        // Cart page is accessible to anonymous users too; the page itself handles the auth-aware UX.
+        // Anonymous users allowed; the page handles the auth-aware UX.
         new pCart(args);
         break;
       default:
-        new pMain(args);     // Default: show main (home) page
+        new pMain(args);
         break;
     }
   }
+  //#endregion
 
-  // public methods — thin delegates to shared/api and shared/lib
-  //============================================================================================================================
+  //#region public methods
   apiLogin(successCallback, errorCallback, loginData) {
     api.apiLogin(this.#apiUrl, successCallback, errorCallback, loginData);
   }
@@ -150,8 +156,7 @@ export default class Application {
     return formatDate(d);
   }
 
-  // Push any anonymous (localStorage) cart items up to the server and clear local storage.
-  // Called by the login page after authentication succeeds.
+  // Called by the login page after authentication: merges any anonymous (localStorage) cart into the user's server cart.
   syncLocalCart() {
     const items = readLocalCart();
     if (items.length === 0) return;
@@ -165,4 +170,5 @@ export default class Application {
       '/cart/sync', null, items
     );
   }
+  //#endregion
 }

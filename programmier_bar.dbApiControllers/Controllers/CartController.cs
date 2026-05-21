@@ -7,6 +7,7 @@ namespace programmier_bar.DataApiControllers.Controllers
 	[ApiController]
 	public class CartController : ControllerBase
 	{
+		#region Cart
 		// GET current user's cart (auto-creates if missing) with all active items
 		[HttpGet()]
 		public IActionResult Get()
@@ -31,6 +32,9 @@ namespace programmier_bar.DataApiControllers.Controllers
 			return result;
 		}
 
+		#endregion
+
+		#region Cart Items
 		// POST add a product to the current user's cart; merges with existing line if present
 		[HttpPost("items")]
 		public IActionResult AddItem([FromBody] CartItem incoming)
@@ -149,6 +153,9 @@ namespace programmier_bar.DataApiControllers.Controllers
 			return result;
 		}
 
+		#endregion
+
+		#region Checkout & Sync
 		// POST checkout — soft-delete all active items in caller's cart (single SQL statement)
 		[HttpPost("checkout")]
 		public IActionResult Checkout()
@@ -224,5 +231,6 @@ namespace programmier_bar.DataApiControllers.Controllers
 			}
 			return result;
 		}
+		#endregion
 	}
 }

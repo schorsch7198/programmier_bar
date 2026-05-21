@@ -76,7 +76,7 @@ There is no EF / no ORM. Every domain class follows the same convention — copy
 
 - Routes are lowercase (`Program.cs` sets `LowercaseUrls`/`LowercaseQueryStrings`), so use `/product`, not `/Product`.
 - Auth is cookie-based: clients send a `logintoken` cookie; `Person.Get(this)` inside any controller resolves the current user (or returns null → `Unauthorized()`). Almost every endpoint starts with this check — keep the pattern.
-- CORS is hard-coded in `Program.cs` to `http://localhost:5500` / `http://127.0.0.1:5500` with `AllowCredentials()`. Any new frontend origin must be added there.
+- CORS is hard-coded in `Program.cs` to `http://localhost:5500` / `http://127.0.0.1:5500` / `http://programmier-bar:5500` with `AllowCredentials()`. Any new frontend origin must be added there.
 - Exception handling pattern: `try { … } catch (Exception ex) { #if DEBUG return 500 with ex.Message; #else return 500; #endif }` — preserve it for consistency.
 - JSON serialization is configured with `ReferenceHandler.IgnoreCycles` and `WhenWritingNull`, so don't add `[JsonIgnore]` just to avoid cycles.
 
@@ -85,10 +85,11 @@ There is no EF / no ORM. Every domain class follows the same convention — copy
 - Routing is **hash-based**, handled in `src/app.js` `#navigate()` via a `switch` on `location.hash` (`#login`, `#shop`, `#shop-item`, `#cart`, `#productlist`, `#productdetail`, `#categories`, `#persondetail`, `#personlist`; default → home). Add a new page by adding a `case` plus a `pages/<name>/<name>.js` + `.html` pair and an import using the `@pages/<name>/<name>` alias.
 - The navbar is **rebuilt on every navigation**: `#navigate()` calls `this.#currentNavBar?.destroy?.()` then `new NavBar(...)`. Any widget that adds `window` event listeners must remove them in its own `destroy()` — `NavBar` does this for `cart:changed`, `category:changed`, and a `ResizeObserver`.
 - Cross-cutting refresh signals are dispatched as `window` `CustomEvent`s: the cart page / cart-add-item feature dispatch `cart:changed`; the categories page dispatches `category:changed` after save/delete. The navbar listens and re-renders the cart badge / category dropdowns accordingly.
-- API base URL is hard-coded as `this.#apiUrl = 'http://localhost:5181'` in `app.js`. There is no build-time env injection — change it there if the port moves.
+- API base URL is **derived from the page's origin**: `this.#apiUrl = `${location.protocol}//${location.hostname}:5181`` in `app.js`. This keeps the API on the same hostname as the SPA so the `logintoken` cookie qualifies as same-site (otherwise `SameSite=Lax` blocks it on cross-host requests like `programmier-bar:5500` → `localhost:5181`). The port `5181` is still hard-coded — change it there if the API moves.
+- **Stale-token bootstrap**: in `app.js`, if a `logintoken` cookie exists but `/page/init` fails (expired/unknown token, server restart), the error handler clears the cookie via `expires=Thu, 01 Jan 1970` and falls back to `location.hash` (default → home), instead of forcing a redirect to `#login`. Don't reintroduce the auto-redirect — the storefront is meant to remain usable anonymously even when an old cookie is present.
 - All API access goes through `apiGet` / `apiSet` / `apiDelete` / `apiLogin` / `apiFiledata` on the `Application` instance (thin delegates to `@shared/api/client.js`). They send `credentials: 'include'` and also attach a `Bearer` token from `localStorage['programmier_bar-token']` if present (the cookie remains the source of truth on the server side).
 - Role gating in the SPA is by `this.user.roleNumber` (numeric). Roles defined server-side (`PersonRole` enum): `Standard=0`, `Disponent=1`, `Administration=2`. Role 0 / anonymous users navigating to `#productlist` are redirected to `#shop` (admin product list vs. public catalog).
-- **Public vs. authenticated endpoints**: `GET /product`, `GET /product/{id}`, and `GET /category` are intentionally **unauthenticated** so the storefront (`#shop`, `#shop-item`, navbar dropdowns) works for logged-out visitors. Everything else (cart, stock, filedata, person, mutations) still requires the `logintoken` cookie.
+- **Public vs. authenticated endpoints**: `GET /product`, `GET /product/{id}`, `GET /product/{id}/filedata`, `GET /category`, and `GET /filedata/{id}/download` are intentionally **unauthenticated** so the storefront (`#shop`, `#shop-item`, navbar dropdowns, product images) works for logged-out visitors. Everything else (cart, stock, filedata mutations, person, product mutations) still requires the `logintoken` cookie.
 - **Anonymous cart**: when no user is logged in, `entities/cart/model.js` keeps cart items in `localStorage`. After a successful login, `app.syncLocalCart()` posts them to `POST /cart/sync` (server merges by product) and clears localStorage. The cart page renders both flavors uniformly and the checkout button becomes "Sign in to checkout" in the anonymous case.
 - **Fixed navbars & body padding**: both navbars are `position: fixed` (see `css/app.css`). The body's inline `padding-top: 7rem; padding-bottom: 4.5rem` in `index.html` keeps content clear of them. The "flip to bottom" toggle in the navbar persists in `localStorage['navbarFlipped']` and is restored on each mount; when flipped, JS sets `body.style.padding{Top,Bottom}` to match the actual navbar heights (a `ResizeObserver` re-applies on category-dropdown async load). Individual pages (home, cart, shop) also include their own top/bottom spacers so the first/last item clears the bars in either orientation.
 
@@ -101,6 +102,12 @@ The script runs **only on a fresh Postgres volume** (`docker compose down -v && 
 ## Editing conventions
 
 - When writing or editing any file, do **not** leave a trailing newline at the end. The last line must end without a final `\n`.
+- For section dividers (e.g. inside a class: private vars / constructor / properties / private methods / public methods), use VS Code region syntax — **but only when the file is longer than 100 lines**. Shorter files don't need them. This gives folding chevrons + Outline-panel entries in code-oss/VS Code. Only use it for section division; do not wrap individual functions. Example: see `programmier_bar.Web/src/app.js`. Per-language syntax:
+  - JS:   `//#region <name>` … `//#endregion`
+  - C#:   `#region <name>` … `#endregion` (built-in language feature)
+  - CSS:  `/* #region <name> */` … `/* #endregion */`
+  - HTML: `<!-- #region <name> -->` … `<!-- #endregion -->`
+  - SQL:  `-- #region <name>` … `-- #endregion`
 
 ## Gotchas
 
@@ -108,3 +115,5 @@ The script runs **only on a fresh Postgres volume** (`docker compose down -v && 
 - Linux is case-sensitive: prefer lowercase paths everywhere (the SPA folder is `src/`, not `Src/`; all image filenames in `programmier_bar.Web/images/` are `.png`, not `.PNG`). Webpack and `html-loader` will not silently match case mismatches.
 - `Stock`, `Category`, `Filedata`, and `Person` do **not** have audit / soft-delete columns; only `Product`, `Cart`, and `CartItem` do. If you copy the data-access pattern wholesale, decide deliberately whether the new entity needs them.
 - There is **no `price` column on `product`** yet — the storefront, cart, and checkout deliberately have no money math. Adding price requires schema migration + propagation through `Product.cs` COLUMNS/positions, `product_info` view, admin form, and all storefront/cart UI.
+- Both csprojs set `<Nullable>annotations</Nullable>` (not `enable`). This keeps `?` annotations on nullable types but disables the analyzer warnings (CS8600/CS8602/CS8604/CS8629/etc.) that the existing codebase isn't fully annotated for. If you want analyzer enforcement on a specific file, opt-in locally with `#nullable enable` at the top of that file.
+- `Filedata` has a hard `Delete()` (no `deldate` column) — see `Filedata.cs`. The DELETE endpoint is `DELETE /filedata/{id}` (auth-required). Used by the product-detail page's trash icon next to each uploaded file.

@@ -2,9 +2,12 @@ import PageHTML from './shop.html';
 import CartAddItem from '@features/cart-add-item/cart-add-item';
 
 export default class pShop {
+  //#region private vars
   #args = null;
   #catId = null;
+  //#endregion
 
+  //#region constructor
   constructor(args) {
     this.#args = args;
     args.target.innerHTML = PageHTML;
@@ -13,10 +16,9 @@ export default class pShop {
     this.#loadCategoryLabel();
     this.#loadProducts();
   }
+  //#endregion
 
-  // ---------------------------------------------------------
-  // private
-  // ---------------------------------------------------------
+  //#region private methods
   #loadCategoryLabel() {
     if (!this.#catId) return;
     this.#args.app.apiGet(
@@ -68,7 +70,7 @@ export default class pShop {
         <div class="card h-100 shadow-sm">
           <a href="#shop-item?id=${encodeURIComponent(p.productUid || '')}"
              class="text-decoration-none text-reset">
-            <div class="card-img-top bg-light d-flex align-items-center justify-content-center"
+            <div class="card-img-top bg-light d-flex align-items-center justify-content-center overflow-hidden"
                  style="height: 180px;">
               <i class="bi bi-image fs-1 text-secondary"></i>
             </div>
@@ -89,7 +91,27 @@ export default class pShop {
         app: this.#args.app,
         product: p,
       });
+
+      this.#loadFirstImage(p.productUid, col.querySelector('.card-img-top'));
     }
+  }
+
+  #loadFirstImage(productUid, container) {
+    if (!productUid || !container) return;
+    this.#args.app.apiGet(
+      (filedataList) => {
+        const img = (filedataList || []).find((f) => (f.mediaType || '').startsWith('image/'));
+        if (!img) return;
+        container.className = 'card-img-top overflow-hidden position-relative';
+        container.innerHTML = `
+          <div class="position-absolute top-0 start-0 w-100 h-100"
+               style="background-image: url('${img.contentUrl}'); background-size: cover; background-position: center; filter: blur(20px); transform: scale(1.1);"></div>
+          <img src="${img.contentUrl}" alt="" class="w-100 h-100 position-relative" style="object-fit: contain;" />
+        `;
+      },
+      () => {},
+      `/product/${encodeURIComponent(productUid)}/filedata`
+    );
   }
 
   #escape(str) {
@@ -106,4 +128,5 @@ export default class pShop {
     this.#args.target.querySelector('#shopEmpty').textContent = 'Could not load products.';
     this.#args.target.querySelector('#shopEmpty').classList.remove('d-none');
   }
+  //#endregion
 }

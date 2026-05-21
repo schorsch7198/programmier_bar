@@ -9,6 +9,7 @@ namespace programmier_bar.DataApiControllers.Controllers
 	[ApiController]
 	public class PersonController : ControllerBase
 	{
+		#region Person reads
 		// GET PersonList (if role admin)
 		[HttpGet()]
 		public IActionResult GetList()
@@ -72,6 +73,9 @@ namespace programmier_bar.DataApiControllers.Controllers
 			return result;
 		}
 
+		#endregion
+
+		#region Authentication
 		// POST (get) Login Credentials
 		[HttpPost("login")]
 		public IActionResult Login()
@@ -122,7 +126,10 @@ namespace programmier_bar.DataApiControllers.Controllers
 			return result;
 		}
 
-		// POST (insert new) Person 
+		#endregion
+
+		#region Person writes
+		// POST (insert new) Person
 		[HttpPost()]
 		//[AllowAnonymous]
 		[RequestSizeLimit(10485760)]
@@ -227,5 +234,6 @@ namespace programmier_bar.DataApiControllers.Controllers
 			}
 			return result;
 		}
+		#endregion
 	}
 }

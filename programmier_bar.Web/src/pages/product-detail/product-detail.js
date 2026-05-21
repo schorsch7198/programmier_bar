@@ -5,14 +5,14 @@ import categoryTree from '@widgets/category-tree/category-tree';
 import CartAddItem from '@features/cart-add-item/cart-add-item';
 
 export default class pProductDetail {
-  //================================================================================================
+  //#region private vars
   #args = null;
   #categoryTree = null;
   // #networkDataReceived = false;
   #product = null;
+  //#endregion
 
-
-  //================================================================================================
+  //#region constructor
   constructor(args) {
     this.#args = args;
     args.target.innerHTML = PageHTML;
@@ -31,7 +31,18 @@ export default class pProductDetail {
     const collapseThree    = args.target.querySelector('#collapseThree');
     const rowFiledata      = args.target.querySelector('#rowFiledata');
     const fileFiledata     = args.target.querySelector('#fileFiledata');
-    // const containerFiledata = args.target.querySelector('#containerFiledata');
+    const containerFiledata = args.target.querySelector('#containerFiledata');
+
+    // Delegated click handler for trash icons rendered inside the cards by #refreshFiledataDisplay().
+    containerFiledata.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-filedata-id]');
+      if (!btn) return;
+      const id = btn.dataset.filedataId;
+      if (!confirm('Delete this file?')) return;
+      args.app.apiDelete(() => {
+        this.#refreshFiledataDisplay();
+      }, (ex) => alert(ex), '/filedata/' + id);
+    });
     
     // if (!this.#product.stockList) {
       this.#product = { stockList: [] };
@@ -238,25 +249,21 @@ export default class pProductDetail {
       if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
         args.app.apiFiledata((r) => {
           console.log(r);
-        }, (ex) => {  
+          this.#refreshFiledataDisplay();
+        }, (ex) => {
           alert(ex);
-        }, product, e.dataTransfer.files);
+        }, this.#product, e.dataTransfer.files);
       }
     });
 
-    fileFiledata.addEventListener( 'change', (e) => {
-      const imgPic = args.target.querySelector('#imgPic');
-      const reader = new FileReader();
-      reader.onload = (r) => {
-        imgPic.src = r.target.result;
-      };
-      reader.readAsDataURL(fileFiledata.files[0]);
-
+    fileFiledata.addEventListener( 'change', () => {
       args.app.apiFiledata((r) => {
         console.log(r);
-      }, (ex) => {  
+        this.#refreshFiledataDisplay();
+      }, (ex) => {
         alert(ex);
       }, this.#product, fileFiledata.files);
+      fileFiledata.value = '';
     });
 
     collapseTwo.addEventListener('shown.bs.collapse', (e) => {
@@ -270,33 +277,7 @@ export default class pProductDetail {
 
     collapseThree.addEventListener( 'shown.bs.collapse', (e) => {
       e.stopPropagation();
-      
-      args.app.apiGet((r) => {
-
-        let html = '<div class="row">';
-        let idx = 0;
-        for (const fd of r) {
-          if (idx > 0 && idx % 3 == 0) {  
-            html += '</div><div class="row mt-3">';
-          }
-
-          html += `
-            <div class="col-12 col-lg-4 mt-3 mt-lg-0">
-              <div class="card w-100">
-                <img src="${fd.contentUrl}" class="card-img-top" alt="Foto" />
-                <div class="card-body">
-                  <h5 class="card-title">${fd.name}</h5>
-                </div>
-              </div>              
-            </div>
-          `;
-          idx++;
-        }
-        html += '</div>';
-        containerFiledata.innerHTML = html;
-      }, (ex) => {
-        alert(ex);
-      }, '/product/' + this.#product.productUid + '/filedata');
+      this.#refreshFiledataDisplay();
     });
 
     // init
@@ -355,9 +336,9 @@ export default class pProductDetail {
       alert(ex);
     }, '/category');
   } // constructor
+  //#endregion
 
-  // private
-  //================================================================================================
+  //#region private methods
   #stockListRead(id)  {
     const tableStock = this.#args.target.querySelector('#tableStock>tbody');
     const infoTextSum = this.#args.target.querySelector('#infoSum');
@@ -418,4 +399,36 @@ export default class pProductDetail {
   tableStock.innerHTML = html;
   infoTextSum.innerText = ga;
 }
+
+  #refreshFiledataDisplay() {
+    if (!this.#product?.productUid) return;
+    const containerFiledata = this.#args.target.querySelector('#containerFiledata');
+
+    this.#args.app.apiGet((r) => {
+      let html = '<div class="row">';
+      let idx = 0;
+      for (const fd of r) {
+        if (idx > 0 && idx % 3 == 0) {
+          html += '</div><div class="row mt-3">';
+        }
+        html += `
+          <div class="col-12 col-lg-4 mt-3 mt-lg-0">
+            <div class="card w-100">
+              <img src="${fd.contentUrl}" class="card-img-top" alt="Foto" />
+              <div class="card-body d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">${fd.name}</h5>
+                <i class="bi-trash text-danger element-clickable ms-2" role="button" data-filedata-id="${fd.filedataId}" title="Delete"></i>
+              </div>
+            </div>
+          </div>
+        `;
+        idx++;
+      }
+      html += '</div>';
+      containerFiledata.innerHTML = html;
+    }, (ex) => {
+      alert(ex);
+    }, '/product/' + this.#product.productUid + '/filedata');
+  }
+  //#endregion
 } // class
