@@ -1,11 +1,13 @@
 import 'bootstrap/dist/js/bootstrap.bundle';
 import ComponentHTML from './nav-bar.html';
 import { readLocalCart, totalItemCount } from '@entities/cart/model';
+import SearchBox from '@widgets/search-box/search-box';
 
 export default class NavBar {
 	#refreshBadge = null;
 	#refreshCategories = null;
 	#resizeObserver = null;
+	#searchBox = null;
 
 	constructor(args) {
 		args.target.innerHTML = ComponentHTML;
@@ -48,6 +50,19 @@ export default class NavBar {
 			</a>`;
 		if (args.app.user?.roleNumber >= 2) ul.appendChild(liUsers);
 
+		// ─── SHOP LINK (visible to all) ─────────────────────────────────────
+		const liShop            = document.createElement('li');
+		liShop.className        = 'nav-item align-self-center';
+		liShop.innerHTML        = `
+			<a 	class="nav-link"
+					style="font-size: 1.5rem;"
+					href="#shop"
+					title="Shop">
+				<i 	class="bi-shop fs-3"></i>
+				 		Shop
+			</a>`;
+		ul.appendChild(liShop);
+
 		// ─── CART LINK (visible to all; badge shows item count) ────────────
 		const liCart            = document.createElement('li');
 		liCart.className        = 'nav-item align-self-center';
@@ -89,6 +104,12 @@ export default class NavBar {
 		this.#renderCategoryDropdowns(args);
 		this.#refreshCategories = () => this.#renderCategoryDropdowns(args);
 		window.addEventListener('category:changed', this.#refreshCategories);
+
+		// ─── SEARCH BOX (second nav-bar) ────────────────────────────────────
+		const searchMount = args.target.querySelector('#navbarSearchMount');
+		if (searchMount) {
+			this.#searchBox = new SearchBox({ target: searchMount, app: args.app });
+		}
 
 
 		// ─── THEME TOGGLE SETUP ─────────────────────────────────────────────
@@ -239,6 +260,10 @@ export default class NavBar {
 		if (this.#resizeObserver) {
 			this.#resizeObserver.disconnect();
 			this.#resizeObserver = null;
+		}
+		if (this.#searchBox) {
+			this.#searchBox.destroy();
+			this.#searchBox = null;
 		}
 	}
 

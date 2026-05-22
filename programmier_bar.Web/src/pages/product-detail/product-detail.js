@@ -8,7 +8,6 @@ export default class pProductDetail {
   //#region private vars
   #args = null;
   #categoryTree = null;
-  // #networkDataReceived = false;
   #product = null;
   //#endregion
 
@@ -33,7 +32,6 @@ export default class pProductDetail {
     const fileFiledata     = args.target.querySelector('#fileFiledata');
     const containerFiledata = args.target.querySelector('#containerFiledata');
 
-    // Delegated click handler for trash icons rendered inside the cards by #refreshFiledataDisplay().
     containerFiledata.addEventListener('click', (e) => {
       const btn = e.target.closest('[data-filedata-id]');
       if (!btn) return;
@@ -43,18 +41,9 @@ export default class pProductDetail {
         this.#refreshFiledataDisplay();
       }, (ex) => alert(ex), '/filedata/' + id);
     });
-    
-    // if (!this.#product.stockList) {
-      this.#product = { stockList: [] };
-    // }
 
-    // const dialogueStock = new dStock({
-    //   target: args.target,
-    //   app: args.app,
-    //   saveClick: () => {
-    //     this.#stockListRead(product.productUid);
-    //   }
-    // });
+    this.#product = { stockList: [] };
+
     const dialogueStock = new dStock({
       target: args.target,
       app: args.app,
@@ -71,7 +60,7 @@ export default class pProductDetail {
         this.#refreshStockTable();
       }
     });
-    
+
     const colCategoryTreeview = args.target.querySelector('#colCategoryTreeview');
 
     this.#categoryTree = new categoryTree({
@@ -80,58 +69,9 @@ export default class pProductDetail {
       multiSelect: true,
     });
 
-    //   if (!this.#product) {
-    //     this.#product = {
-    //       productId: null,
-    //       productUid: null,
-    //       charcode: 'P-' + Date.now()
-    //     };
-    //   }
-
-    //   // Set the name afterward
-    //   // product.charcode = textCharcode.value ? textCharcode.value : null;
-
-    //   // product.productUid = Date.now().toString();
-    //   if (this.#product.stockList && this.#product.stockList.length > 0) {
-    //     this.#product.stockList.forEach(entry => delete entry.personNameFull); // optional cleanup
-    //   }
-
-    // }, (ex) => {
-    // if('serviceWorker' in navigator && 'SyncManager' in window) {
-    //   navigator.serviceWorker.ready
-    //     .then(sw => {
-    //       if (product.artikelId == null) 
-    //       {
-    //         writeData('product-create', product)
-    //           .then(() => {
-    //             return sw.sync.register('sync-new-product');
-    //           })
-    //           .then(() => {
-    //             writeData('product-cache', product);
-    //           })
-    //           .catch(function(err) {
-    //             console.log(err);
-    //           }).finally(()=> {
-    //         });
-    //       }
-    //     else {
-    //         writeData('product-update', product)
-    //           .then(() => {
-    //             return sw.sync.register('sync-updated-product');
-    //           })
-    //           .then(() => {
-    //             deleteItemFromData('product-cache', product.productId);
-    //             writeData('product-cache', product);
-    //           })
-    //           .catch(function(err) {
-    //             console.log(err);
-    //           }).finally(()=> {
-    //         });
-    //       }
-    //     });
-    //   }
-        
-    buttonSave.addEventListener('click', () => {
+    // Shared by the Save button and the filedata upload path, which needs a
+    // saved product (real productUid) before POSTing to /product/{uid}/filedata.
+    const saveProduct = (onSaved, onFailed) => {
       alertMessage.classList.remove('alert-success', 'alert-danger');
       alertMessage.classList.add('d-none');
 
@@ -152,18 +92,9 @@ export default class pProductDetail {
         }));
       }
 
-      // // ✅ REMOVE frontend-only field to avoid backend validation error
-      // if (this.#product.stockList?.length > 0) {
-      //   this.#product.stockList.forEach(entry => {
-      //     if ('personNameFull' in entry) {
-      //       delete entry.personNameFull;
-      //     }
-      //   });
-      // }
-
       if (Array.isArray(this.#product.stockList)) {
         this.#product.stockList = this.#product.stockList
-          .filter(entry => entry && typeof entry.amount !== 'undefined') // filter out bad entries
+          .filter(entry => entry && typeof entry.amount !== 'undefined')
           .map(({ stockId, productId, amount, note, dateTime }) => ({
             stockId,
             productId,
@@ -172,34 +103,64 @@ export default class pProductDetail {
             dateTime
           }));
       }
-      
-      // ✅ Send cleaned object
+
       args.app.apiSet((r) => {
-        alertMessage.innerText = r.message;
         if (r.success) {
           this.#product = r.product;
-          // sessionStorage.setItem('refreshProductList', 'true');
-          alert(r.message);
-          window.open('#productdetail?id=' + r.product.productUid, '_self');
-          setTimeout(() => alertMessage.classList.add('d-none'), 3000);
+          onSaved?.(r);
         } else {
+          alertMessage.innerText = r.message;
           alertMessage.classList.add('alert-danger');
           alertMessage.classList.remove('d-none');
+          onFailed?.(r.message);
         }
       }, (ex) => {
         alertMessage.classList.add('alert-danger');
         alertMessage.classList.remove('d-none');
         alertMessage.innerText = ex;
+        onFailed?.(ex);
       }, '/product', this.#product.productId, this.#product);
+    };
+
+    buttonSave.addEventListener('click', () => {
+      saveProduct((r) => {
+        alertMessage.innerText = r.message;
+        alert(r.message);
+        window.open('#productdetail?id=' + r.product.productUid, '_self');
+        setTimeout(() => alertMessage.classList.add('d-none'), 3000);
+      });
     });
 
+    const uploadFiledata = (files) => {
+      if (!files || files.length === 0) return;
+      const needsSave = !this.#product?.productUid || !this.#product?.productId;
+      if (needsSave && !textName.value) {
+        alertMessage.innerText = 'Product Name has to be set first';
+        alertMessage.classList.remove('alert-success', 'd-none');
+        alertMessage.classList.add('alert-danger');
+        return;
+      }
+      const doUpload = () => {
+        args.app.apiFiledata((r) => {
+          console.log(r);
+          this.#refreshFiledataDisplay();
+        }, (ex) => {
+          alert(ex);
+        }, this.#product, files);
+      };
+      if (needsSave) {
+        saveProduct(() => {
+          // replaceState, not navigate — a full reload would tear down this page and drop in-flight files.
+          history.replaceState(null, '', '#productdetail?id=' + this.#product.productUid);
+          doUpload();
+        });
+      } else {
+        doUpload();
+      }
+    };
 
-    //-----------------------------------------
     // stock
-    //-----------------------------------------
-
     buttonStockPlus.addEventListener('click', () => {
-      // debugger;
       if (!this.#product) {
         this.#product = {
           productId: null,
@@ -231,76 +192,47 @@ export default class pProductDetail {
       dialogueStock.show({ product: this.#product, modus: 'n' });
     });
 
-    //-----------------------------------------
     // filedata
-    rowFiledata.addEventListener( 'click', () => {
+    rowFiledata.addEventListener('click', () => {
       fileFiledata.click();
     });
 
-    rowFiledata.addEventListener( 'dragover', (e) => {
+    rowFiledata.addEventListener('dragover', (e) => {
       e.stopPropagation();
       e.preventDefault();
       e.dataTransfer.dropEffect = 'copy';
-    });  
+    });
 
-    rowFiledata.addEventListener( 'drop', (e) => {
+    rowFiledata.addEventListener('drop', (e) => {
       e.stopPropagation();
       e.preventDefault();
       if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-        args.app.apiFiledata((r) => {
-          console.log(r);
-          this.#refreshFiledataDisplay();
-        }, (ex) => {
-          alert(ex);
-        }, this.#product, e.dataTransfer.files);
+        uploadFiledata(e.dataTransfer.files);
       }
     });
 
-    fileFiledata.addEventListener( 'change', () => {
-      args.app.apiFiledata((r) => {
-        console.log(r);
-        this.#refreshFiledataDisplay();
-      }, (ex) => {
-        alert(ex);
-      }, this.#product, fileFiledata.files);
+    fileFiledata.addEventListener('change', () => {
+      const files = fileFiledata.files;
       fileFiledata.value = '';
+      uploadFiledata(files);
     });
 
     collapseTwo.addEventListener('shown.bs.collapse', (e) => {
       e.stopPropagation();
-      // debugger;
-      // this.#stockListRead(this.#product.productUid);
       if (this.#product && this.#product.productUid) {
         this.#stockListRead(this.#product.productUid);
       }
     });
 
-    collapseThree.addEventListener( 'shown.bs.collapse', (e) => {
+    collapseThree.addEventListener('shown.bs.collapse', (e) => {
       e.stopPropagation();
       this.#refreshFiledataDisplay();
     });
 
-    // init
-    //-----------------------------------------
-    // let networkDataReceived = false;
-    // if ('indexedDB' in window) {
-    //   readItemFromData('product-cache', args.id)
-    //     .then(data => {
-    //       if (!networkDataReceived) { // If network data hasn't already updated the display
-    //         console.log('selected article From cache', data);
-    //         product = data;
-    //         textCharcode.value = product.charcode;
-    //         textName.value = product.name;
-    //       }
-    //     });
-    // }
-
     args.app.apiGet((cl) => {
-      // this.#networkDataReveived = false;
       this.#categoryTree.categoryList = cl;
       if (args.id) {
         args.app.apiGet((r) => {
-          // networkDataReceived = true;
           this.#product = r;
           textCharcode.value = this.#product.charcode;
           textName.value = this.#product.name;
@@ -314,7 +246,6 @@ export default class pProductDetail {
             this.#categoryTree.selCats = sc;
           }
 
-          // Mount the "Add to cart" button now that we have a saved product to reference
           const cartTarget = args.target.querySelector('#cartAddTarget');
           if (cartTarget) {
             new CartAddItem({
@@ -335,7 +266,7 @@ export default class pProductDetail {
     }, (ex) => {
       alert(ex);
     }, '/category');
-  } // constructor
+  }
   //#endregion
 
   //#region private methods
@@ -431,4 +362,4 @@ export default class pProductDetail {
     }, '/product/' + this.#product.productUid + '/filedata');
   }
   //#endregion
-} // class
+}

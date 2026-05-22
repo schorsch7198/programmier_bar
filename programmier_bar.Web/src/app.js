@@ -23,7 +23,6 @@ export default class Application {
   #header = null;
   #main = null;
   #footer = null;
-  // #apiUrl = 'http://localhost:5181';
   #apiUrl = `${location.protocol}//${location.hostname}:5181`;  // Same hostname as the page → same-site cookie flow
   #user = null;
   #currentNavBar = null;
@@ -47,7 +46,6 @@ export default class Application {
         console.error(ex);
         // Stale/invalid logintoken: clear it so subsequent loads skip the failing /page/init call.
         document.cookie = 'logintoken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
-        // this.#navigate('#login');
         this.#navigate(location.hash);
       }, '/page/init');
     } else {
@@ -65,12 +63,6 @@ export default class Application {
   //#region private methods
   #navigate(completeHash) {
     this.#main.innerHTML = '';
-
-    // if (!this.#user) {
-    //   this.#header.innerHTML = '';
-    // } else {
-    //   new pNavBar({ target: this.#header, app: this });
-    // }
 
     // Tear the previous navbar down first so its window listeners (cart:changed, category:changed) don't accumulate.
     this.#currentNavBar?.destroy?.();

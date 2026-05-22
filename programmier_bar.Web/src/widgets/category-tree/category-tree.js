@@ -1,14 +1,14 @@
 import bootstrap from 'bootstrap/dist/js/bootstrap.bundle';
-
 import HTML from './category-tree.html';
 
 export default class categoryTree {
-  // private vars
-  //===================================================================================================================================
+  //#region private vars
   #args = null;
   #categoryList = null;
   #selCats = null;
+  //#endregion
 
+  //#region constructor
   constructor(args) {
     this.#args = args;
     this.#args.target.innerHTML = HTML;
@@ -17,8 +17,6 @@ export default class categoryTree {
     const offcanvasBody = this.#args.target.querySelector('.offcanvas-body');
     const offcanvasCategory = new bootstrap.Offcanvas('#offcanvasCategory');
 
-    // Events
-    //===================================================================================================================================
     args.target.addEventListener('hidden.bs.collapse', (e) => {
       const btn = args.target.querySelector('button[data-bs-target="#' + e.target.id + '"]');
       if (btn) {
@@ -36,32 +34,33 @@ export default class categoryTree {
       }
     });
 
-    args.target.addEventListener( 'click', (e) => {
+    args.target.addEventListener('click', (e) => {
       if (e.target.nodeName == 'SPAN' && e.target.dataset.categoryId) {
-        this.#selCats = this.#categoryList.filter( c => c.categoryId == parseInt(e.target.dataset.categoryId));
+        this.#selCats = this.#categoryList.filter(c => c.categoryId == parseInt(e.target.dataset.categoryId));
         offcanvasCategory.hide();
-        if (this.#args.click && typeof this.#args.click === 'function') 
+        if (this.#args.click && typeof this.#args.click === 'function') {
           this.#args.click(this.#selCats[0]);
+        }
       }
     });
 
-    containerCategory.addEventListener( 'click', (e) => {
+    containerCategory.addEventListener('click', (e) => {
       if (e.target.nodeName == 'INPUT' && e.target.type == 'checkbox') {
         const cb = offcanvasBody.querySelector('#' + e.target.id);
         cb.checked = e.target.checked;
       }
     });
 
-    offcanvasBody.addEventListener( 'click', (e) => {
+    offcanvasBody.addEventListener('click', (e) => {
       if (e.target.nodeName == 'INPUT' && e.target.type == 'checkbox') {
         const cb = containerCategory.querySelector('#' + e.target.id);
         cb.checked = e.target.checked;
       }
     });
-  } // constructor
+  }
+  //#endregion
 
-  // properties
-  //===================================================================================================================================
+  //#region properties
   get categoryList() {
     return this.#categoryList;
   }
@@ -71,11 +70,10 @@ export default class categoryTree {
   }
 
   get selCats() {
-
     if (this.#args.multiSelect) {
       const containerCategory = this.#args.target.querySelector('#containerCategory');
       this.#selCats = [];
-      containerCategory.querySelectorAll('input[type="checkbox"]:checked').forEach( (item) => {
+      containerCategory.querySelectorAll('input[type="checkbox"]:checked').forEach((item) => {
         const cs = this.#categoryList.filter(c => c.categoryId == parseInt(item.dataset.categoryId));
         this.#selCats.push(...cs);
       });
@@ -103,9 +101,9 @@ export default class categoryTree {
       }
     }
   }
+  //#endregion
 
-  // private methods
-  //===================================================================================================================================
+  //#region private methods
   #treeviewShow() {
     const containerCategory = this.#args.target.querySelector('#containerCategory');
     const offcanvasBody = this.#args.target.querySelector('.offcanvas-body');
@@ -115,16 +113,16 @@ export default class categoryTree {
   #treeviewBuild(pCat) {
     let html = '';
     let cl = null;
-    if (pCat) cl = this.#categoryList.filter( o => o.categoryRefId == pCat.categoryId);
-    else cl = this.#categoryList.filter( o => !o.categoryRefId);
+    if (pCat) cl = this.#categoryList.filter(o => o.categoryRefId == pCat.categoryId);
+    else cl = this.#categoryList.filter(o => !o.categoryRefId);
 
-    for (const c of cl){
+    for (const c of cl) {
       html += `
         <div class="mt-2 d-flex align-items-center">
-          <button type="button" class="btn btn-secondary${(this.#categoryList.filter( o =>  o.categoryRefId == c.categoryId).length == 0 ? ' invisible' : '')}" data-bs-toggle="collapse" data-bs-target="#collapse${c.categoryId}" aria-expanded="false" aria-controls="collapseExample">
+          <button type="button" class="btn btn-secondary${(this.#categoryList.filter(o => o.categoryRefId == c.categoryId).length == 0 ? ' invisible' : '')}" data-bs-toggle="collapse" data-bs-target="#collapse${c.categoryId}" aria-expanded="false" aria-controls="collapseExample">
             <i class="bi-chevron-down"></i>
           </button>
-          ${(this.#args.multiSelect 
+          ${(this.#args.multiSelect
             ? `<div class="form-check ms-2">
                 <input class="form-check-input" type="checkbox" value="" id="checkboxCategory_${c.categoryId}" data-category-id="${c.categoryId}">
                 <label class="form-check-label" for="checkboxCategory_${c.categoryId}">${c.name}</label>
@@ -138,4 +136,5 @@ export default class categoryTree {
     }
     return html;
   }
-} // class
+  //#endregion
+}

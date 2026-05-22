@@ -70,16 +70,17 @@ export default class pShop {
         <div class="card h-100 shadow-sm">
           <a href="#shop-item?id=${encodeURIComponent(p.productUid || '')}"
              class="text-decoration-none text-reset">
-            <div class="card-img-top bg-light d-flex align-items-center justify-content-center overflow-hidden"
-                 style="height: 180px;">
-              <i class="bi bi-image fs-1 text-secondary"></i>
-            </div>
+            <div class="card-img-top bg-body-tertiary overflow-hidden"
+                 style="height: 180px;"></div>
             <div class="card-body pb-2">
               <h5 class="card-title mb-1">${this.#escape(p.name || '')}</h5>
               <p class="card-text text-muted small mb-0">${this.#escape(p.charcode || '')}</p>
             </div>
           </a>
-          <div class="card-footer bg-white border-0 pt-0 pb-3">
+          <div class="card-footer bg-transparent border-0 pt-0 pb-3 d-flex align-items-center justify-content-between gap-2">
+            <a href="#shop-item?id=${encodeURIComponent(p.productUid || '')}"
+               class="fs-5 fw-semibold text-muted text-decoration-none"
+               data-price>&mdash;</a>
             <div class="cart-add-mount"></div>
           </div>
         </div>

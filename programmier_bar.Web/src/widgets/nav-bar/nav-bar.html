@@ -59,18 +59,16 @@
       </ul>
     </div>
 
-    <!-- 3) BRAND / LOGO centered -->
-    <a class="navbar-brand order-1 mx-auto 
-							position-lg-absolute me-lg-4
-							top-lg-50 start-lg-50
-							translate-middle-lg-x"
-			 href="#">
-      <img src="./../../images/ProgrammierBar_Logo_old.png"
-        	 alt="Programmier Bar"
-           title="Homepage"
-        	 class="img-fluid"
-    			 style="height:50px;">
-    </a>
+    <!-- 3) BRAND / LOGO centered between left cluster and right user block -->
+    <div class="order-1 flex-grow-1 d-flex justify-content-center align-items-center">
+      <a class="navbar-brand m-0" href="#">
+        <img src="./../../images/ProgrammierBar_Logo_old.png"
+          	 alt="Programmier Bar"
+             title="Homepage"
+          	 class="img-fluid"
+      			 style="height:50px;">
+      </a>
+    </div>
 
     <!-- 4) RIGHT user block (never collapsed) -->
     <div class="d-flex align-items-center order-2 
@@ -148,21 +146,7 @@
       <!-- Top-level categories rendered dynamically by nav-bar.js -->
       <ul class="navbar-nav mb-2 mb-lg-0" id="navbarCategories"></ul>
 
-      <!-- Search input — wiring deferred to a later slice -->
-      <form class="d-flex ms-auto"
-            role="search"
-            onsubmit="return false;">
-        <input class="form-control me-2"
-               type="search"
-               placeholder="Search..."
-               aria-label="Search"
-               id="searchInput"
-               disabled>
-        <button class="btn btn-light"
-                type="submit"
-                disabled>
-                Search</button>
-      </form>
+      <div class="ms-auto" id="navbarSearchMount" style="min-width: 18rem; max-width: 28rem; flex: 0 1 auto;"></div>
     </div>
   </div>
 </nav>

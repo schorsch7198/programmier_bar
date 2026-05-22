@@ -2,8 +2,6 @@ import bootstrap from 'bootstrap/dist/js/bootstrap.bundle';
 import ComponentHTML from './category-edit.html';
 
 export default class dCategory {
-  //==========================================================================================================
-  // private vars
   #args = null;
   #modal = null;
   #category = null;
@@ -18,23 +16,20 @@ export default class dCategory {
     const modalCategory = args.target.querySelector('#modalCategory');
     this.#modal = new bootstrap.Modal(modalCategory);
 
-    buttonSave.addEventListener( 'click', () => {
+    buttonSave.addEventListener('click', () => {
       if (!this.#category) {
-        this.#category = {
-          categoryId: null
-        };
+        this.#category = { categoryId: null };
       }
       if (this.#pCategory) {
         this.#category.categoryRefId = this.#pCategory.categoryId;
       }
-       
+
       this.#category.name = textName.value ? textName.value : null;
       this.#category.ranking = numberRanking.value ? parseInt(numberRanking.value) : null;
 
       args.app.apiSet((r) => {
         if (r.success) {
           if (args.saveClick && typeof args.saveClick === 'function') args.saveClick();
-          // buttonSave.blur();
           setTimeout(() => this.#modal.hide(), 50);
         }
       }, (ex) => {
@@ -43,7 +38,6 @@ export default class dCategory {
     });
   }
 
-  //==========================================================================================================
   show(args) {
     const numberRanking = this.#args.target.querySelector('#numberRankingModalCategory');
     const textName = this.#args.target.querySelector('#textNameModalCategory');
@@ -69,4 +63,4 @@ export default class dCategory {
     }
     this.#modal.show();
   }
-} // class
+}

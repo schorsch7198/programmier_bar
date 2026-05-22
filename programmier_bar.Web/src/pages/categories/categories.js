@@ -2,15 +2,16 @@ import PageHTML from './categories.html';
 import dCategory from '@features/category-edit/category-edit';
 
 export default class pCategories {
-  //============================================================================================================================
+  //#region private vars
   #args = null;
   #categoryList = null;
-  //============================================================================================================================
+  //#endregion
+
+  //#region constructor
   constructor(args) {
     this.#args = args;
     args.target.innerHTML = PageHTML;
 
-    //---------------------------------------------------
     const buttonNew = this.#args.target.querySelector('#buttonNew');
     const tableList = this.#args.target.querySelector('#tableList>tbody');
 
@@ -23,15 +24,9 @@ export default class pCategories {
       }
     });
 
-    //---------------------------------------------------
-    // events
-    //---------------------------------------------------
-    buttonNew.addEventListener( 'click', () => {
-      dialog.show();
-    });
+    buttonNew.addEventListener('click', () => dialog.show());
 
-    tableList.addEventListener( 'click', (e) => {
-
+    tableList.addEventListener('click', (e) => {
       let btn = null;
       let cat = null;
       if (e.target.nodeName == 'I' && e.target.parentElement.nodeName == 'BUTTON') btn = e.target.parentElement;
@@ -39,20 +34,17 @@ export default class pCategories {
 
       if (btn && btn.dataset.action) {
         cat = this.#categoryList.filter(c => c.categoryId == parseInt(btn.dataset.id))[0];
-        switch(btn.dataset.action) {
+        switch (btn.dataset.action) {
           case 'add':
-            dialog.show({
-              pCategory: cat
-            });
+            dialog.show({ pCategory: cat });
             break;
           case 'del':
             if (confirm('Are you sure u want to delete ' + cat.name + ' ?')) {
-              args.app.apiDelete( (r) => {
+              args.app.apiDelete((r) => {
                 if (r.success) {
                   this.#dataRead();
                   window.dispatchEvent(new CustomEvent('category:changed'));
-                }
-                else alert(r.message);
+                } else alert(r.message);
               }, (ex) => {
                 alert(ex);
               }, '/category/' + cat.categoryId);
@@ -61,25 +53,17 @@ export default class pCategories {
         }
       } else if (e.target.nodeName == 'TD' && e.target.dataset.id) {
         cat = this.#categoryList.filter(c => c.categoryId == parseInt(e.target.dataset.id))[0];
-        dialog.show({
-          category: cat
-        });
+        dialog.show({ category: cat });
       }
     });
 
-    //---------------------------------------------------
-    // init
-    //---------------------------------------------------
     this.#dataRead();
-  } // constructor
+  }
+  //#endregion
 
-  //============================================================================================================================
-  // private methods
-  //============================================================================================================================
+  //#region private methods
   #dataRead() {
-
     const tableList = this.#args.target.querySelector('#tableList>tbody');
-
     this.#args.app.apiGet((r) => {
       this.#categoryList = r;
       tableList.innerHTML = this.#treeviewCreate();
@@ -100,21 +84,21 @@ export default class pCategories {
       html += `
         <tr>
           <td>
-            <button type="button" 
-                    class="btn btn-secondary" 
-                    data-action="add" 
+            <button type="button"
+                    class="btn btn-secondary"
+                    data-action="add"
                     data-id="${c.categoryId}">
                     <i class="bi-plus"></i></button>
-            <button type="button" 
-                    class="btn btn-danger" 
-                    data-action="del" 
+            <button type="button"
+                    class="btn btn-danger"
+                    data-action="del"
                     data-id="${c.categoryId}">
                     <i class="bi-trash3-fill"></i></button>
           </td>
-          <td class="element-clickable pt-3" 
-                     style="padding-left:${level * 2}rem;" 
+          <td class="element-clickable pt-3"
+                     style="padding-left:${level * 2}rem;"
                      data-id="${c.categoryId}">${c.name}</td>
-          <td class="element-clickable text-end" 
+          <td class="element-clickable text-end"
                      data-id="${c.categoryId}">${c.ranking}</td>
         </tr>
         ${this.#treeviewCreate(c, level + 1)}
@@ -122,8 +106,5 @@ export default class pCategories {
     }
     return html;
   }
-
-
-
-
-} // class
+  //#endregion
+}
