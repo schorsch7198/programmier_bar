@@ -29,7 +29,7 @@ export default class dCategory {
 
       args.app.apiSet((r) => {
         if (r.success) {
-          if (args.saveClick && typeof args.saveClick === 'function') args.saveClick();
+          if (args.saveClick && typeof args.saveClick === 'function') args.saveClick(this.#category);
           setTimeout(() => this.#modal.hide(), 50);
         }
       }, (ex) => {

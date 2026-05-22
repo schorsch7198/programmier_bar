@@ -10,25 +10,27 @@
   <div id="cartAlert" class="alert d-none mt-3" role="alert"></div>
 
   <div id="cartContent" class="d-none">
-    <table class="table align-middle">
-      <thead>
-        <tr>
-          <th scope="col">Product</th>
-          <th scope="col" style="width: 10rem;">Quantity</th>
-          <th scope="col" style="width: 4rem;"></th>
-        </tr>
-      </thead>
-      <tbody id="cartTableBody"></tbody>
-      <tfoot>
-        <tr>
-          <th scope="row">Total items</th>
-          <th id="cartTotalCount">0</th>
-          <th></th>
-        </tr>
-      </tfoot>
-    </table>
+    <div class="table-responsive">
+      <table class="table align-middle">
+        <thead>
+          <tr>
+            <th scope="col">Product</th>
+            <th scope="col" style="width: 10rem;">Quantity</th>
+            <th scope="col" style="width: 4rem;"></th>
+          </tr>
+        </thead>
+        <tbody id="cartTableBody"></tbody>
+        <tfoot>
+          <tr>
+            <th scope="row">Total items</th>
+            <th id="cartTotalCount">0</th>
+            <th></th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
 
-    <div class="d-flex justify-content-end gap-2">
+    <div class="d-flex flex-wrap justify-content-end gap-2">
       <a href="#productlist" class="btn btn-outline-secondary">Continue shopping</a>
       <button id="buttonCheckout" class="btn btn-primary" type="button">Checkout</button>
     </div>

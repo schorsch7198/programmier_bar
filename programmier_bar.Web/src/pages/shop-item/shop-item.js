@@ -40,7 +40,7 @@ export default class pShopItem {
       const url = `${this.#args.app.apiUrl}/filedata/${fd.filedataId}/download`;
       target.querySelector('#shopItemImage').innerHTML =
         `<img src="${url}" alt="${this.#escape(product.name || '')}"
-              class="img-fluid rounded" style="max-height: 320px; object-fit: contain;">`;
+              class="img-fluid rounded" style="max-height: 100%; max-width: 100%; object-fit: contain;">`;
     }
 
     // Category badges — resolve names from /category (Product only returns categoryIds)

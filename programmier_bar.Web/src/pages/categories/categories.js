@@ -4,7 +4,12 @@ import dCategory from '@features/category-edit/category-edit';
 export default class pCategories {
   //#region private vars
   #args = null;
-  #categoryList = null;
+  #categoryList = [];
+  #roots = [];
+  #childrenByCat = new Map();
+  #expanded = new Set();
+  #filter = '';
+  #dialog = null;
   //#endregion
 
   //#region constructor
@@ -12,49 +17,62 @@ export default class pCategories {
     this.#args = args;
     args.target.innerHTML = PageHTML;
 
-    const buttonNew = this.#args.target.querySelector('#buttonNew');
-    const tableList = this.#args.target.querySelector('#tableList>tbody');
+    const buttonNew = args.target.querySelector('#buttonNew');
+    const inputFilter = args.target.querySelector('#inputFilter');
+    const tree = args.target.querySelector('#categoriesTree');
 
-    const dialog = new dCategory({
+    this.#dialog = new dCategory({
       target: args.target,
       app: args.app,
-      saveClick: () => {
+      saveClick: (saved) => {
+        // Auto-expand the parent of a newly-added sub-category so the new child is visible.
+        if (saved?.categoryRefId) this.#expanded.add(saved.categoryRefId);
         this.#dataRead();
         window.dispatchEvent(new CustomEvent('category:changed'));
       }
     });
 
-    buttonNew.addEventListener('click', () => dialog.show());
+    buttonNew.addEventListener('click', () => this.#dialog.show());
 
-    tableList.addEventListener('click', (e) => {
-      let btn = null;
-      let cat = null;
-      if (e.target.nodeName == 'I' && e.target.parentElement.nodeName == 'BUTTON') btn = e.target.parentElement;
-      else if (e.target.nodeName == 'BUTTON') btn = e.target;
+    inputFilter.addEventListener('input', () => {
+      this.#filter = inputFilter.value.trim().toLowerCase();
+      this.#render();
+    });
 
-      if (btn && btn.dataset.action) {
-        cat = this.#categoryList.filter(c => c.categoryId == parseInt(btn.dataset.id))[0];
-        switch (btn.dataset.action) {
-          case 'add':
-            dialog.show({ pCategory: cat });
-            break;
-          case 'del':
-            if (confirm('Are you sure u want to delete ' + cat.name + ' ?')) {
-              args.app.apiDelete((r) => {
-                if (r.success) {
-                  this.#dataRead();
-                  window.dispatchEvent(new CustomEvent('category:changed'));
-                } else alert(r.message);
-              }, (ex) => {
-                alert(ex);
-              }, '/category/' + cat.categoryId);
-            }
-            break;
-        }
-      } else if (e.target.nodeName == 'TD' && e.target.dataset.id) {
-        cat = this.#categoryList.filter(c => c.categoryId == parseInt(e.target.dataset.id))[0];
-        dialog.show({ category: cat });
+    tree.addEventListener('click', (e) => {
+      const toggle = e.target.closest('.chevron-toggle');
+      if (toggle) {
+        const id = parseInt(toggle.dataset.toggleId);
+        if (this.#expanded.has(id)) this.#expanded.delete(id);
+        else this.#expanded.add(id);
+        this.#render();
+        return;
       }
+
+      const btn = e.target.closest('button[data-action]');
+      if (btn) {
+        const cat = this.#categoryList.find(c => c.categoryId == parseInt(btn.dataset.id));
+        if (!cat) return;
+        if (btn.dataset.action === 'add') {
+          this.#dialog.show({ pCategory: cat });
+        } else if (btn.dataset.action === 'del') {
+          if (confirm(`Are you sure you want to delete "${cat.name}" ?`)) {
+            args.app.apiDelete((r) => {
+              if (r.success) {
+                this.#dataRead();
+                window.dispatchEvent(new CustomEvent('category:changed'));
+              } else alert(r.message);
+            }, (ex) => alert(ex),
+            '/category/' + cat.categoryId);
+          }
+        }
+        return;
+      }
+
+      const node = e.target.closest('.category-node');
+      if (!node) return;
+      const cat = this.#categoryList.find(c => c.categoryId == parseInt(node.dataset.id));
+      if (cat) this.#dialog.show({ category: cat });
     });
 
     this.#dataRead();
@@ -63,48 +81,95 @@ export default class pCategories {
 
   //#region private methods
   #dataRead() {
-    const tableList = this.#args.target.querySelector('#tableList>tbody');
     this.#args.app.apiGet((r) => {
-      this.#categoryList = r;
-      tableList.innerHTML = this.#treeviewCreate();
-    }, (ex) => {
-      alert(ex);
-    }, '/category');
+      this.#categoryList = r || [];
+      this.#buildTree();
+      this.#render();
+    }, (ex) => alert(ex),
+    '/category');
   }
 
-  #treeviewCreate(pc, level) {
-    let cl = null;
+  #buildTree() {
+    const nodeByCat = new Map();
+    for (const c of this.#categoryList) nodeByCat.set(c.categoryId, { category: c, children: [] });
+
+    this.#roots = [];
+    this.#childrenByCat = new Map();
+    for (const c of this.#categoryList) {
+      const n = nodeByCat.get(c.categoryId);
+      if (c.categoryRefId && nodeByCat.has(c.categoryRefId)) {
+        nodeByCat.get(c.categoryRefId).children.push(n);
+        if (!this.#childrenByCat.has(c.categoryRefId)) this.#childrenByCat.set(c.categoryRefId, []);
+        this.#childrenByCat.get(c.categoryRefId).push(c);
+      } else {
+        this.#roots.push(n);
+      }
+    }
+
+    const byRanking = (a, b) => (a.category.ranking ?? 0) - (b.category.ranking ?? 0);
+    this.#roots.sort(byRanking);
+    for (const n of nodeByCat.values()) n.children.sort(byRanking);
+  }
+
+  #render() {
+    const container = this.#args.target.querySelector('#categoriesTree');
+    if (this.#roots.length === 0) {
+      container.innerHTML = `<div class="empty-state">No categories yet. Click "New main category" to add one.</div>`;
+      return;
+    }
     let html = '';
+    for (const root of this.#roots) html += this.#renderNode(root, 0);
+    container.innerHTML = html || `<div class="empty-state">No categories match "${this.#escape(this.#filter)}".</div>`;
+  }
 
-    if (!level) level = 0;
-    if (pc) cl = this.#categoryList.filter(c => c.categoryRefId == pc.categoryId);
-    else cl = this.#categoryList.filter(c => !c.categoryRefId);
+  #renderNode(node, depth) {
+    const cat = node.category;
+    const hasChildren = node.children.length > 0;
+    const isExpanded = this.#expanded.has(cat.categoryId) || !!this.#filter;
+    const nameLower = (cat.name ?? '').toLowerCase();
+    const selfMatches = !this.#filter || nameLower.includes(this.#filter);
+    const childMatches = this.#filter && node.children.some(c => this.#anyDescendantMatches(c));
+    if (this.#filter && !selfMatches && !childMatches) return '';
 
-    for (const c of cl) {
-      html += `
-        <tr>
-          <td>
-            <button type="button"
-                    class="btn btn-secondary"
-                    data-action="add"
-                    data-id="${c.categoryId}">
-                    <i class="bi-plus"></i></button>
-            <button type="button"
-                    class="btn btn-danger"
-                    data-action="del"
-                    data-id="${c.categoryId}">
-                    <i class="bi-trash3-fill"></i></button>
-          </td>
-          <td class="element-clickable pt-3"
-                     style="padding-left:${level * 2}rem;"
-                     data-id="${c.categoryId}">${c.name}</td>
-          <td class="element-clickable text-end"
-                     data-id="${c.categoryId}">${c.ranking}</td>
-        </tr>
-        ${this.#treeviewCreate(c, level + 1)}
-      `;
+    const pad = depth * 1.25 + 0.5;
+    let html = `
+      <div class="category-node" data-id="${cat.categoryId}" style="padding-left: ${pad}rem;">
+        ${hasChildren
+          ? `<i class="bi-chevron-${isExpanded ? 'down' : 'right'} chevron-toggle" data-toggle-id="${cat.categoryId}"></i>`
+          : '<span class="chevron-spacer"></span>'}
+        <span class="name">${this.#escape(cat.name ?? '')}</span>
+        <span class="rank-badge" title="Ranking">#${cat.ranking ?? 0}</span>
+        <span class="row-actions">
+          <button type="button"
+                  class="btn btn-sm btn-outline-secondary border-0"
+                  data-action="add"
+                  data-id="${cat.categoryId}"
+                  title="Add sub-category"><i class="bi-plus-lg"></i></button>
+          <button type="button"
+                  class="btn btn-sm btn-outline-danger border-0"
+                  data-action="del"
+                  data-id="${cat.categoryId}"
+                  title="Delete"><i class="bi-trash3"></i></button>
+        </span>
+      </div>
+    `;
+    if (hasChildren && isExpanded) {
+      for (const child of node.children) html += this.#renderNode(child, depth + 1);
     }
     return html;
+  }
+
+  #anyDescendantMatches(node) {
+    if ((node.category.name ?? '').toLowerCase().includes(this.#filter)) return true;
+    return node.children.some(c => this.#anyDescendantMatches(c));
+  }
+
+  #escape(s) {
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
   }
   //#endregion
 }

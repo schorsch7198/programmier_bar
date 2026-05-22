@@ -1,29 +1,116 @@
-<div class="container mb-5 mt-5">
-  <div class="row border-bottom border-2">
-    <div class="col-12">
-      <h1>List of Users</h1>
+<style>
+  #tablePerson { --bs-table-border-color: transparent; }
+  #tablePerson th, #tablePerson td { border-bottom: 1px solid var(--bs-border-color); }
+  #tablePerson .row-actions { opacity: 0; transition: opacity .15s ease-in-out; }
+  #tablePerson tr:hover .row-actions { opacity: 1; }
+  #tablePerson .person-thumb,
+  #tablePerson .person-thumb-placeholder {
+    width: 42px; height: 56px; flex-shrink: 0;
+    border-radius: .375rem;
+    background: var(--bs-tertiary-bg);
+  }
+  #tablePerson .person-thumb { object-fit: contain; }
+  #tablePerson .person-thumb-placeholder {
+    background: var(--bs-tertiary-bg);
+    color: var(--bs-secondary-color);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+  }
+
+  #roleTreeRoot .role-node {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .4rem .5rem;
+    border-radius: .375rem;
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+    color: var(--bs-body-color);
+  }
+  #roleTreeRoot .role-node:hover { background: var(--bs-tertiary-bg); }
+  #roleTreeRoot .role-node.active { background: rgba(var(--bs-primary-rgb), .12); }
+  #roleTreeRoot .role-node.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: .25rem;
+    bottom: .25rem;
+    width: 3px;
+    background: var(--bs-primary);
+    border-radius: 2px;
+  }
+  #roleTreeRoot .role-icon {
+    display: inline-block;
+    width: 1.25rem;
+    text-align: center;
+    flex-shrink: 0;
+    color: var(--bs-secondary-color);
+  }
+  #roleTreeRoot .role-node.active .role-icon { color: var(--bs-primary); }
+  #roleTreeRoot .name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  #roleTreeRoot .count {
+    font-size: .75rem;
+    color: var(--bs-secondary-color);
+    background: var(--bs-secondary-bg);
+    padding: 0 .5rem;
+    border-radius: 1rem;
+    min-width: 1.75rem;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  #roleTreeRoot .role-node.active .count { background: var(--bs-primary); color: #fff; }
+</style>
+
+<div class="container-fluid mb-5 mt-5">
+  <div class="row align-items-center border-bottom border-2 pb-2">
+    <div class="col">
+      <h1 class="mb-0">List of Users</h1>
+    </div>
+    <div class="col-auto">
+      <a href="#persondetail" class="btn btn-secondary">
+        <i class="bi-plus-lg me-2"></i>New
+      </a>
     </div>
   </div>
+
   <div class="row mt-3">
-    <div class="col-12">
-      <table  class="table table-bordered table-striped table-hover" 
-              id="tablePerson">
-        <thead>
-          <tr>
-            <th style="width:8rem;">
-              <a 	href="#persondetail" 
-									class="btn btn-secondary w-100">
-									<i  class="bi-plus me-2"></i>
-									    New</a>
-            </th>
-            <th>Name</th>
-            <th>Role</th>
-            <th>Username</th>
-            <th>Logged in since:</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+    <div class="col-12 col-md-4 col-lg-3" id="colSidebar">
+      <div id="roleTreeRoot"></div>
+    </div>
+    <div class="col-12 col-md-8 col-lg-9">
+      <div class="input-group mb-3">
+        <span class="input-group-text bg-transparent"><i class="bi-search"></i></span>
+        <input type="search"
+               id="inputSearch"
+               class="form-control"
+               placeholder="Search users..."
+               aria-label="Search users">
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle" id="tablePerson">
+          <thead>
+            <tr>
+              <th role="button" class="user-select-none" data-sort-key="name">
+                Name <i class="bi-chevron-expand ms-1 text-secondary" data-sort-icon="name"></i>
+              </th>
+              <th role="button" class="user-select-none" data-sort-key="role">
+                Role <i class="bi-chevron-expand ms-1 text-secondary" data-sort-icon="role"></i>
+              </th>
+              <th role="button" class="user-select-none" data-sort-key="loginName">
+                Login <i class="bi-chevron-expand ms-1 text-secondary" data-sort-icon="loginName"></i>
+              </th>
+              <th role="button" class="user-select-none" data-sort-key="loginLast">
+                Last login <i class="bi-chevron-expand ms-1 text-secondary" data-sort-icon="loginLast"></i>
+              </th>
+              <th style="width: 6rem;"></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

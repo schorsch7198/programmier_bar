@@ -65,19 +65,19 @@ export default class pShop {
 
     for (const p of unique) {
       const col = document.createElement('div');
-      col.className = 'col-12 col-sm-6 col-md-4 col-lg-3';
+      col.className = 'col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2';
       col.innerHTML = `
         <div class="card h-100 shadow-sm">
           <a href="#shop-item?id=${encodeURIComponent(p.productUid || '')}"
              class="text-decoration-none text-reset">
             <div class="card-img-top bg-body-tertiary overflow-hidden"
-                 style="height: 180px;"></div>
+                 style="aspect-ratio: 4 / 3;"></div>
             <div class="card-body pb-2">
               <h5 class="card-title mb-1">${this.#escape(p.name || '')}</h5>
               <p class="card-text text-muted small mb-0">${this.#escape(p.charcode || '')}</p>
             </div>
           </a>
-          <div class="card-footer bg-transparent border-0 pt-0 pb-3 d-flex align-items-center justify-content-between gap-2">
+          <div class="card-footer bg-transparent border-0 pt-0 pb-3 d-flex flex-wrap align-items-center justify-content-between gap-2">
             <a href="#shop-item?id=${encodeURIComponent(p.productUid || '')}"
                class="fs-5 fw-semibold text-muted text-decoration-none"
                data-price>&mdash;</a>
