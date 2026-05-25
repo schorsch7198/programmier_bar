@@ -7,6 +7,7 @@ namespace programmier_bar.DataApiControllers.Controllers
 	[ApiController]
 	public class PageController : ControllerBase
 	{
+		#region Page endpoints
 		// GET Page (by current user)
 		[HttpGet("init")]
 		public IActionResult PageInit()
@@ -79,5 +80,6 @@ namespace programmier_bar.DataApiControllers.Controllers
 			}
 			return result;
 		}
+		#endregion
 	}
 }

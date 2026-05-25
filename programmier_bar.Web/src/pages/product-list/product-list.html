@@ -1,0 +1,109 @@
+<style>
+  #tableProduct { --bs-table-border-color: transparent; }
+  #tableProduct th, #tableProduct td { border-bottom: 1px solid var(--bs-border-color); }
+  #tableProduct .row-actions { opacity: 0; transition: opacity .15s ease-in-out; }
+  #tableProduct tr:hover .row-actions { opacity: 1; }
+  #tableProduct .product-thumb,
+  #tableProduct .product-thumb-placeholder { width: 56px; height: 56px; flex-shrink: 0; }
+  #tableProduct .product-thumb { object-fit: cover; }
+
+  #categoryTreeRoot .category-node {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .35rem .5rem;
+    border-radius: .375rem;
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+    color: var(--bs-body-color);
+  }
+  #categoryTreeRoot .category-node:hover { background: var(--bs-tertiary-bg); }
+  #categoryTreeRoot .category-node.active { background: rgba(var(--bs-primary-rgb), .12); }
+  #categoryTreeRoot .category-node.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: .25rem;
+    bottom: .25rem;
+    width: 3px;
+    background: var(--bs-primary);
+    border-radius: 2px;
+  }
+  #categoryTreeRoot .chevron-toggle,
+  #categoryTreeRoot .chevron-spacer {
+    display: inline-block;
+    width: 1rem;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  #categoryTreeRoot .chevron-toggle:hover { color: var(--bs-primary); }
+  #categoryTreeRoot .name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  #categoryTreeRoot .count {
+    font-size: .75rem;
+    color: var(--bs-secondary-color);
+    background: var(--bs-secondary-bg);
+    padding: 0 .5rem;
+    border-radius: 1rem;
+    min-width: 1.75rem;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  #categoryTreeRoot .category-node.active .count { background: var(--bs-primary); color: #fff; }
+</style>
+
+<div class="container-fluid mb-5 mt-5">
+  <div class="row align-items-center border-bottom border-2 pb-2">
+    <div class="col">
+      <h1 class="mb-0">List of Products</h1>
+    </div>
+    <div class="col-auto">
+      <a href="#productdetail" class="btn btn-secondary">
+        <i class="bi-plus-lg me-2"></i>New
+      </a>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-12 col-md-4 col-lg-3" id="colSidebar">
+      <div class="input-group input-group-sm mb-2">
+        <span class="input-group-text bg-transparent"><i class="bi-search"></i></span>
+        <input type="search"
+               id="inputCategoryFilter"
+               class="form-control"
+               placeholder="Filter category..."
+               aria-label="Filter category">
+      </div>
+      <div id="categoryTreeRoot"></div>
+    </div>
+    <div class="col-12 col-md-8 col-lg-9">
+      <div class="input-group mb-3">
+        <span class="input-group-text bg-transparent"><i class="bi-search"></i></span>
+        <input type="search"
+               id="inputSearch"
+               class="form-control"
+               placeholder="Search products..."
+               aria-label="Search products">
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle" id="tableProduct">
+          <thead>
+            <tr>
+              <th role="button" class="user-select-none" data-sort-key="name">
+                Product <i class="bi-chevron-expand ms-1 text-secondary" data-sort-icon="name"></i>
+              </th>
+              <th role="button" class="user-select-none" data-sort-key="charcode">
+                Charcode <i class="bi-chevron-expand ms-1 text-secondary" data-sort-icon="charcode"></i>
+              </th>
+              <th role="button" class="user-select-none" data-sort-key="stock">
+                Stock <i class="bi-chevron-expand ms-1 text-secondary" data-sort-icon="stock"></i>
+              </th>
+              <th style="width: 6rem;"></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

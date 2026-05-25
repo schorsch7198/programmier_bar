@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DbSettings>
+  <UserName>barAdmin</UserName>
+  <Password>barAdmin</Password>
+  <Db>programmier_bar</Db>
+  <Host>postgres</Host>
+</DbSettings>

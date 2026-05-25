@@ -149,6 +149,27 @@ namespace programmier_bar.dbClassLibrary
 			}
 		}
 
+		public int Delete()
+		{
+			NpgsqlConnection conn = DbSqlConnection.GetConnection();
+			try
+			{
+				conn.Open();
+				NpgsqlCommand comm = conn.CreateCommand();
+				comm.CommandText = $"delete from {TABLE} where filedata_id = :fid";
+				comm.Parameters.AddWithValue("fid", this.FiledataId.Value);
+				return comm.ExecuteNonQuery();
+			}
+			catch (Exception)
+			{
+				throw;
+			}
+			finally
+			{
+				conn.Close();
+			}
+		}
+
 		// Render filedata as its name
 		public override string ToString()
 		{

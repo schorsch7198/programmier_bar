@@ -7,6 +7,7 @@ namespace programmier_bar.DataApiControllers.Controllers
 	[ApiController]
 	public class CategoryController : ControllerBase
 	{
+		#region Category CRUD
 		// GET Category List
 		[HttpGet()]
 		public IActionResult GetList()
@@ -124,5 +125,6 @@ namespace programmier_bar.DataApiControllers.Controllers
 			}
 			return result;
 		}
+		#endregion
 	}
 }

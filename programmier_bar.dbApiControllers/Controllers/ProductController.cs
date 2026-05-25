@@ -7,6 +7,7 @@ namespace programmier_bar.DataApiControllers.Controllers
 	[ApiController]
 	public class ProductController : ControllerBase
 	{
+		#region Product CRUD
 		// GET Products
 		[HttpGet()]
 		public IActionResult GetList(long? cid)
@@ -38,22 +39,20 @@ namespace programmier_bar.DataApiControllers.Controllers
 			return result;
 		}
 
-		// GET (single) Product
+		// GET (single) Product — public; storefront catalog needs this without auth.
 		[HttpGet("{id}")]
 		public IActionResult Get(string id)
 		{
 			IActionResult result = null;
 			try
 			{
-				Person user = Person.Get(this);
-				if (user != null)
+				Product product = Product.Get(id);
+				if (product == null) result = NotFound();
+				else
 				{
-					Product product = Product.Get(id);
 					product.ProductCategoryList = ProductCategory.GetList(product);
-					if (product == null) result = NotFound();
-					else result = Ok(product);
+					result = Ok(product);
 				}
-				else result = Unauthorized();
 			}
 			catch (Exception ex)
 			{
@@ -161,6 +160,9 @@ namespace programmier_bar.DataApiControllers.Controllers
 			return result;
 		}
 
+		#endregion
+
+		#region Stock
 		// GET Stock for Product
 		[HttpGet("{id}/stock")]
 		public IActionResult GetStockList(string id)
@@ -227,25 +229,23 @@ namespace programmier_bar.DataApiControllers.Controllers
 			return result;
 		}
 
-		// GET Filedata for Product
+		#endregion
+
+		#region Filedata
+		// GET Filedata for Product — public so the storefront can display product images.
 		[HttpGet("{id}/filedata")]
 		public IActionResult GetListFiledata(string id)
 		{
 			IActionResult result = null;
 			try
 			{
-				Person user = Person.Get(this);
-				if (user != null)
+				Product product = Product.Get(id);
+				if (product == null) result = NotFound();
+				else
 				{
-					Product product = Product.Get(id);
-					if (product == null) result = NotFound();
-					else
-					{
-						List<Filedata> list = Filedata.GetList(product);
-						result = Ok(list);
-					}
+					List<Filedata> list = Filedata.GetList(product);
+					result = Ok(list);
 				}
-				else result = Unauthorized();
 			}
 			catch (Exception ex)
 			{
@@ -315,5 +315,6 @@ namespace programmier_bar.DataApiControllers.Controllers
 			}
 			return result;
 		}
+		#endregion
 	}
 }
